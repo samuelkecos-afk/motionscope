@@ -2,7 +2,7 @@
 // API and GSAP, keeps snapshots of animations after they finish, and detects
 // common motion libraries and split-text setups.
 
-import { selectorFor } from './selector';
+import { resetSelectorCache, selectorFor } from './selector';
 import type { LibraryHit, MotionItem, MotionKeyframe, ScrollRange, SplitTextHit, TimelineKind } from './types';
 
 const MAX_ITEMS = 1500;
@@ -22,6 +22,20 @@ function idFor(obj: object, prefix: string) {
 function store(item: MotionItem) {
   if (!items.has(item.id) && items.size >= MAX_ITEMS) return;
   items.set(item.id, item);
+}
+
+// While the user is not scanning, MotionScope runs in every tab, so the hooks
+// below only keep references in small capped sets. All the expensive work
+// (keyframes, selectors, serialisation) happens in collectMotions() on scan.
+const MAX_REFS = 400;
+const animRefs = new Set<Animation>();
+const gsapRefs = new Set<object>();
+const transitionRefs = new Map<Element, Set<string>>();
+
+function remember<T>(set: Set<T>, value: T) {
+  if (set.has(value)) return;
+  if (set.size >= MAX_REFS) set.delete(set.values().next().value as T);
+  set.add(value);
 }
 
 // ---------- Web Animations API (covers CSS animations + transitions too) ----------
@@ -106,10 +120,57 @@ function captureAnimation(anim: Animation) {
 }
 
 function pollAnimations() {
+  let live: Animation[] = [];
   try {
-    for (const a of document.getAnimations()) captureAnimation(a);
+    live = document.getAnimations();
   } catch {
     /* getAnimations unsupported */
+  }
+  const all = new Set<Animation>([...animRefs, ...live]);
+  let n = 0;
+  for (const a of all) {
+    if (++n > MAX_ITEMS) break;
+    try {
+      captureAnimation(a);
+    } catch {
+      /* skip odd animations */
+    }
+  }
+  // Transitions that ran and finished before the scan: rebuild them from the
+  // element's computed transition settings.
+  const liveTransitions = new Set(
+    live.filter((a) => (window as any).CSSTransition && a instanceof (window as any).CSSTransition)
+      .map((a) => `${(a.effect as KeyframeEffect)?.target ? selectorFor((a.effect as KeyframeEffect).target) : ''}|${(a as any).transitionProperty}`),
+  );
+  for (const [el, props] of transitionRefs) {
+    if (!el.isConnected) continue;
+    const cs = getComputedStyle(el);
+    const list = cs.transitionProperty.split(',').map((x) => x.trim());
+    const durs = cs.transitionDuration.split(',').map((x) => x.trim());
+    const delays = cs.transitionDelay.split(',').map((x) => x.trim());
+    const eases = cs.transitionTimingFunction.split(/,(?![^(]*\))/).map((x) => x.trim());
+    const target = selectorFor(el);
+    for (const prop of props) {
+      if (liveTransitions.has(`${target}|${prop}`)) continue;
+      let i = list.indexOf(prop);
+      if (i < 0) i = list.indexOf('all');
+      if (i < 0) continue;
+      const sec = (v: string | undefined) => (v ? parseFloat(v) * (v.endsWith('ms') ? 1 : 1000) : 0);
+      store({
+        id: `transition-${target}-${prop}`,
+        engine: 'css-transition',
+        name: prop,
+        target,
+        targetCount: 1,
+        duration: sec(durs[i % durs.length]),
+        delay: sec(delays[i % delays.length]),
+        easing: eases[i % eases.length] ?? 'ease',
+        iterations: 1,
+        keyframes: [],
+        timeline: 'document',
+        finished: true,
+      });
+    }
   }
 }
 
@@ -183,12 +244,13 @@ export function getScrollTrigger(): any {
 function pollGsap() {
   const gsap = getGsap();
   if (!gsap?.globalTimeline?.getChildren) return;
-  let children: any[] = [];
+  let current: any[] = [];
   try {
-    children = gsap.globalTimeline.getChildren(true, true, true);
+    current = gsap.globalTimeline.getChildren(true, true, true);
   } catch {
     return;
   }
+  const children = [...new Set<any>([...gsapRefs, ...current])].slice(0, MAX_ITEMS);
   for (const c of children) {
     const isTimeline = typeof c.getChildren === 'function';
     const id = idFor(c, 'gsap');
@@ -284,41 +346,73 @@ function pollGsap() {
 
 let installed = false;
 
-/** Call as early as possible (document_start) so short-lived animations are not missed. */
+/**
+ * Call as early as possible (document_start) so short-lived animations are not
+ * missed. Must stay cheap: it runs in every tab, all the time.
+ */
 export function installMotionHooks() {
   if (installed) return;
   installed = true;
 
-  // Catch element.animate() calls the moment they happen.
+  // element.animate(): keep a reference only.
   const original = Element.prototype.animate;
   Element.prototype.animate = function (this: Element, ...args: Parameters<Element['animate']>) {
     const anim = original.apply(this, args);
     try {
-      captureAnimation(anim);
+      remember(animRefs, anim);
     } catch {
       /* never break the page */
     }
     return anim;
   } as Element['animate'];
 
-  // CSS animations/transitions: capture on start, before they can finish and disappear.
-  const onStart = (e: Event) => {
-    const t = e.target;
-    if (t instanceof Element) for (const a of t.getAnimations()) captureAnimation(a);
-  };
-  document.addEventListener('animationstart', onStart, true);
-  document.addEventListener('transitionrun', onStart, true);
+  // CSS animations fire animationstart once per run, so this stays cheap even
+  // for infinite animations.
+  document.addEventListener(
+    'animationstart',
+    (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      for (const a of t.getAnimations()) if ((a as any).animationName === (e as AnimationEvent).animationName) remember(animRefs, a);
+    },
+    true,
+  );
 
-  const tick = () => {
-    pollAnimations();
-    pollGsap();
-  };
-  setInterval(tick, 400);
-  document.addEventListener('DOMContentLoaded', tick);
-  window.addEventListener('load', tick);
+  // Transitions can fire hundreds of times a second (hover effects), so only
+  // note which element/property ran; timings are read from CSS on scan.
+  document.addEventListener(
+    'transitionrun',
+    (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+      let props = transitionRefs.get(t);
+      if (!props) {
+        if (transitionRefs.size >= MAX_REFS) transitionRefs.delete(transitionRefs.keys().next().value as Element);
+        props = new Set();
+        transitionRefs.set(t, props);
+      }
+      if (props.size < 8) props.add((e as TransitionEvent).propertyName);
+    },
+    true,
+  );
+
+  // GSAP removes finished tweens from its timeline. During page load (when
+  // intro animations run), keep references to them for 15 seconds, then stop.
+  let ticks = 0;
+  const timer = setInterval(() => {
+    if (++ticks > 30) return clearInterval(timer);
+    const gsap = getGsap();
+    if (!gsap?.globalTimeline?.getChildren) return;
+    try {
+      for (const c of gsap.globalTimeline.getChildren(true, true, true).slice(0, 200)) remember(gsapRefs, c);
+    } catch {
+      /* ignore */
+    }
+  }, 500);
 }
 
 export function collectMotions(): MotionItem[] {
+  resetSelectorCache();
   pollAnimations();
   pollGsap();
   // Mark items that are no longer live as finished.
@@ -349,7 +443,7 @@ export function detectLibraries(): LibraryHit[] {
   const html = document.documentElement;
 
   if (w.gsap) add('GSAP', 'window.gsap', w.gsap.version);
-  else if (has('[style*="translate"]') && Array.from(document.querySelectorAll('*')).some((el) => '_gsap' in el)) add('GSAP (bundled)', 'element._gsap cache');
+  else if (Array.from(document.querySelectorAll('[style*="translate"]')).slice(0, 500).some((el) => '_gsap' in el)) add('GSAP (bundled)', 'element._gsap cache');
   const ST = getScrollTrigger();
   if (ST) add('ScrollTrigger', `${ST.getAll?.().length ?? 0} triggers`, ST.version);
   const plugins = w.gsap?.core?.globals?.() ?? {};

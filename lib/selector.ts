@@ -22,8 +22,22 @@ function part(el: Element): string {
   return sel;
 }
 
+// Cached per scan: building a selector runs querySelectorAll, which adds up on big pages.
+let cache = new WeakMap<Element, string>();
+export function resetSelectorCache() {
+  cache = new WeakMap();
+}
+
 export function selectorFor(el: Element | null | undefined): string {
   if (!el || !(el instanceof Element)) return '(none)';
+  const hit = cache.get(el);
+  if (hit) return hit;
+  const sel = buildSelector(el);
+  cache.set(el, sel);
+  return sel;
+}
+
+function buildSelector(el: Element): string {
   if (el === document.documentElement) return 'html';
   if (el === document.body) return 'body';
   const parts: string[] = [];

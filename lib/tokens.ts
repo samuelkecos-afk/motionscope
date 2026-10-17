@@ -1,4 +1,5 @@
 import { oklabDistance, parseColor, toHex, type RGBA } from './color';
+import { prettyName } from './selector';
 import type { ColorToken, CountedValue, DesignTokens, TypeStyle } from './types';
 
 const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE', 'META', 'LINK', 'HEAD', 'TITLE', 'BR', 'WBR']);
@@ -20,7 +21,7 @@ class Counter {
 
 export interface StylesheetData {
   cssVariables: Map<string, string>;
-  keyframes: { name: string; css: string }[];
+  keyframes: { name: string; css: string; aliases?: string[] }[];
   breakpoints: Set<string>;
 }
 
@@ -28,7 +29,14 @@ export interface StylesheetData {
 export function walkRules(rules: CSSRuleList, out: StylesheetData) {
   for (const rule of Array.from(rules)) {
     if (rule instanceof CSSKeyframesRule) {
-      if (!out.keyframes.some((k) => k.name === rule.name)) out.keyframes.push({ name: rule.name, css: rule.cssText });
+      // CSS modules repeat the same keyframes under hashed names; keep one copy
+      // per distinct body and list the other names as aliases.
+      const body = rule.cssText.slice(rule.cssText.indexOf('{'));
+      const name = prettyName(rule.name);
+      const same = out.keyframes.find((k) => k.css.slice(k.css.indexOf('{')) === body);
+      if (same) {
+        if (same.name !== name && !same.aliases?.includes(name) && (same.aliases?.length ?? 0) < 50) (same.aliases ??= []).push(name);
+      } else if (!out.keyframes.some((k) => k.name === name)) out.keyframes.push({ name, css: `@keyframes ${rule.name} ${body}` });
     } else if (rule instanceof CSSStyleRule) {
       if (/(^|,)\s*(:root|html|:host)\b/.test(rule.selectorText)) {
         for (const prop of Array.from(rule.style)) {

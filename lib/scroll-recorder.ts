@@ -59,7 +59,8 @@ function candidates(): Element[] {
   return out;
 }
 
-function sample(el: Element, scrollY: number): Sample {
+/** originTop: viewport y of the scroller's top edge (0 for the window). */
+function sample(el: Element, scrollPos: number, originTop = 0): Sample {
   const cs = getComputedStyle(el);
   const t = parseTransform(cs.transform);
   return {
@@ -67,8 +68,87 @@ function sample(el: Element, scrollY: number): Sample {
     ...t,
     clip: cs.clipPath,
     filter: cs.filter,
-    docTop: el.getBoundingClientRect().top + scrollY,
+    docTop: el.getBoundingClientRect().top - originTop + scrollPos,
   };
+}
+
+interface Scroller {
+  label: string; // "window" or a selector
+  max: number;
+  viewHeight: number;
+  originTop: () => number;
+  get: () => number;
+  set: (y: number) => void;
+}
+
+/**
+ * Finds what actually scrolls. Usually the window, but many sites (Lenis with a
+ * wrapper, app shells, full-screen layouts) scroll an inner element instead.
+ */
+function findScroller(): Scroller | null {
+  const doc = document.scrollingElement ?? document.documentElement;
+  const docMax = doc.scrollHeight - window.innerHeight;
+  if (docMax > 40) {
+    return {
+      label: 'window',
+      max: docMax,
+      viewHeight: window.innerHeight,
+      originTop: () => 0,
+      get: () => window.scrollY,
+      set: (y) => {
+        window.scrollTo({ top: y, behavior: 'instant' as ScrollBehavior });
+        window.dispatchEvent(new Event('scroll'));
+      },
+    };
+  }
+  let best: HTMLElement | null = null;
+  let bestArea = 0;
+  for (const el of Array.from(document.body.querySelectorAll<HTMLElement>('*'))) {
+    if (el.scrollHeight - el.clientHeight < 40) continue;
+    const oy = getComputedStyle(el).overflowY;
+    if (oy !== 'auto' && oy !== 'scroll' && oy !== 'overlay') continue;
+    const area = el.clientWidth * el.clientHeight;
+    if (area > bestArea) {
+      best = el;
+      bestArea = area;
+    }
+  }
+  if (!best || bestArea < window.innerWidth * window.innerHeight * 0.25) return null;
+  const el = best;
+  return {
+    label: selectorFor(el),
+    max: el.scrollHeight - el.clientHeight,
+    viewHeight: el.clientHeight,
+    originTop: () => el.getBoundingClientRect().top,
+    get: () => el.scrollTop,
+    set: (y) => {
+      el.scrollTop = y;
+      el.dispatchEvent(new Event('scroll'));
+    },
+  };
+}
+
+function isLocked() {
+  return [document.documentElement, document.body].some((e) => e && getComputedStyle(e).overflowY === 'hidden');
+}
+
+const LOCKED_NOTE =
+  'Scrolling was locked (overflow: hidden), usually by an intro, menu or cookie overlay. MotionScope scrolled the page anyway, so results may include that overlay. For cleaner results, close it and record again.';
+
+/** Scroll-driven CSS animations (scroll()/view() timelines) are scroll-linked by definition. */
+function hasScrollTimeline(el: Element) {
+  try {
+    return el.getAnimations().some((a) => a.timeline && !(a.timeline instanceof DocumentTimeline));
+  } catch {
+    return false;
+  }
+}
+
+function lockedReason(): string {
+  const locked = isLocked();
+  return locked
+    ? 'The page is not scrollable right now: scrolling is locked (overflow: hidden), usually by an intro, menu or cookie overlay. Close it, scroll a little by hand, then record again.'
+    : 'The page is not scrollable: nothing on it is taller than the window. If it scrolls with a custom effect (canvas, WebGL or wheel-driven slides), MotionScope cannot record it yet.';
 }
 
 const NUMERIC = ['opacity', 'x', 'y', 'scale', 'rotate'] as const;
@@ -97,17 +177,20 @@ function fmt(prop: string, s: Sample): string {
 export async function recordScroll(opts: { stepRatio?: number; settleMs?: number } = {}): Promise<ScrollRecording> {
   const stepRatio = opts.stepRatio ?? 0.15;
   const settleMs = opts.settleMs ?? 120;
-  const scroller = document.scrollingElement ?? document.documentElement;
-  const vh = window.innerHeight;
-  const maxScroll = Math.max(0, scroller.scrollHeight - vh);
+  const scroller = findScroller();
+  if (!scroller) {
+    const h = (document.scrollingElement ?? document.documentElement).scrollHeight;
+    return { pageHeight: h, viewportHeight: window.innerHeight, steps: 0, tracks: [], scroller: 'none', note: lockedReason() };
+  }
+  const vh = scroller.viewHeight;
+  const maxScroll = scroller.max;
   const steps = Math.min(250, Math.max(1, Math.ceil(maxScroll / (vh * stepRatio))));
-  const startY = window.scrollY;
+  const startY = scroller.get();
 
   const go = async (y: number) => {
-    window.scrollTo({ top: y, behavior: 'instant' as ScrollBehavior });
-    // Hidden or throttled tabs may not fire scroll events between steps; nudge
-    // the page's own scroll listeners (parallax code, Lenis, ScrollTrigger).
-    window.dispatchEvent(new Event('scroll'));
+    // set() also fires a scroll event: hidden or throttled tabs may not, and the
+    // page's own listeners (parallax code, Lenis, ScrollTrigger) need it.
+    scroller.set(y);
     getScrollTrigger()?.update?.();
     await frame();
     await frame();
@@ -123,11 +206,12 @@ export async function recordScroll(opts: { stepRatio?: number; settleMs?: number
   for (let i = 0; i <= steps; i++) {
     const y = Math.round((i / steps) * maxScroll);
     await go(y);
-    const actual = window.scrollY;
+    const actual = scroller.get();
+    const origin = scroller.originTop();
     scrolls.push(actual);
     const changed: number[] = [];
     els.forEach((el, k) => {
-      const s = sample(el, actual);
+      const s = sample(el, actual, origin);
       if (i > 0 && differs(data[k][i - 1], s)) changed.push(k);
       data[k].push(s);
       timeBased[k].push(false);
@@ -137,7 +221,7 @@ export async function recordScroll(opts: { stepRatio?: number; settleMs?: number
     if (changed.length) {
       await wait(Math.max(80, settleMs));
       for (const k of changed) {
-        const again = sample(els[k], window.scrollY);
+        const again = sample(els[k], scroller.get(), scroller.originTop());
         if (differs(data[k][i], again)) {
           timeBased[k][i] = true;
           data[k][i] = again;
@@ -187,7 +271,7 @@ export async function recordScroll(opts: { stepRatio?: number; settleMs?: number
     // Timed motion already running when recording began is page-load or ambient
     // animation, not scroll motion; the Motion tab lists it instead.
     if (!pinned && timed && idxs[0] <= 1) return;
-    const mode: ScrollTrack['mode'] = pinned ? 'pinned' : timed || idxs.length <= 2 ? 'triggered' : 'scrubbed';
+    const mode: ScrollTrack['mode'] = pinned ? 'pinned' : hasScrollTimeline(el) ? 'scrubbed' : timed || idxs.length <= 2 ? 'triggered' : 'scrubbed';
 
     // Easing fit on the numeric property that moved the most (relative to its tolerance).
     let easing = mode === 'triggered' ? '(time-based)' : 'linear';
@@ -235,5 +319,17 @@ export async function recordScroll(opts: { stepRatio?: number; settleMs?: number
     });
   });
 
-  return { pageHeight: scroller.scrollHeight, viewportHeight: vh, steps, tracks: tracks.sort((a, b) => a.startPx - b.startPx) };
+  return {
+    pageHeight: maxScroll + vh,
+    viewportHeight: vh,
+    steps,
+    tracks: tracks.sort((a, b) => a.startPx - b.startPx),
+    scroller: scroller.label,
+    note:
+      scroller.label === 'window' && isLocked()
+        ? LOCKED_NOTE
+        : tracks.length
+          ? undefined
+          : 'The page scrolled but nothing moved with it. Its motion may be triggered by hover or clicks, or drawn on a canvas.',
+  };
 }

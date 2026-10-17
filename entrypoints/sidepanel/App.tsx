@@ -353,8 +353,12 @@ function ScrollView({ recording, busy, onTarget }: { recording?: ScrollRecording
   const total = Math.max(1, recording.pageHeight - recording.viewportHeight);
   return (
     <div>
+      {recording.note && <div className="banner">{recording.note}</div>}
       <p className="muted pad small">
         {recording.tracks.length} moving elements across {recording.steps} scroll steps. Page height {recording.pageHeight}px.
+        {recording.scroller && recording.scroller !== 'window' && recording.scroller !== 'none' && (
+          <> Scrolls inside <code>{recording.scroller}</code>.</>
+        )}
       </p>
       <ul className="rows">
         {recording.tracks.map((t, i) => (

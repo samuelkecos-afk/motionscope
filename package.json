@@ -10,7 +10,7 @@
     "zip": "wxt zip",
     "compile": "tsc --noEmit",
     "postinstall": "wxt prepare",
-    "test": "npm run setup:fixture && wxt build && node test/e2e.mjs && node test/perf.mjs",
+    "test": "npm run setup:fixture && wxt build && node test/e2e.mjs && node test/patterns.mjs && node test/perf.mjs",
     "setup:fixture": "mkdir -p test/fixture/vendor && cp node_modules/gsap/dist/gsap.min.js node_modules/gsap/dist/ScrollTrigger.min.js test/fixture/vendor/",
     "test:perf": "wxt build && node test/perf.mjs"
   },

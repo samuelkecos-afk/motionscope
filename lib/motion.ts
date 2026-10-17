@@ -2,7 +2,7 @@
 // API and GSAP, keeps snapshots of animations after they finish, and detects
 // common motion libraries and split-text setups.
 
-import { resetSelectorCache, selectorFor } from './selector';
+import { prettyName, resetSelectorCache, selectorFor } from './selector';
 import type { LibraryHit, MotionItem, MotionKeyframe, ScrollRange, SplitTextHit, TimelineKind } from './types';
 
 const MAX_ITEMS = 1500;
@@ -81,7 +81,7 @@ function captureAnimation(anim: Animation) {
   let name = anim.id || 'element.animate()';
   if (w.CSSAnimation && anim instanceof w.CSSAnimation) {
     engine = 'css-animation';
-    name = (anim as any).animationName;
+    name = prettyName((anim as any).animationName);
   } else if (w.CSSTransition && anim instanceof w.CSSTransition) {
     engine = 'css-transition';
     name = (anim as any).transitionProperty;
@@ -97,6 +97,12 @@ function captureAnimation(anim: Animation) {
   const pseudo = effect.pseudoElement ? effect.pseudoElement : '';
   const iterations = timing.iterations === Infinity ? 'infinite' : (timing.iterations ?? 1);
   const keyframes = plainKeyframes(effect);
+  // Mask reveal: moves by a % of its own size inside a parent that clips overflow.
+  let masked = false;
+  if (target instanceof Element && target.parentElement && keyframes.some((k) => /translate[XY3d]*\([^)]*%/.test(String(k.transform ?? k.translate ?? '')))) {
+    const ov = getComputedStyle(target.parentElement);
+    masked = ov.overflow.includes('hidden') || ov.overflow.includes('clip');
+  }
   // CSS animations keep animation-timing-function on each keyframe, not on the timing.
   let easing = timing.easing ?? 'linear';
   if (engine === 'css-animation' && easing === 'linear' && typeof keyframes[0]?.easing === 'string') easing = keyframes[0].easing;
@@ -115,6 +121,7 @@ function captureAnimation(anim: Animation) {
     keyframes,
     timeline: kind,
     scroll,
+    masked: masked || undefined,
     finished: anim.playState === 'finished',
   });
 }

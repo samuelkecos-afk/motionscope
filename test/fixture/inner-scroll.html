@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Inner scroller test page</title>
+<style>
+  /* Mirrors sites that scroll an inner wrapper (Lenis wrapper, app shells) and use CSS modules. */
+  html, body { margin: 0; height: 100%; overflow: hidden; font-family: sans-serif; }
+  .lenis { height: 100vh; overflow-y: auto; }
+  section { min-height: 100vh; padding: 40px; box-sizing: border-box; }
+  h1 { font-size: calc(30px + 1.37vw); margin: 0; }
+  p, a { font-size: calc(11px + 0.31vw); }
+  .hero-module-scss-module__5KU1KW__mask { display: block; overflow: hidden; }
+  @keyframes hero-module-scss-module__5KU1KW__reset-translate { 100% { transform: translate(0); } }
+  @keyframes header-module-scss-module__YyVFNW__reset-translate { 100% { transform: translate(0); } }
+  @keyframes footer-module-scss-module__WOwAEq__reset-translate { 100% { transform: translate(0); } }
+  .hero-module-scss-module__5KU1KW__title { display: block; transform: translateY(100%);
+    animation: hero-module-scss-module__5KU1KW__reset-translate 0.5s cubic-bezier(0.26, 1, 0.48, 1) 0.75s both; }
+  .card-module-scss-module__RuX5aW__card { display: block; padding: 12px; margin: 8px 0; background: #eee; transition: opacity 0.1s linear; }
+  .card-module-scss-module__RuX5aW__card.dim { opacity: 0.5; }
+  @keyframes scroll-reveal { 0% { transform: translateY(150px); } 100% { transform: translateY(0); } }
+  footer { padding: 40px; background: #190bb6; color: #fff; animation: scroll-reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+</style>
+</head>
+<body>
+  <div class="lenis lenis-smooth" id="wrapper">
+    <section>
+      <h1><span class="hero-module-scss-module__5KU1KW__mask"><span class="hero-module-scss-module__5KU1KW__title">Warm hello</span></span></h1>
+      <p>Scrolling happens inside the wrapper, not the window.</p>
+      <div id="cards">
+        <a class="card-module-scss-module__RuX5aW__card">One</a><a class="card-module-scss-module__RuX5aW__card">Two</a>
+        <a class="card-module-scss-module__RuX5aW__card">Three</a><a class="card-module-scss-module__RuX5aW__card">Four</a>
+        <a class="card-module-scss-module__RuX5aW__card">Five</a><a class="card-module-scss-module__RuX5aW__card">Six</a>
+      </div>
+    </section>
+    <section><div id="parallax" style="padding:20px;background:#f7dd47">Parallax driven by the wrapper's scroll</div></section>
+    <section><p>More content</p></section>
+    <footer>Footer revealed by a view() timeline</footer>
+  </div>
+  <script>
+    // Same hover-style transition on six sibling cards.
+    setTimeout(() => document.querySelectorAll('#cards a').forEach((a) => a.classList.add('dim')), 200);
+    const w = document.getElementById('wrapper');
+    const p = document.getElementById('parallax');
+    w.addEventListener('scroll', () => {
+      const r = p.getBoundingClientRect();
+      const t = Math.min(1, Math.max(0, 1 - r.top / w.clientHeight));
+      p.style.transform = `translateY(${(-60 * t).toFixed(2)}px)`;
+    }, { passive: true });
+  </script>
+</body>
+</html>

@@ -58,7 +58,9 @@ export function buildBundle(data: FullScan, recording?: ScrollRecording): { name
       splitText: data.splitText,
     }),
     [`${dir}/motion/animations.css`]: strToU8(cssAnimations(data)),
-    [`${dir}/motion/site-keyframes.css`]: strToU8(data.stylesheetKeyframes.map((k) => k.css).join('\n\n') + '\n'),
+    [`${dir}/motion/site-keyframes.css`]: strToU8(
+      data.stylesheetKeyframes.map((k) => (k.aliases?.length ? `/* Same as: ${k.aliases.join(', ')} */\n` : '') + k.css).join('\n\n') + '\n',
+    ),
     [`${dir}/motion/gsap-animations.js`]: strToU8(gsapCode(data, recording)),
     [`${dir}/raw/scan.json`]: json({ ...data, scrollRecording: recording ?? null }),
   };

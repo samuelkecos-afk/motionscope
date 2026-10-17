@@ -58,10 +58,16 @@ function parseTransform(v: unknown): Record<string, number> | null {
   let any = false;
   while ((m = re.exec(v))) {
     any = true;
-    const args = m[2].split(',').map((a) => parseFloat(a));
-    if (m[1] === 'translateX') out.x = args[0];
-    else if (m[1] === 'translateY') out.y = args[0];
-    else if (m[1] === 'translate' || m[1] === 'translate3d') { out.x = args[0] || 0; out.y = args[1] || 0; }
+    const raw = m[2].split(',').map((a) => a.trim());
+    const args = raw.map((a) => parseFloat(a));
+    // Percent translations are relative to the element's own size; keep them apart from px.
+    const put = (axis: 'x' | 'y', i: number) => {
+      if (raw[i]?.endsWith('%')) out[`${axis}%`] = args[i] || 0;
+      else out[axis] = args[i] || 0;
+    };
+    if (m[1] === 'translateX') put('x', 0);
+    else if (m[1] === 'translateY') put('y', 0);
+    else if (m[1] === 'translate' || m[1] === 'translate3d') { put('x', 0); put('y', 1); }
     else if (m[1] === 'scale') out.scale = args[0];
     else if (m[1] === 'rotate') out.rotate = args[0];
   }
@@ -120,6 +126,16 @@ export function describeChange(rawFrom: Record<string, unknown>, rawTo: Record<s
         if (d) parts.push(`moves ${d < 0 ? 'up' : 'down'} ${Math.abs(Math.round(d))}px`);
         break;
       }
+      case 'y%':
+      case 'x%': {
+        const from0 = na ?? 0, to0 = nb ?? 0;
+        const d = to0 - from0;
+        if (d) {
+          const dir = k === 'y%' ? (d < 0 ? 'up' : 'down') : d < 0 ? 'left' : 'right';
+          parts.push(`slides ${dir} by ${Math.abs(d)}% of its own ${k === 'y%' ? 'height' : 'width'}`);
+        }
+        break;
+      }
       case 'x':
       case 'translateX': {
         const d = natural(b) && na != null ? -na : na != null && nb != null ? nb - na : nb;
@@ -153,11 +169,25 @@ function motionTrigger(m: MotionItem): string {
   return 'on page load or when triggered by script';
 }
 
+const NAMED_EASINGS: Record<string, string> = {
+  'cubic-bezier(0, 0, 1, 1)': 'linear',
+  'cubic-bezier(0.25, 0.1, 0.25, 1)': 'ease',
+  'cubic-bezier(0.42, 0, 1, 1)': 'ease-in',
+  'cubic-bezier(0, 0, 0.58, 1)': 'ease-out',
+  'cubic-bezier(0.42, 0, 0.58, 1)': 'ease-in-out',
+};
+export const easingName = (e: string) => NAMED_EASINGS[e] ?? e;
+
 export function describeMotion(m: MotionItem): string {
   const first = m.keyframes[0] ?? {};
   const last = m.keyframes[m.keyframes.length - 1] ?? {};
   let what = m.engine === 'css-transition' && m.keyframes.length < 2 ? `transitions ${m.name}` : m.name;
-  if (m.keyframes.length >= 2) {
+  if (m.keyframes.length >= 6) {
+    // Many keyframes (noise, shake, wiggle): describe the pattern, not first vs last.
+    const stepped = /^steps|step-/.test(m.easing);
+    const props = [...new Set(m.keyframes.flatMap((k) => Object.keys(k).filter((p) => p !== 'offset' && p !== 'easing')))];
+    what = `${stepped ? 'jumps' : 'moves'} through ${m.keyframes.length} ${props.join('/')} positions${stepped ? ' (hard cuts, no smooth motion)' : ''}`;
+  } else if (m.keyframes.length >= 2) {
     what = describeChange(first, last);
     // Start and end are the same (e.g. a float loop): describe the middle and "and back".
     if (what === 'changes' && m.keyframes.length > 2) what = `${describeChange(first, m.keyframes[Math.floor(m.keyframes.length / 2)])} and back`;
@@ -165,13 +195,15 @@ export function describeMotion(m: MotionItem): string {
   const scrubbed = !!m.scroll?.scrub || ((m.timeline === 'scroll' || m.timeline === 'view') && m.engine !== 'gsap');
   if (m.duration && !scrubbed) what += ` over ${ms(m.duration)}`;
   const bits = [what];
-  if (m.easing && m.easing !== '-' && m.easing !== 'linear') bits.push(`easing ${m.easing}`);
+  if (m.easing && m.easing !== '-' && easingName(m.easing) !== 'linear') bits.push(`easing ${easingName(m.easing)}`);
   if (m.delay) bits.push(`after ${ms(m.delay)} delay`);
   if (m.stagger && m.targetCount > 1) bits.push(`staggered ${ms(m.stagger)} across ${m.targetCount} elements`);
   if (m.iterations === 'infinite') bits.push('repeating forever');
   else if (typeof m.iterations === 'number' && m.iterations > 1) bits.push(`${m.iterations} times`);
   if (m.direction === 'alternate') bits.push('back and forth');
-  return bits.join(', ');
+  let out = bits.join(', ');
+  if (m.masked) out += ' (revealed through a mask: its parent hides overflow)';
+  return out;
 }
 
 export function describeTrack(t: ScrollTrack): string {
@@ -217,7 +249,12 @@ export function buildBrief(data: FullScan, recording?: ScrollRecording): string 
   L.push(table(['Color', 'Likely role', 'Used for', 'Uses'], t.colors.map((c) => [`\`${c.value}\``, roles.get(c.value) ?? '', c.usage.join(', '), c.count])));
   L.push('### Typography', '');
   L.push(`Font families: ${t.fonts.map((f) => `**${f.value}**`).join(', ') || 'n/a'}`, '');
-  L.push(table(['Font', 'Size', 'Line height', 'Weight', 'Letter spacing', 'Used on', 'Uses'], t.typeStyles.slice(0, 16).map((s) => [s.fontFamily, s.fontSize, s.lineHeight, s.fontWeight, s.letterSpacing, s.tags.join(', '), s.count])));
+  const px1 = (v: string) => (/^-?[\d.]+px$/.test(v) ? `${+parseFloat(v).toFixed(1)}px` : v);
+  L.push(table(['Font', 'Size', 'Line height', 'Weight', 'Letter spacing', 'Used on', 'Uses'], t.typeStyles.slice(0, 16).map((s) => [s.fontFamily, px1(s.fontSize), px1(s.lineHeight), s.fontWeight, px1(s.letterSpacing), s.tags.join(', '), s.count])));
+  const fractional = t.fontSizes.filter((f) => !Number.isInteger(parseFloat(f.value))).length;
+  if (fractional > t.fontSizes.length / 2) {
+    L.push(`Type sizes are **fluid**: they scale with the browser width (for example with \`clamp()\` or \`vw\`). Values above were measured at ${data.viewport ? `${data.viewport.width}px` : 'the current'} window width.`, '');
+  }
   L.push('### Spacing', '');
   L.push(t.spacingBase ? `Built on a **${t.spacingBase}px grid**. Most used values:` : 'Most used values:', '');
   L.push(t.spacing.map((s) => `\`${s.value}\``).join(' · ') || '_None found._', '');
@@ -234,7 +271,11 @@ export function buildBrief(data: FullScan, recording?: ScrollRecording): string 
   // Motion
   L.push('## Motion', '');
   L.push('### Scroll animations', '');
-  const scrollRows: unknown[][] = scrollMotions.map((m) => [`\`${m.target}\`${m.targetCount > 1 ? ` (+${m.targetCount - 1})` : ''}`, describeMotion(m), motionTrigger(m), engineName(m)]);
+  if (recording?.scroller && recording.scroller !== 'window' && recording.scroller !== 'none') {
+    L.push(`This page scrolls inside \`${recording.scroller}\`, not the browser window. Scroll positions below are measured inside that element.`, '');
+  }
+  if (recording?.note) L.push(`> **Scroll recording:** ${recording.note}`, '');
+  const scrollRows: unknown[][] = groupMotions(scrollMotions).map(({ m, count }) => [elementCell(m, count), describeMotion(m), motionTrigger(m), engineName(m)]);
   if (recording) {
     // Skip recorded tracks the engines already explain (same element, or a sibling of a staggered tween).
     const base = (sel: string) => sel.replace(/:nth-of-type\(\d+\)/g, '');
@@ -247,8 +288,9 @@ export function buildBrief(data: FullScan, recording?: ScrollRecording): string 
   }
   L.push(table(['Element', 'What happens', 'When', 'Source'], scrollRows));
   L.push('### Other animations', '');
-  L.push(table(['Element', 'What happens', 'When', 'Source'], timeMotions.slice(0, 150).map((m) => [`\`${m.target}\`${m.targetCount > 1 ? ` (+${m.targetCount - 1})` : ''}`, describeMotion(m), motionTrigger(m), engineName(m)])));
-  if (timeMotions.length > 150) L.push(`_…and ${timeMotions.length - 150} more in \`motion/motion.json\`._`, '');
+  const timeGroups = mergeTransitions(groupMotions(timeMotions));
+  L.push(table(['Element', 'What happens', 'When', 'Source'], timeGroups.slice(0, 150).map(({ m, count, text }) => [elementCell(m, count), text ?? describeMotion(m), motionTrigger(m), engineName(m)])));
+  if (timeGroups.length > 150) L.push(`_…and ${timeGroups.length - 150} more in \`motion/motion.json\`._`, '');
   if (timelines) L.push(`_${timelines} GSAP timeline(s) group the tweens above; see \`motion/motion.json\` for nesting._`, '');
   if (data.splitText.length) {
     L.push('### Text effects', '');
@@ -260,6 +302,51 @@ export function buildBrief(data: FullScan, recording?: ScrollRecording): string 
   L.push('- Scroll easings are estimated from samples taken while scrolling; durations of "plays once" scroll animations are listed in the animation tables when the engine exposes them.');
   L.push('- Selectors are generated to find elements on the original page; rename them to fit your own markup.');
   return L.join('\n');
+}
+
+const baseSelector = (sel: string) => sel.replace(/:nth-of-type\(\d+\)/g, '');
+
+/** Collapses identical animations on sibling elements (e.g. the same hover on 9 cards) into one row. */
+function groupMotions(list: MotionItem[]): { m: MotionItem; count: number }[] {
+  const groups = new Map<string, { m: MotionItem; count: number }>();
+  for (const m of list) {
+    const { id, target, finished, targetCount, parent, ...rest } = m;
+    void id; void finished; void parent;
+    const key = JSON.stringify({ ...rest, scroll: m.scroll ? { ...m.scroll, trigger: undefined } : undefined, base: baseSelector(target), multi: targetCount > 1 });
+    const g = groups.get(key);
+    if (g) g.count++;
+    else groups.set(key, { m, count: 1 });
+  }
+  return [...groups.values()];
+}
+
+/** "transitions transform (500ms, cubic-bezier(...)) and opacity (75ms, linear)" for the same elements. */
+function mergeTransitions(groups: { m: MotionItem; count: number }[]): { m: MotionItem; count: number; text?: string }[] {
+  const out: { m: MotionItem; count: number; text?: string; props?: string[] }[] = [];
+  const byEl = new Map<string, { m: MotionItem; count: number; text?: string; props?: string[] }>();
+  for (const g of groups) {
+    if (g.m.engine !== 'css-transition') {
+      out.push(g);
+      continue;
+    }
+    const key = `${baseSelector(g.m.target)}|${g.count}|${g.count > 1 ? '' : g.m.target}`;
+    const part = `${g.m.name} (${ms(g.m.duration)}${g.m.delay ? ` after ${ms(g.m.delay)}` : ''}, ${easingName(g.m.easing)})`;
+    const hit = byEl.get(key);
+    if (hit) {
+      hit.props!.push(part);
+      hit.text = `transitions ${hit.props!.join(' and ')}`;
+    } else {
+      const row = { ...g, props: [part], text: `transitions ${part}` };
+      byEl.set(key, row);
+      out.push(row);
+    }
+  }
+  return out;
+}
+
+function elementCell(m: MotionItem, count: number) {
+  if (count > 1) return `\`${baseSelector(m.target)}\` (${count} elements)`;
+  return `\`${m.target}\`${m.targetCount > 1 ? ` (+${m.targetCount - 1})` : ''}`;
 }
 
 function engineName(m: MotionItem) {

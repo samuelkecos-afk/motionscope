@@ -38,6 +38,7 @@ export interface MotionItem {
   timeline: TimelineKind;
   scroll?: ScrollRange;
   finished?: boolean; // captured live but no longer running
+  masked?: boolean; // slides inside a parent that clips overflow (mask / line reveal)
   parent?: string; // id of parent GSAP timeline
 }
 
@@ -73,6 +74,8 @@ export interface ScrollRecording {
   viewportHeight: number;
   steps: number;
   tracks: ScrollTrack[];
+  scroller?: string; // "window", a selector for an inner scrolling element, or "none"
+  note?: string; // explanation when nothing could be recorded
 }
 
 export interface ColorToken {
@@ -119,7 +122,8 @@ export interface MotionScan {
   libraries: LibraryHit[];
   motions: MotionItem[];
   splitText: SplitTextHit[];
-  stylesheetKeyframes: { name: string; css: string }[];
+  stylesheetKeyframes: { name: string; css: string; aliases?: string[] }[];
+  viewport?: { width: number; height: number };
 }
 
 export interface FullScan extends MotionScan {

@@ -37,6 +37,7 @@ async function fullScan(): Promise<FullScan> {
     scannedAt: new Date().toISOString(),
     ...motion,
     stylesheetKeyframes: tokenResult.keyframes,
+    viewport: { width: window.innerWidth, height: window.innerHeight },
     tokens: tokenResult.tokens,
   };
 }

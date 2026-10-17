@@ -114,9 +114,41 @@ try {
   check(uiTracks.filter((t) => t.includes('gsap-card')).every((t) => t.startsWith('triggered')) && uiTracks.some((t) => t.includes('gsap-card')), 'GSAP play-once cards reported as triggered');
   await panel.locator('.rows .row').first().click();
   await panel.screenshot({ path: path.join(shots, '4-scroll.png'), fullPage: true });
-  await panel.getByRole('button', { name: /^Export/ }).click();
-  await panel.getByRole('button', { name: 'GSAP', exact: true }).click();
+  await panel.locator('nav').getByRole('button', { name: /^Export/ }).click();
   await panel.screenshot({ path: path.join(shots, '5-export.png'), fullPage: true });
+
+  // --- Export all: one ZIP a builder can use ---
+  const [dl] = await Promise.all([panel.waitForEvent('download'), panel.getByRole('button', { name: 'Export all (.zip)' }).click()]);
+  const zipPath = path.join(shots, dl.suggestedFilename());
+  await dl.saveAs(zipPath);
+  const { unzipSync, strFromU8 } = await import('fflate');
+  const files = unzipSync(new Uint8Array(await readFile(zipPath)));
+  const names = Object.keys(files);
+  console.log('      zip:', dl.suggestedFilename(), '→', names.map((n) => n.split('/').slice(1).join('/')).join(', '));
+  const need = ['README.md', 'tokens/tokens.dtcg.json', 'tokens/tokens.css', 'tokens/tailwind-theme.css', 'motion/motion.json', 'motion/animations.css', 'motion/site-keyframes.css', 'motion/gsap-animations.js', 'raw/scan.json'];
+  check(need.every((n) => names.some((x) => x.endsWith('/' + n))), 'Export all ZIP contains brief, tokens, motion code and raw data');
+  const readme = strFromU8(files[names.find((n) => n.endsWith('README.md'))]);
+  const fs = await import('node:fs/promises');
+  await fs.writeFile(path.join(shots, 'README-sample.md'), readme);
+  check(/fades in, moves up 40px over 1\.08s, easing power3\.out, staggered 30ms across 17 elements/.test(readme), 'brief describes split-text intro in plain language');
+  check(/plays when #gsap-section hits "top 80%"/.test(readme), 'brief explains ScrollTrigger start point');
+  check(/`#parallax`.*tied to scroll position/.test(readme), 'brief includes motion found by the scroll recorder');
+  check(/\| `#15151a` \| Text \|/.test(readme) && /\| `#b0174a` \| Accent \/ brand \|/.test(readme), 'brief assigns color roles (text, accent)');
+  check(/`p\.hero-sub` \| fades in, moves up 24px over 800ms/.test(readme), 'brief turns CSS transforms into plain words');
+  check(/`div\.card\.float` \| moves up 12px and back over 3s/.test(readme), 'brief describes looping float as "and back"');
+  check(!/gsap-card:nth-of-type\(2\)/.test(readme), 'brief does not repeat staggered GSAP cards from the recording');
+  check(!/scrub-box` \|[^|]*over 500ms/.test(readme), 'brief omits timer duration for scrubbed animations');
+  const gsapJs = strFromU8(files[names.find((n) => n.endsWith('gsap-animations.js'))]);
+  check(gsapJs.includes('prefers-reduced-motion') && gsapJs.includes('scrollTrigger'), 'GSAP export respects reduced motion and includes ScrollTriggers');
+  const motionJson = JSON.parse(strFromU8(files[names.find((n) => n.endsWith('motion/motion.json'))]));
+  check(motionJson.scrollRecording?.tracks?.length >= 4, 'motion.json includes the scroll recording');
+
+  // Copy brief button puts the brief on the clipboard.
+  // Headless Chrome can't grant clipboard access to extension pages, so capture the write.
+  await panel.evaluate(() => { navigator.clipboard.writeText = async (t) => { window.__copied = t; }; });
+  await panel.getByRole('button', { name: 'Copy brief for AI builder' }).click();
+  const clip = await panel.evaluate(() => window.__copied ?? '');
+  check(clip.startsWith('# Design & motion spec'), 'Copy brief puts the Markdown brief on the clipboard');
 } finally {
   await ctx.close();
   server.close();

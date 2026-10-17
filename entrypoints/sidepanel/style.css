@@ -137,3 +137,10 @@ ul.type li { padding: 6px 0; border-bottom: 1px solid var(--line); }
 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 details summary { cursor: pointer; color: var(--muted); }
 pre.vars { max-height: 260px; overflow: auto; background: var(--code-bg); padding: 8px; border-radius: 6px; }
+
+.export-hero { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.export-hero p { margin: 4px 0 10px; }
+.export-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.warn { color: var(--accent); }
+header { flex-wrap: wrap; }
+.actions { flex-wrap: wrap; }

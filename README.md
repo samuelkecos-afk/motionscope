@@ -6,7 +6,12 @@ Open the side panel on any page and:
 
 - **Scan page**: finds every CSS animation, CSS transition, Web Animations API call, GSAP tween/timeline and ScrollTrigger, native CSS scroll-driven animations (`scroll()` / `view()`), motion libraries in use, split-text setups, and the design tokens (colors, type styles, spacing scale, radii, shadows, motion durations/easings, CSS variables, breakpoints).
 - **Record scroll**: scrolls the page top to bottom and samples every element. Anything that fades, moves, scales, rotates, clips or pins becomes a track with its scroll range, from/to values and a best-fit easing. It also catches motion no API exposes, such as hand-written scroll listeners or bundled libraries.
-- **Export**: DTCG tokens, CSS variables, a Tailwind v4 `@theme` block, the site's `@keyframes`, GSAP + ScrollTrigger code, or the full scan as JSON.
+- **Export all**: one ZIP to hand to a designer, developer or AI builder:
+  - `README.md`: a plain-language brief of the design system (colors with likely roles, type styles, spacing grid, radii, shadows, breakpoints, motion tokens) and every animation ("fades in, moves up 40px over 1.08s, easing power3.out, staggered 30ms across 17 elements · plays when #hero hits "top 80%""), plus a ready-made prompt for AI builders.
+  - `tokens/`: DTCG JSON, CSS variables and a Tailwind v4 theme.
+  - `motion/`: `motion.json`, `animations.css`, the site's own `@keyframes`, and `gsap-animations.js` (GSAP + ScrollTrigger, wrapped in `prefers-reduced-motion`).
+  - `raw/scan.json`: everything captured.
+- **Copy brief for AI builder**: puts the same brief on the clipboard to paste into Claude, Cursor, Lovable, v0 and similar tools.
 
 ## Getting started
 

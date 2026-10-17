@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { motionToCss, motionToGsap, toCssVariables, toDTCG, toTailwindTheme, trackToGsap } from '@/lib/export';
+import { buildBrief } from '@/lib/brief';
+import { buildBundle, gsapCode } from '@/lib/bundle';
 import type { Engine, FullScan, MotionItem, ScrollRecording, ScrollTrack } from '@/lib/types';
 import { highlight, recordScroll, scan, targetTabId } from './api';
 
@@ -14,6 +16,19 @@ const ENGINE_LABEL: Record<Engine, string> = {
 
 function copy(text: string) {
   navigator.clipboard.writeText(text).catch(() => {});
+}
+
+function saveBlob(name: string, blob: Blob) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function exportAll(data: FullScan, recording?: ScrollRecording) {
+  const { name, zip } = buildBundle(data, recording);
+  saveBlob(name, new Blob([zip as BlobPart], { type: 'application/zip' }));
 }
 
 function download(name: string, data: unknown) {
@@ -95,6 +110,11 @@ export default function App() {
           <button disabled={!!busy || tabId == null} onClick={runRecord} title="Scrolls the page from top to bottom and records what moves">
             {busy === 'record' ? 'Recording…' : 'Record scroll'}
           </button>
+          {data && (
+            <button disabled={!!busy} onClick={() => exportAll(data, recording)} title="Download one ZIP with a readable brief, tokens, CSS, GSAP code and raw data">
+              Export all
+            </button>
+          )}
         </div>
       </header>
       {data && <div className="page-title" title={data.url}>{data.title || data.url}</div>}
@@ -486,32 +506,48 @@ function Tokens({ data }: { data: FullScan }) {
 // ---------------- Export ----------------
 
 function Export({ data, recording }: { data: FullScan; recording?: ScrollRecording }) {
-  const [format, setFormat] = useState<'dtcg' | 'css' | 'tailwind' | 'gsap' | 'keyframes'>('dtcg');
+  const [format, setFormat] = useState<'brief' | 'dtcg' | 'css' | 'tailwind' | 'gsap' | 'keyframes'>('brief');
+  const [copied, setCopied] = useState(false);
+  const brief = useMemo(() => buildBrief(data, recording), [data, recording]);
   const code = useMemo(() => {
     switch (format) {
+      case 'brief': return brief;
       case 'dtcg': return JSON.stringify(toDTCG(data.tokens), null, 2);
       case 'css': return toCssVariables(data.tokens);
       case 'tailwind': return toTailwindTheme(data.tokens);
       case 'keyframes': return data.stylesheetKeyframes.map((k) => k.css).join('\n\n') || '/* No @keyframes found */';
-      case 'gsap': {
-        const parts = data.motions.filter((m) => m.engine === 'gsap' && m.target !== '(timeline)').map(motionToGsap);
-        if (recording) parts.push(...recording.tracks.map(trackToGsap));
-        return parts.length ? `gsap.registerPlugin(ScrollTrigger);\n\n${parts.join('\n\n')}` : '// No GSAP motion yet. Record a scroll to generate ScrollTrigger code.';
-      }
+      case 'gsap': return gsapCode(data, recording);
     }
-  }, [format, data, recording]);
+  }, [format, data, recording, brief]);
   const host = (() => { try { return new URL(data.url).hostname; } catch { return 'page'; } })();
   return (
     <div className="pad stack">
-      <div className="seg">
-        {(['dtcg', 'css', 'tailwind', 'keyframes', 'gsap'] as const).map((f) => (
-          <button key={f} className={format === f ? 'active' : ''} onClick={() => setFormat(f)}>
-            {{ dtcg: 'DTCG', css: 'CSS vars', tailwind: 'Tailwind', keyframes: '@keyframes', gsap: 'GSAP' }[f]}
+      <section className="export-hero">
+        <h3>Share with a builder</h3>
+        <p className="muted small">
+          One ZIP with a plain-language brief (README.md) that explains the design system and every animation, plus tokens, CSS, Tailwind,
+          GSAP code and raw data. Works for designers, developers and AI builders.
+        </p>
+        {!recording && <p className="small warn">Tip: press <b>Record scroll</b> first so scroll animations are included.</p>}
+        <div className="export-actions">
+          <button className="primary" onClick={() => exportAll(data, recording)}>Export all (.zip)</button>
+          <button onClick={() => { copy(brief); setCopied(true); setTimeout(() => setCopied(false), 1500); }}>
+            {copied ? 'Copied' : 'Copy brief for AI builder'}
           </button>
-        ))}
-      </div>
+        </div>
+      </section>
+      <section>
+        <h3>Preview</h3>
+        <div className="seg">
+          {(['brief', 'dtcg', 'css', 'tailwind', 'keyframes', 'gsap'] as const).map((f) => (
+            <button key={f} className={format === f ? 'active' : ''} onClick={() => setFormat(f)}>
+              {{ brief: 'Brief', dtcg: 'DTCG', css: 'CSS vars', tailwind: 'Tailwind', keyframes: '@keyframes', gsap: 'GSAP' }[f]}
+            </button>
+          ))}
+        </div>
+      </section>
       <CodeBlock code={code} />
-      <button onClick={() => download(`motionscope-${host}.json`, { ...data, scrollRecording: recording })}>Download full scan (JSON)</button>
+      <button onClick={() => download(`motionscope-${host}.json`, { ...data, scrollRecording: recording })}>Download raw scan (JSON)</button>
     </div>
   );
 }

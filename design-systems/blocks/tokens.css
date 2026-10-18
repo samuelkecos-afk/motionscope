@@ -1,0 +1,91 @@
+/* =========================================================================
+   Blocks design system · tokens
+   Editorial colour-block system modelled on warmnfuzzy.tv's type and layout.
+   Change the five colours, the font and nothing else to make it your brand.
+   ========================================================================= */
+
+:root {
+  /* ---------- Colour ---------- */
+  --black: #000000;
+  --white: #ffffff;
+  --blue: #190bb6;
+  --yellow: #f7dd47;
+  --orange: #e74a27;
+  --line-light: #ffffff1a;   /* hairlines on dark blocks */
+  --line-dark: #0000001a;    /* hairlines on light blocks */
+  --tint-light: #ffffff99;   /* secondary text on dark blocks */
+  --tint-dark: #00000099;    /* secondary text on light blocks */
+
+  /* ---------- Font ---------- */
+  /* One family, two weights. Original site: Suisse Int'l (commercial). Free stand-in: Geist. */
+  --font: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --weight: 600;             /* everything except body copy */
+  --weight-body: 500;
+
+  /* ---------- Grid ---------- */
+  --cols: 8;                 /* 8 phone · 16 tablet · 24 desktop */
+  --gutter: 16px;            /* outer page margin */
+  --gap: 10px;               /* between columns: 10 phone · 16 tablet+ */
+  --left-cols: 5;            /* label column width in columns (tablet) */
+
+  /* ---------- Motion ---------- */
+  --ease: cubic-bezier(0.26, 1, 0.48, 1);   /* the signature ease */
+  --dur: 0.5s;                               /* transforms */
+  --dur-fade: 0.075s;                        /* opacity, linear */
+  --intro-delay: 0.75s;                      /* page-load sequence starts here */
+  --parallax-small: 5svh;
+  --parallax-large: 25svh;
+
+  /* ---------- Fluid scale ----------
+     Every size follows one formula:  size = max(base × 0.8 + 100vw × base / W × 0.2, base)
+     W is the window width the scale is anchored to (375 / 768 / 1280 / 1600).
+     So type is exactly `base` at W and grows 20% as fast as the window beyond it. */
+  --W: 375;
+  --k: 0.2;
+
+  /* Base sizes in px (phone). Breakpoints below swap them. */
+  --label-b: 12;   --label-ls: 0em;
+  --body-b: 14;
+  --lede-b: 21;
+  --name-b: 24;    --name-lh: 1.15;
+  --title-b: 32;
+  --display-b: 48;
+  --hero-b: 64;    --hero-lh: 0.98;
+  --space-b: 70;            /* space under every section */
+  --label-gap-b: 75;        /* space between a section label and its big headline */
+  --link-gap-b: 70;         /* space above a section's closing link */
+}
+
+@media (min-width: 768px) {
+  :root {
+    --W: 768; --cols: 16; --gap: 16px;
+    --title-b: 64; --hero-b: 164; --hero-lh: 0.91;
+    --space-b: 120; --label-gap-b: 120; --link-gap-b: 100;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --W: 1280; --cols: 24; --left-cols: 8;
+    --label-b: 16; --label-ls: -0.027em;
+    --body-b: 16; --lede-b: 32; --name-b: 46; --name-lh: 1.04;
+    --title-b: 96; --display-b: 132; --hero-b: 320; --hero-lh: 0.85;
+    --space-b: 180; --label-gap-b: 170; --link-gap-b: 160;
+  }
+}
+@media (min-width: 1600px) { :root { --W: 1600; } }
+
+/* The formula applied to each role. Use these, never raw px. */
+:root {
+  --fs-label:   max(calc(var(--label-b)   * 0.8px + 100vw * var(--label-b)   / var(--W) * var(--k)), calc(var(--label-b)   * 1px));
+  --fs-body:    max(calc(var(--body-b)    * 0.8px + 100vw * var(--body-b)    / var(--W) * var(--k)), calc(var(--body-b)    * 1px));
+  --fs-lede:    max(calc(var(--lede-b)    * 0.8px + 100vw * var(--lede-b)    / var(--W) * var(--k)), calc(var(--lede-b)    * 1px));
+  --fs-name:    max(calc(var(--name-b)    * 0.8px + 100vw * var(--name-b)    / var(--W) * var(--k)), calc(var(--name-b)    * 1px));
+  --fs-title:   max(calc(var(--title-b)   * 0.8px + 100vw * var(--title-b)   / var(--W) * var(--k)), calc(var(--title-b)   * 1px));
+  --fs-display: max(calc(var(--display-b) * 0.8px + 100vw * var(--display-b) / var(--W) * var(--k)), calc(var(--display-b) * 1px));
+  --fs-hero:    min(max(calc(var(--hero-b) * 0.8px + 100vw * var(--hero-b)   / var(--W) * var(--k)), calc(var(--hero-b)    * 1px)), 23vw);
+  --space:      max(calc(var(--space-b)     * 0.8px + 100vw * var(--space-b)     / var(--W) * var(--k)), calc(var(--space-b)     * 1px));
+  --label-gap:  max(calc(var(--label-gap-b) * 0.8px + 100vw * var(--label-gap-b) / var(--W) * var(--k)), calc(var(--label-gap-b) * 1px));
+  --link-gap:   max(calc(var(--link-gap-b)  * 0.8px + 100vw * var(--link-gap-b)  / var(--W) * var(--k)), calc(var(--link-gap-b)  * 1px));
+  --underline-offset: max(calc(3px * 0.8 + 100vw * 3 / var(--W) * var(--k)), 3px);
+  color-scheme: dark;
+}

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blocks Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="blocks.css">
+<style>
+  /* Reference-page helpers only (not part of the system). */
+  .spec { display: grid; gap: 6px; padding-block: 18px; border-top: 1px solid var(--line); }
+  .spec:first-of-type { border-top: 0; }
+  .spec code { font: 500 12px/1.3 ui-monospace, Menlo, monospace; letter-spacing: 0; opacity: 0.6; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--gutter); }
+  .swatch { display: grid; gap: 8px; }
+  .swatch div { aspect-ratio: 3 / 2; border: 1px solid var(--line-light); }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="bar wrap t-label">
+    <span class="logo"><span class="logo-mark" aria-hidden="true"></span>Blocks</span>
+    <nav class="nav"><a class="nav-keep" href="templates/landing.html"><span class="roll"><span>Open the template</span><span aria-hidden="true">Open the template</span></span></a></nav>
+  </div>
+</header>
+
+<section class="block wrap section-top section-end" data-theme="black">
+  <p class="t-label">Type roles · resize the window: every size scales by one formula</p>
+  <div class="headline">
+    <div class="spec"><p class="t-hero">Hero</p><code>.t-hero · 64 → 164 → 320px · CAPS · lh 0.98 / 0.91 / 0.85 · −0.045em · hero headline, footer wordmark</code></div>
+    <div class="spec"><p class="t-display">Display</p><code>.t-display · 48 → 132px · CAPS · lh 0.91 · section names, ticker, tile words</code></div>
+    <div class="spec"><p class="t-title">Section title</p><code>.t-title · 32 → 64 → 96px · lh 1.0 · statements, closing titles</code></div>
+    <div class="spec"><p class="t-name">Name: list items, questions, prices</p><code>.t-name · 24 → 46px · lh 1.15 / 1.04 · services lists, FAQ, pricing</code></div>
+    <div class="spec"><p class="t-lede">Lede: the intro paragraph that tells people what this is.</p><code>.t-lede · 21 → 32px · lh 1.11 · one per page, in the yellow intro block</code></div>
+    <div class="spec"><p class="t-body">Body copy for details, descriptions and answers. Weight 500, line height 1.22.</p><code>.t-body · 14 → 16px · lh 1.22 · secondary details</code></div>
+    <div class="spec"><p class="t-label">Label · nav · buttons · <a class="u-link" href="#">underlined link</a></p><code>.t-label · 12 → 16px · CAPS · lh 1.0 · same font, never monospace</code></div>
+  </div>
+</section>
+
+<section class="block wrap section-top section-end" data-theme="black">
+  <p class="t-label">Colour · one block per section, full width</p>
+  <div class="swatches headline">
+    <div class="swatch"><div style="background:var(--black)"></div><span class="t-label">Black #000 · base</span></div>
+    <div class="swatch"><div style="background:var(--white)"></div><span class="t-label">White #fff</span></div>
+    <div class="swatch"><div style="background:var(--yellow)"></div><span class="t-label">Yellow #f7dd47</span></div>
+    <div class="swatch"><div style="background:var(--orange)"></div><span class="t-label">Orange #e74a27</span></div>
+    <div class="swatch"><div style="background:var(--blue)"></div><span class="t-label">Blue #190bb6</span></div>
+  </div>
+</section>
+
+<section class="block wrap split" data-theme="yellow">
+  <p class="t-label">Split block · data-theme="yellow"</p>
+  <div>
+    <p class="t-lede measure">Label in the left column, big type on the right. On phones the label stacks on top with 50px under it.</p>
+    <a class="u-link t-label closing-link" href="#">Closing link</a>
+  </div>
+</section>
+
+<section class="block" data-theme="orange">
+  <div class="wrap section-top section-end">
+    <p class="t-label">Statement · data-theme="orange"</p>
+    <h2 class="t-title measure headline">A big statement sits a long way below its label, then the block ends with generous space.</h2>
+  </div>
+  <div class="split wrap" style="border-top:1px solid var(--line)">
+    <p class="t-label">Name list</p>
+    <ul class="list"><li><span class="t-name">Creative direction</span></li><li><span class="t-name">Production</span></li><li><span class="t-name">Animation</span><span class="t-body">Optional body line under a name.</span></li></ul>
+  </div>
+</section>
+
+<section class="block wrap section-top section-end" data-theme="blue">
+  <p class="t-label">Tiles · data-theme="blue"</p>
+  <div class="tiles">
+    <div class="tile-item"><div class="tile"><b>Aa</b></div><div class="tile-meta t-label"><span>Square</span><span class="tint">(12)</span></div></div>
+    <div class="tile-item"><div class="tile tile--circle"><b>Bb</b></div><div class="tile-meta t-label"><span>Circle</span><span class="tint">(8)</span></div></div>
+    <div class="tile-item"><div class="tile"><b>Cc</b></div><div class="tile-meta t-label"><span>Square</span><span class="tint">(4)</span></div></div>
+    <div class="tile-item"><div class="tile"><b>Dd</b></div><div class="tile-meta t-label"><span>Square</span><span class="tint">(6)</span></div></div>
+  </div>
+</section>
+
+<section class="block wrap split" data-theme="white">
+  <p class="t-label">Rows + accordion · data-theme="white"</p>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:var(--label-gap)">
+    <div class="rows"><div class="row"><span class="t-name">Name</span><span class="t-name value">Value</span><span class="t-body">Body line under the row.</span></div></div>
+    <div class="accordion"><details open><summary class="t-name">Accordion question?</summary><p class="t-body">Answer in body copy, 70% opacity.</p></details></div>
+  </div>
+</section>
+
+<section class="block wrap section-top section-end" data-theme="black">
+  <p class="t-label">Buttons and motion</p>
+  <div class="actions t-label headline">
+    <a class="btn btn--yellow" href="#"><span class="roll"><span>Hover me</span><span aria-hidden="true">Hover me</span></span></a>
+    <a class="btn" href="#"><span class="roll"><span>Rolling label</span><span aria-hidden="true">Rolling label</span></span></a>
+  </div>
+</section>
+</body>
+</html>

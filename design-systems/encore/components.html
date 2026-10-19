@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Encore Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,900&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="encore.css">
+<style>
+  /* Reference-page helpers only. */
+  .spec { display: grid; gap: 10px; padding-block: 20px; border-top: 1px solid var(--divider); }
+  .spec code { font: 12px/1.4 ui-monospace, Menlo, monospace; color: var(--tint-light); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px; }
+  .swatch div { aspect-ratio: 3 / 2; border-radius: var(--r); border: 1px solid var(--divider); margin-bottom: 8px; }
+  .demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/></symbol>
+</svg>
+<header class="site-header">
+  <div class="container bar">
+    <span class="wordmark t-mark">Encore</span>
+    <nav class="nav t-label"><a href="templates/landing.html"><span class="roll"><span>Open the template</span><span aria-hidden="true">Open the template</span></span></a></nav>
+    <div class="bar-end"><a class="signin t-label" href="templates/landing.html"><svg class="icon"><use href="#i-user"/></svg><span>Sign in</span></a></div>
+  </div>
+</header>
+<main class="container">
+  <section class="section" style="margin-top:var(--head-gap)">
+    <div class="section-head"><p class="t-label tint">Where each part comes from</p><h1 class="t-title">Encore</h1></div>
+    <p class="t-lede" style="max-width:34ch">Layout, colour and font from <span style="color:var(--red-light)">Live Nation</span>. Text sizes, hierarchy, spacing and scroll from <span style="color:var(--yellow)">warmnfuzzy</span>. Cards from <span style="color:var(--ice)">Next Stop Comedy</span>.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><p class="t-label tint">Noto Sans · warmnfuzzy sizes</p><h2 class="t-title">Type scale</h2></div>
+    <div class="spec"><p class="t-title">Section title</p><code>.t-title · 32 → 64 (≥768) → 96 (≥1280) · 700</code></div>
+    <div class="spec"><p class="t-slide">Hero slide name</p><code>.t-slide · title size, max 4.4vw inside the carousel panel</code></div>
+    <div class="spec"><p class="t-lede">Lede, banner and statement text</p><code>.t-lede · 21 → 21 → 32 · 700 (400 in the banner)</code></div>
+    <div class="spec"><p class="t-name">Name</p><code>.t-name · 24 → 24 → 46 · 700 (18px inside rows)</code></div>
+    <div class="spec"><p class="t-card-title">Card title</p><code>.t-card-title · 20 → 24 (≥640) · 700</code></div>
+    <div class="spec"><p class="t-body">Body copy for descriptions, links and notes.</p><code>.t-body · 14 → 14 → 16 · 400</code></div>
+    <div class="spec"><p class="t-label">Label · nav · buttons</p><code>.t-label · 12 → 12 → 16 · 700 CAPS · +0.4px</code></div>
+    <div class="spec"><p class="t-mark">Wordmark</p><code>.t-mark · 900 italic CAPS · red in the header</code></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><p class="t-label tint">Live Nation</p><h2 class="t-title">Colour</h2></div>
+    <div class="swatches t-label">
+      <div class="swatch"><div style="background:var(--black)"></div>Black #000</div>
+      <div class="swatch"><div style="background:var(--footer-bg)"></div>Footer #121212</div>
+      <div class="swatch"><div style="background:var(--paper)"></div>Charcoal #202020</div>
+      <div class="swatch"><div style="background:var(--white)"></div>White #f9f9f9</div>
+      <div class="swatch"><div style="background:var(--red)"></div>Red #e21836</div>
+      <div class="swatch"><div style="background:var(--red-dark)"></div>Hover #9e1025</div>
+      <div class="swatch"><div style="background:var(--yellow)"></div>Badge #ffe600</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><p class="t-label tint">Red, 6px corners, rolling label</p><h2 class="t-title">Buttons</h2></div>
+    <div class="demo"><a class="btn" href="#"><span class="roll"><span>Enrol now</span><span aria-hidden="true">Enrol now</span></span></a><a class="btn btn--outline" href="#"><span class="roll"><span>Outline</span><span aria-hidden="true">Outline</span></span></a><svg class="chevron"><use href="#i-chev"/></svg></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><p class="t-label tint">Next Stop Comedy cards in a Live Nation 4-up grid</p><div class="section-row"><h2 class="t-title">Cards, 4-up</h2><a class="u-link t-label" href="#">See all</a></div></div>
+    <ul class="grid-4">
+        <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph"></div><span class="badge">New</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><h3 class="t-card-title">UX Design</h3><div class="card-foot"><span class="t-place">8 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
+        <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph ph--b"></div><span class="badge">Popular</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><h3 class="t-card-title">Front-end</h3><div class="card-foot"><span class="t-place">10 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
+        <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph ph--c"></div><span class="badge">4 seats left</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>26 Jan</span><h3 class="t-card-title">Data with Python</h3><div class="card-foot"><span class="t-place">8 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
+        <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph ph--red"></div><span class="badge">New</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>26 Jan</span><h3 class="t-card-title">Product Management</h3><div class="card-foot"><span class="t-place">8 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
+      </ul>
+  </section>
+  <section class="section">
+    <div class="section-head"><p class="t-label tint">With date, time, place and a button</p><h2 class="t-title">Cards, 3-up</h2></div>
+    <ul class="grid-3">
+        <li><div class="card"><div class="card-inner"><div class="card-media"><div class="ph ph--b"></div><span class="badge">Beginner</span></div>
+          <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Tue + Thu · 6 PM</span></span>
+            <h3 class="t-card-title">Front-end Development</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · $790</span>
+            <div class="card-foot"><span></span><a class="btn" href="#signup"><span class="roll"><span>Enrol</span><span aria-hidden="true">Enrol</span></span></a></div></div></div></div></li>
+        <li><div class="card"><div class="card-inner"><div class="card-media"><div class="ph ph--c"></div><span class="badge">All levels</span></div>
+          <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>9 Feb</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Tue + Thu · 6 PM</span></span>
+            <h3 class="t-card-title">Brand &amp; Visual Design</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · $690</span>
+            <div class="card-foot"><span></span><a class="btn" href="#signup"><span class="roll"><span>Enrol</span><span aria-hidden="true">Enrol</span></span></a></div></div></div></div></li>
+        <li><div class="card"><div class="card-inner"><div class="card-media"><div class="ph"></div><span class="badge">All levels</span></div>
+          <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>9 Feb</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Sat · 10 AM</span></span>
+            <h3 class="t-card-title">Copywriting for the Web</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · $490</span>
+            <div class="card-foot"><span></span><a class="btn" href="#signup"><span class="roll"><span>Enrol</span><span aria-hidden="true">Enrol</span></span></a></div></div></div></div></li>
+      </ul>
+  </section>
+  <section class="section">
+    <div class="section-head"><p class="t-label tint">Live Nation list rows</p><h2 class="t-title">Rows</h2></div>
+    <ul class="rows">
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph"></span></span><span class="row-text"><span class="t-name clamp-1">Portfolio review clinic</span><span class="t-label" style="color:var(--red-light)">Sat 21 Nov · 10 AM</span><span class="t-body tint clamp-1">With a UX teacher</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph ph--b"></span></span><span class="row-text"><span class="t-name clamp-1">Your first web page</span><span class="t-label" style="color:var(--red-light)">Sat 28 Nov · 10 AM</span><span class="t-body tint clamp-1">No experience needed</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph ph--c"></span></span><span class="row-text"><span class="t-name clamp-1">Spreadsheets to Python</span><span class="t-label" style="color:var(--red-light)">Sat 5 Dec · 10 AM</span><span class="t-body tint clamp-1">Bring a laptop</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+      </ul>
+  </section>
+</main>
+<section class="banner"><div class="ph ph--red" data-scroll="shift"></div>
+  <div class="container banner-inner"><h2 class="t-title">Banner title</h2><p class="t-lede">Full-width photo, dark veil, centred text and one red button.</p><a class="btn" href="#">Sign up</a></div>
+</section>
+<footer class="site-footer"><div class="container"><div class="footer-base t-label" style="margin-top:0;border-top:0;padding-top:0"><span class="wordmark t-mark">Encore</span><span class="tint">Footer: 5 link columns on #121212 (see the template)</span></div></div></footer>
+<script src="encore.js"></script>
+</body>
+</html>

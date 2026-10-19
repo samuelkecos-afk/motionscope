@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lumen School</title>
+<meta name="description" content="Live online courses taught in small groups by people who do the work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,900&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../encore.css">
+</head>
+<body>
+<!-- Encore starter page. Live Nation order: header → hero carousel → 4-up cards → 3-up cards with a button
+     → watch (video + playlist) → list rows → date rows → photo banner with sign-up → statement → 5-column footer. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/></symbol>
+</svg>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- HEADER · wordmark, nav, pill search, sign in -->
+<header class="site-header intro-drop">
+  <div class="container bar">
+    <a class="wordmark t-mark" href="#top">Lumen School</a>
+    <nav class="nav t-label" aria-label="Main">
+      <a href="#courses"><span class="roll"><span>All courses</span><span aria-hidden="true">All courses</span></span></a>
+      <a href="#watch"><span class="roll"><span>Watch a class</span><span aria-hidden="true">Watch a class</span></span></a>
+      <a href="#workshops"><span class="roll"><span>Free workshops</span><span aria-hidden="true">Free workshops</span></span></a>
+    </nav>
+    <div class="bar-end">
+      <label class="header-search"><input id="header-search" type="search" placeholder="Search courses…" aria-label="Search courses"><svg class="icon"><use href="#i-search"/></svg></label>
+      <a class="signin t-label" href="#signup"><svg class="icon"><use href="#i-user"/></svg><span>Sign in</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO CAROUSEL · next slide peeks in, dimmed; sinks as you scroll away -->
+  <section class="carousel" aria-roledescription="carousel" aria-label="Featured courses" data-scroll="persist">
+    <div class="carousel-track">
+      <div class="slide"><div class="slide-media"><div class="ph ph--red"></div></div><div class="slide-info">
+        <p class="t-label tint">Starts 12 Jan · 8 weeks</p>
+        <h1 class="t-slide"><span class="mask"><span>UX Design Foundations</span></span></h1>
+        <a class="btn intro-pop" href="#courses"><span class="roll"><span>Enrol now</span><span aria-hidden="true">Enrol now</span></span></a></div></div>
+      <div class="slide"><div class="slide-media"><div class="ph ph--b"></div></div><div class="slide-info">
+        <p class="t-label tint">Starts 12 Jan · 10 weeks</p>
+        <h2 class="t-slide">Front-end Development</h2>
+        <a class="btn" href="#courses"><span class="roll"><span>Enrol now</span><span aria-hidden="true">Enrol now</span></span></a></div></div>
+      <div class="slide"><div class="slide-media"><div class="ph ph--c"></div></div><div class="slide-info">
+        <p class="t-label tint">Free · Every Saturday</p>
+        <h2 class="t-slide">Open workshops</h2>
+        <a class="btn" href="#workshops"><span class="roll"><span>Save a seat</span><span aria-hidden="true">Save a seat</span></span></a></div></div>
+    </div>
+    <button class="carousel-arrow prev" type="button" aria-label="Previous"><svg class="icon"><use href="#i-left"/></svg></button>
+    <button class="carousel-arrow next" type="button" aria-label="Next"><svg class="icon"><use href="#i-chev"/></svg></button>
+    <div class="dots"></div>
+  </section>
+
+  <div class="page-body">
+  <div class="container">
+    <!-- 4-UP CARDS · badge, title, chevron -->
+    <section class="section" data-scroll="reveal" aria-labelledby="soon-title">
+      <div class="section-head"><p class="t-label tint">Winter 2027</p>
+        <div class="section-row"><h2 class="t-title" id="soon-title">Starting soon</h2><a class="u-link t-label" href="#courses">See all</a></div></div>
+      <ul class="grid-4">
+        <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph"></div><span class="badge">New</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><h3 class="t-card-title">UX Design</h3><div class="card-foot"><span class="t-place">8 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
+        <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph ph--b"></div><span class="badge">Popular</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><h3 class="t-card-title">Front-end</h3><div class="card-foot"><span class="t-place">10 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
+        <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph ph--c"></div><span class="badge">4 seats left</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>26 Jan</span><h3 class="t-card-title">Data with Python</h3><div class="card-foot"><span class="t-place">8 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
+        <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph ph--red"></div><span class="badge">New</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>26 Jan</span><h3 class="t-card-title">Product Management</h3><div class="card-foot"><span class="t-place">8 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
+      </ul>
+    </section>
+
+    <!-- 3-UP CARDS · date, time, title, place, Enrol button -->
+    <section class="section" id="courses" data-scroll="reveal" aria-labelledby="courses-title">
+      <div class="section-head"><p class="t-label tint">Six subjects, one real project each</p>
+        <div class="section-row"><h2 class="t-title" id="courses-title">All courses</h2><a class="u-link t-label" href="#signup">Get the guide</a></div></div>
+      <ul class="grid-3">
+        <li><div class="card"><div class="card-inner"><div class="card-media"><div class="ph ph--b"></div><span class="badge">Beginner</span></div>
+          <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Tue + Thu · 6 PM</span></span>
+            <h3 class="t-card-title">Front-end Development</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · $790</span>
+            <div class="card-foot"><span></span><a class="btn" href="#signup"><span class="roll"><span>Enrol</span><span aria-hidden="true">Enrol</span></span></a></div></div></div></div></li>
+        <li><div class="card"><div class="card-inner"><div class="card-media"><div class="ph ph--c"></div><span class="badge">All levels</span></div>
+          <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>9 Feb</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Tue + Thu · 6 PM</span></span>
+            <h3 class="t-card-title">Brand &amp; Visual Design</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · $690</span>
+            <div class="card-foot"><span></span><a class="btn" href="#signup"><span class="roll"><span>Enrol</span><span aria-hidden="true">Enrol</span></span></a></div></div></div></div></li>
+        <li><div class="card"><div class="card-inner"><div class="card-media"><div class="ph"></div><span class="badge">All levels</span></div>
+          <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>9 Feb</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Sat · 10 AM</span></span>
+            <h3 class="t-card-title">Copywriting for the Web</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · $490</span>
+            <div class="card-foot"><span></span><a class="btn" href="#signup"><span class="roll"><span>Enrol</span><span aria-hidden="true">Enrol</span></span></a></div></div></div></div></li>
+      </ul>
+    </section>
+
+    <!-- WATCH · video + playlist -->
+    <section class="section" id="watch" data-scroll="reveal" aria-labelledby="watch-title">
+      <div class="section-head"><p class="t-label tint">See a real class before you join</p>
+        <div class="section-row"><h2 class="t-title" id="watch-title">Watch a class</h2></div></div>
+      <div class="watch">
+        <div class="video"><div class="ph ph--crowd"></div><p class="video-title t-lede">UX Design · Week 3 critique</p><span class="play"><svg class="icon" style="width:34px;height:34px"><use href="#i-play"/></svg></span></div>
+        <ul class="playlist">
+          <li><a class="clip" href="#watch" aria-current="true"><span class="thumb"><span class="ph ph--crowd"></span></span><span class="t-label clamp-2">UX Design · Week 3 critique</span></a></li>
+          <li><a class="clip" href="#watch"><span class="thumb"><span class="ph"></span></span><span class="t-label clamp-2">Front-end · Live coding</span></a></li>
+          <li><a class="clip" href="#watch"><span class="thumb"><span class="ph ph--b"></span></span><span class="t-label clamp-2">Meet the teachers</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- LIST ROWS · thumb, name, chevron -->
+    <section class="section" data-scroll="reveal" aria-labelledby="tracks-title">
+      <div class="section-head"><p class="t-label tint">Three courses, one subject, monthly mentoring</p>
+        <div class="section-row"><h2 class="t-title" id="tracks-title">Full tracks</h2></div></div>
+      <ul class="rows">
+        <li><a class="row" href="#courses"><span class="row-thumb"><span class="ph ph--red"></span></span><span class="t-name clamp-1">Design track</span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#courses"><span class="row-thumb"><span class="ph ph--b"></span></span><span class="t-name clamp-1">Developer track</span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#courses"><span class="row-thumb"><span class="ph ph--c"></span></span><span class="t-name clamp-1">Data track</span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+      </ul>
+    </section>
+
+    <!-- DATE ROWS · name, CAPS date, detail line -->
+    <section class="section" id="workshops" data-scroll="reveal" aria-labelledby="workshops-title">
+      <div class="section-head"><p class="t-label tint">Free, live, 60 minutes</p>
+        <div class="section-row"><h2 class="t-title" id="workshops-title">Free workshops</h2></div></div>
+      <ul class="rows">
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph"></span></span><span class="row-text"><span class="t-name clamp-1">Portfolio review clinic</span><span class="t-label" style="color:var(--red-light)">Sat 21 Nov · 10 AM</span><span class="t-body tint clamp-1">With a UX teacher</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph ph--b"></span></span><span class="row-text"><span class="t-name clamp-1">Your first web page</span><span class="t-label" style="color:var(--red-light)">Sat 28 Nov · 10 AM</span><span class="t-body tint clamp-1">No experience needed</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph ph--c"></span></span><span class="row-text"><span class="t-name clamp-1">Spreadsheets to Python</span><span class="t-label" style="color:var(--red-light)">Sat 5 Dec · 10 AM</span><span class="t-body tint clamp-1">Bring a laptop</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- BANNER · full-bleed photo with parallax, veil, centred title + sign-up -->
+  <section class="banner" id="signup" aria-labelledby="signup-title"><div class="ph ph--red" data-scroll="shift"></div>
+    <div class="container banner-inner">
+      <h2 class="t-title" id="signup-title">Next cohort starts 12&nbsp;January</h2>
+      <p class="t-lede">Get the course guide and a free trial class.</p>
+      <form class="banner-form" data-signup novalidate>
+        <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address" required>
+        <button class="btn" type="submit"><span class="roll"><span>Send me the guide</span><span aria-hidden="true">Send me the guide</span></span></button>
+      </form>
+      <p class="msg t-body" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- STATEMENT · centred band -->
+  <p class="container statement t-lede">Every class is live, every group has 12 people or fewer, and every course ends with a project you can show.</p>
+</div>
+</main>
+
+<!-- FOOTER · 5 columns on #121212 -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid t-body">
+      <div><h3 class="t-label">School</h3><ul><li><a href="#top">About us</a></li><li><a href="#top">Teachers</a></li><li><a href="#top">Careers</a></li></ul></div>
+      <div><h3 class="t-label">Courses</h3><ul><li><a href="#courses">All courses</a></li><li><a href="#courses">Full tracks</a></li><li><a href="#workshops">Workshops</a></li></ul></div>
+      <div><h3 class="t-label">Help</h3><ul><li><a href="#top">FAQ</a></li><li><a href="#top">Contact</a></li><li><a href="#top">Refunds</a></li></ul></div>
+      <div><h3 class="t-label">Legal</h3><ul><li><a href="#top">Privacy</a></li><li><a href="#top">Terms</a></li></ul></div>
+      <div><h3 class="t-label">Time zone</h3><select class="select" id="footer-tz" aria-label="Time zone"><option>Sydney (AEDT)</option><option>London (GMT)</option><option>New York (EST)</option></select>
+        <h3 class="t-label" style="margin-top:24px">Follow</h3><div class="socials" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div>
+    </div>
+    <div class="footer-base t-label"><span class="wordmark t-mark">Lumen School</span><span class="tint">© 2026 Lumen School</span></div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="../encore.js"></script>
+</body>
+</html>

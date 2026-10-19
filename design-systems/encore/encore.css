@@ -1,0 +1,248 @@
+/* =========================================================================
+   Encore design system · components (load after tokens.css)
+   Layout from livenation.com.au · colour + font from livenation.com.au ·
+   type scale, hierarchy, spacing and scroll motion from warmnfuzzy.tv ·
+   cards from nextstopcomedy.com.
+   ========================================================================= */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; min-width: 0; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+body {
+  margin: 0; overflow-x: clip;
+  background: var(--black); color: var(--white);
+  font-family: var(--font); font-weight: var(--weight-body); font-size: var(--fs-body); line-height: 1.4;
+  letter-spacing: var(--track); -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, p, ul, ol, figure { margin: 0; padding: 0; font: inherit; }
+ul, ol { list-style: none; }
+img, video { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--white-strong); outline-offset: 2px; }
+
+/* Centred Live Nation container: 1256px of content, 16 / 24px sides. */
+.container { width: 100%; max-width: calc(var(--container) + 2 * var(--gutter)); margin-inline: auto;
+  padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)); }
+
+/* ---------- Type roles (warmnfuzzy sizes, Noto Sans) ---------- */
+.t-label   { font-size: var(--fs-label); line-height: 1.1; font-weight: var(--weight); letter-spacing: var(--track-ui); text-transform: uppercase; }
+.t-body    { font-size: var(--fs-body); line-height: 1.4; font-weight: var(--weight-body); }
+.t-lede    { font-size: var(--fs-lede); line-height: 1.15; font-weight: var(--weight); }
+.t-name    { font-size: var(--fs-name); line-height: var(--name-lh); font-weight: var(--weight); }
+.t-title   { font-size: var(--fs-title); line-height: 1.02; font-weight: var(--weight); letter-spacing: -0.01em; text-wrap: balance; }
+.t-display { font-size: var(--fs-display); line-height: 0.95; font-weight: var(--weight); letter-spacing: var(--track-big); text-transform: uppercase; }
+.t-mark    { font-weight: var(--weight-mark); font-style: italic; letter-spacing: -0.04em; text-transform: uppercase; }
+/* Hero slide names: the title size, held inside the carousel's info panel on desktop. */
+.t-slide   { font-size: min(var(--fs-title), 4.4vw); line-height: 1; font-weight: var(--weight); letter-spacing: -0.01em; text-wrap: balance; }
+@media (max-width: 899px) { .t-slide { font-size: var(--fs-title); } }
+.t-name, .t-title, .t-display, .t-slide { text-box: trim-both cap alphabetic; }
+.u-link { text-decoration: underline; text-underline-offset: var(--underline-offset); }
+.u-link:hover { text-decoration: none; }
+.tint { color: var(--tint-light); }
+.clamp-1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ---------- Header (Live Nation: wordmark, nav, pill search, sign in) ---------- */
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--black); border-bottom: 1px solid var(--divider); }
+.site-header .bar { display: flex; align-items: center; gap: 16px; height: var(--header-h); }
+.wordmark { font-size: 22px; color: var(--red); white-space: nowrap; }
+.nav { display: flex; gap: 4px; }
+.nav a { padding: 8px 10px; border-radius: var(--r-btn); transition: background-color var(--dur-fast) var(--ease-ui); }
+.nav a:hover { background: var(--hover); }
+.header-search { display: flex; align-items: center; gap: 8px; width: 260px; height: 36px; padding: 0 14px; border: 1px solid var(--fg-dim); border-radius: var(--r-pill); color: var(--fg-dim); }
+.header-search input { flex: 1; border: 0; background: transparent; color: var(--white); font: inherit; font-size: var(--fs-body); outline: none; }
+.bar-end { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+.signin { display: flex; align-items: center; gap: 6px; }
+.icon { width: 18px; height: 18px; flex-shrink: 0; }
+@media (max-width: 1099px) { .nav, .header-search, .signin span { display: none; } }
+
+/* ---------- Rolling label (warmnfuzzy hover) ---------- */
+.roll { display: inline-grid; overflow: hidden; vertical-align: top; }
+.roll > span { grid-area: 1 / 1; transition: transform var(--dur) var(--ease), opacity var(--dur-fade) linear; }
+.roll > span + span { transform: translateY(100%); opacity: 0; }
+:is(a, button):is(:hover, :focus-visible) .roll > span:first-child { transform: translateY(-100%); opacity: 0; }
+:is(a, button):is(:hover, :focus-visible) .roll > span + span { transform: none; opacity: 1; }
+
+/* ---------- Buttons (Live Nation red, 6px corners) ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 10px 16px; white-space: nowrap; border: 0; border-radius: var(--r-btn); cursor: pointer;
+  font: inherit; font-size: var(--fs-label); line-height: 1.1; font-weight: var(--weight); letter-spacing: var(--track-ui); text-transform: uppercase;
+  background: var(--red); color: var(--white-strong); transition: background-color 0.3s var(--ease-ui); }
+.btn:hover { background: var(--red-dark); }
+.btn--outline { background: transparent; box-shadow: inset 0 0 0 1px var(--fg-dim); }
+.btn--outline:hover { background: var(--hover); }
+.chevron { width: 20px; height: 20px; flex-shrink: 0; color: var(--red); transition: transform 0.3s var(--ease-ui); }
+
+/* Everything after the hero sits on a solid layer, so the hero sinks underneath it on scroll. */
+.page-body { position: relative; z-index: 1; background: var(--black); padding-top: 1px; margin-top: -1px; }
+
+/* ---------- Sections (Live Nation order, warmnfuzzy spacing) ----------
+   <section class="section"><div class="section-head"><p class="t-label">…</p>
+     <div class="section-row"><h2 class="t-title">…</h2><a class="u-link t-label">See all</a></div></div> … </section> */
+.section { margin-top: var(--space); }
+.section-head { display: grid; gap: max(calc(16px * 0.8 + 100vw * 16 / var(--W) * var(--k)), 16px); margin-bottom: var(--head-gap); }
+.section-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px 24px; }
+.section-row .u-link { white-space: nowrap; }
+
+/* ---------- Hero carousel (Live Nation: image + info panel, next slide peeks, neighbours dimmed) ---------- */
+.carousel { position: relative; overflow: hidden; }
+.carousel-track { display: flex; transition: transform var(--dur-slide) var(--ease); }
+.slide { flex: 0 0 100%; display: grid; grid-template-columns: minmax(0, 1fr); transition: filter var(--dur-slide) ease; }
+.slide[aria-hidden="true"] { filter: brightness(0.35); }
+.slide-media { aspect-ratio: 16 / 9; position: relative; overflow: hidden; }
+.slide-media > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.slide-info { display: grid; align-content: center; justify-items: start; gap: 16px; padding: 24px var(--gutter) 32px; background: var(--paper); }
+.slide-info .btn { margin-top: 8px; }
+@media (min-width: 900px) {
+  .slide { flex-basis: 88%; grid-template-columns: 63% 37%; }
+  .slide-media { aspect-ratio: 2.5 / 1; }
+  .slide-info { background: linear-gradient(90deg, #111 0%, #1a1a1a 100%); padding: 32px clamp(24px, 3vw, 48px); }
+}
+.carousel-arrow { position: absolute; top: 28%; z-index: 2; width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--white-strong); color: #000; display: grid; place-items: center; cursor: pointer; box-shadow: var(--shadow-1); }
+.carousel-arrow.prev { left: 16px; }  .carousel-arrow.next { right: 16px; }
+@media (min-width: 900px) { .carousel-arrow { top: 50%; transform: translateY(-50%); } }
+.dots { position: absolute; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; gap: 10px; }
+@media (min-width: 900px) { .dots { right: 37%; } }
+@media (max-width: 899px) { .dots { top: calc(100vw * 9 / 16 - 24px); bottom: auto; } }
+.dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: var(--white-strong); opacity: 0.85; cursor: pointer; }
+.dot[aria-current="true"] { background: var(--red); opacity: 1; }
+
+/* ---------- Grids (Live Nation: 4-up and 3-up) ---------- */
+.grid-4, .grid-3 { display: grid; gap: var(--card-gap); }
+.grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }   /* 2-up on phones, as on Live Nation */
+@media (max-width: 599px) {
+  .grid-4 { gap: 12px; }
+  .grid-4 .card-body { padding: 10px 12px 12px; }
+  .grid-4 .t-card-title { font-size: 17px; }
+  .grid-4 .t-meta, .grid-4 .t-place { font-size: 14px; }
+  .grid-4 .badge { font-size: 11px; padding: 3px 9px; left: 8px; top: 8px; }
+}
+.grid-3 { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 600px) { .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* ---------- Card (Next Stop Comedy: 16:9 image, badge, 3px border, lift + glow) ---------- */
+.card { display: block; height: 100%; color: var(--white); will-change: transform; transition: transform var(--dur-card) var(--ease-card); }
+.card-inner { display: flex; flex-direction: column; height: 100%; overflow: hidden; border-radius: var(--r-card); border: 3px solid var(--card-border); background: var(--card-bg); box-shadow: var(--shadow-card);
+  transition: box-shadow var(--dur-card) var(--ease-card), border-color var(--dur-card) var(--ease-card); }
+.card-media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+.card-media > img, .card-media > .ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-image) var(--ease-out); }
+.card-media .badge { position: absolute; left: 12px; top: 10px; }
+.card-body { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 12px 16px 16px; }
+.card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 12px; }
+.badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: var(--r-pill); font-size: 12px; font-weight: var(--weight); letter-spacing: var(--track-ui); text-transform: uppercase; background: var(--yellow); color: var(--black); box-shadow: 0 10px 15px -3px #0000001a; }
+.t-card-title { font-size: var(--fs-card-title); font-weight: var(--weight); line-height: 1.25; transition: color var(--dur-fast) var(--ease); }
+.t-meta  { display: flex; align-items: center; gap: 6px; font-size: var(--fs-meta); font-weight: var(--weight); color: var(--red-light); }
+.t-place { display: flex; align-items: center; gap: 6px; font-size: var(--fs-meta); color: var(--tint-light); }
+.t-place .icon { color: var(--red-light); opacity: 0.7; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.card .icon { width: 16px; height: 16px; }
+@media (min-width: 640px) {
+  .card:is(:hover, :focus-within) { transform: scale(1.03) translateY(-3px); }
+  .card:is(:hover, :focus-within) .card-inner { border-color: var(--card-border-hover); box-shadow: var(--shadow-card-hover); }
+}
+.card:is(:hover, :focus-within) .card-media > * { transform: scale(1.05); }
+.card:is(:hover, :focus-within) .t-card-title { color: var(--red-light); }
+.card:hover .chevron { transform: translateX(3px); }
+
+/* ---------- Rows (Live Nation: 3 columns, 16:9 thumb, name, chevron) ---------- */
+.rows { display: grid; gap: var(--grid-gap); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .rows { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.row { display: grid; grid-template-columns: 128px minmax(0, 1fr) auto; align-items: center; gap: 14px; min-height: 80px; padding-right: 14px; overflow: hidden; border-radius: var(--r); background: var(--paper); transition: background-color 0.3s var(--ease-ui); }
+.row:hover { background: var(--paper-hover); }
+.row-thumb { align-self: stretch; position: relative; overflow: hidden; }
+.row-thumb > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.row-text { display: grid; gap: 4px; padding-block: 10px; }
+.row .t-name { font-size: max(calc(18px * 0.8 + 100vw * 18 / var(--W) * var(--k)), 18px); line-height: 1.2; text-box: none; }
+.row:hover .chevron { transform: translateX(3px); }
+
+/* ---------- Watch (Live Nation: video + playlist) ---------- */
+.watch { display: grid; gap: var(--grid-gap); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .watch { grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); } }
+.video { aspect-ratio: 16 / 9; position: relative; overflow: hidden; border-radius: var(--r); }
+.video > .ph { position: absolute; inset: 0; }
+.video-title { position: absolute; left: 16px; top: 14px; right: 16px; color: var(--white-strong); text-shadow: 0 1px 4px #000; }
+.play { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; transform: translate(-50%, -50%); border-radius: 50%; background: #000000a0; display: grid; place-items: center; color: var(--red); transition: transform var(--dur) var(--ease); }
+.video:hover .play { transform: translate(-50%, -50%) scale(1.08); }
+.playlist { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+@media (min-width: 900px) { .playlist { flex-direction: column; overflow: visible; } }
+.playlist li { flex: 0 0 170px; scroll-snap-align: start; }
+@media (min-width: 900px) { .playlist li { flex: none; } }
+.clip { display: grid; gap: 8px; padding: 8px; border-radius: var(--r); background: var(--paper); border: 2px solid transparent; transition: border-color 0.3s var(--ease-ui); }
+@media (min-width: 900px) { .clip { grid-template-columns: 46% minmax(0, 1fr); align-items: start; } }
+.clip[aria-current="true"] { border-color: var(--red); }
+.clip .thumb { aspect-ratio: 16 / 9; border-radius: 4px; overflow: hidden; position: relative; }
+.clip .thumb > * { position: absolute; inset: 0; }
+
+/* ---------- Banner (Live Nation: full-bleed photo, veil, centred title + button) ---------- */
+.banner { position: relative; isolation: isolate; overflow: hidden; margin-top: var(--space); text-align: center; }
+.banner > .ph, .banner > img { position: absolute; inset: calc(var(--parallax-small) * -1) 0; z-index: -2; width: 100%; height: calc(100% + 2 * var(--parallax-small)); object-fit: cover; }
+.banner::after { content: ""; position: absolute; inset: 0; z-index: -1; background: #00000080; }
+.banner-inner { display: grid; justify-items: center; gap: max(calc(20px * 0.8 + 100vw * 20 / var(--W) * var(--k)), 20px); padding-block: var(--space); }
+.banner .t-title { margin-bottom: 0.14em; }   /* room for descenders */
+.banner .t-lede { max-width: 32ch; font-weight: var(--weight-body); text-wrap: balance; }
+.banner-form { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: min(100%, 520px); margin-top: 8px; }
+.banner-form input { flex: 1 1 240px; min-height: 40px; padding: 10px 14px; border-radius: var(--r-btn); border: 1px solid var(--white); background: #00000066; color: var(--white); font: inherit; font-size: var(--fs-body); }
+.banner-form input::placeholder { color: var(--tint-light); }
+.banner .msg { min-height: 1.4em; }
+
+/* ---------- Statement (Live Nation: centred band) ---------- */
+.statement { max-width: 1040px; margin: var(--space) auto; text-align: center; }
+
+/* ---------- Footer (Live Nation: 5 columns on #121212) ---------- */
+.site-footer { background: var(--footer-bg); padding-block: max(calc(48px * 0.8 + 100vw * 48 / var(--W) * var(--k)), 48px) 32px; }
+.footer-grid { display: grid; gap: 40px 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 2fr); } }
+.footer-grid .t-label { margin-bottom: 16px; }
+.footer-grid ul { display: grid; gap: 6px; }
+.footer-grid a:hover { text-decoration: underline; }
+.select { width: 100%; height: 48px; padding: 0 14px; border-radius: var(--r-btn); border: 1px solid var(--fg-dim); background: transparent; color: var(--white); font: inherit; }
+.socials { display: flex; gap: 20px; }
+.socials span { width: 28px; height: 28px; border-radius: 6px; background: var(--white-strong); opacity: 0.9; }
+.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--divider); }
+
+/* ---------- Placeholder media (swap for 16:9 photos) ---------- */
+.ph { background: linear-gradient(135deg, #3a1d2a 0%, #14141c 60%, #000 100%); }
+.ph--b { background: linear-gradient(135deg, #1d2c3a 0%, #121820 60%, #000 100%); }
+.ph--c { background: linear-gradient(135deg, #3a301d 0%, #1a160e 60%, #000 100%); }
+.ph--red { background: radial-gradient(90% 120% at 50% 100%, #8a1020 0%, #2a0608 45%, #050505 100%); }
+.ph--crowd { background: radial-gradient(90% 120% at 50% 100%, #8a3a10 0%, #2a1206 45%, #050505 100%); }
+
+/* ---------- Film grain (warmnfuzzy) ---------- */
+.grain { position: fixed; inset: -100px; pointer-events: none; z-index: 50; opacity: 0.045; background-size: 160px; animation: noise 1s steps(2) infinite; }
+
+/* ---------- Page-load sequence (warmnfuzzy: starts at 0.75s, signature ease) ---------- */
+.intro-drop { animation: from-top var(--dur) var(--ease) var(--intro-delay) both; }
+.mask { display: block; overflow: hidden; padding-block: 0.06em; }
+.mask > span { display: block; animation: from-below var(--dur) var(--ease) var(--intro-delay) both; }
+.intro-pop { animation: pop var(--dur) var(--ease) calc(var(--intro-delay) + 0.1s) both; }
+@keyframes from-top { from { transform: translateY(-100%); } to { transform: translate(0); } }
+@keyframes from-below { from { transform: translateY(100%); } to { transform: translate(0); } }
+@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes noise {
+  0% { transform: translateY(47px); } 10% { transform: translate(-83px, 12px); } 20% { transform: translate(29px, -91px); }
+  30% { transform: translate(-57px, 68px); } 40% { transform: translate(74px, -36px); } 50% { transform: translate(-42px, -78px); }
+  60% { transform: translate(61px, 53px); } 70% { transform: translate(-25px, 31px); } 80% { transform: translate(38px, -14px); }
+  90% { transform: translate(-66px, -49px); } 100% { transform: translateY(47px); }
+}
+
+/* ---------- Scroll motion (warmnfuzzy, native CSS) ----------
+   data-scroll="reveal"  the section rises into place as it enters
+   data-scroll="shift"   gentle parallax drift while on screen (banner photo)
+   data-scroll="persist" sinks as it scrolls away (hero carousel) */
+@keyframes scroll-reveal { from { transform: translateY(var(--parallax-large)); } to { transform: translateY(0); } }
+@keyframes scroll-shift { from { transform: translateY(calc(var(--parallax-small) * -1)); } to { transform: translateY(var(--parallax-small)); } }
+@keyframes scroll-persist { from { transform: translateY(0); } to { transform: translateY(var(--parallax-large)); } }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-scroll] { animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); }
+    [data-scroll="persist"] { animation-name: scroll-persist; animation-range: exit; position: relative; z-index: 0; }
+    [data-scroll="reveal"] { animation-name: scroll-reveal; animation-range: entry; }
+    [data-scroll="shift"] { animation-name: scroll-shift; animation-range: cover; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+  .roll > span + span { display: none; }
+}

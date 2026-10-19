@@ -1,0 +1,135 @@
+/* =========================================================================
+   Encore design system · tokens
+   A remix of Headliner where the LAYOUT also follows livenation.com.au:
+     layout ............... livenation.com.au   (centred 1256px page, carousel,
+                                                 card grids, rows, video, banner, footer)
+     colour + font ........ livenation.com.au
+     type sizes, hierarchy,
+     spacing, scroll ...... warmnfuzzy.tv
+     cards ................ nextstopcomedy.com, recoloured red
+   ========================================================================= */
+
+:root {
+  /* ---------- Colour (Live Nation) ---------- */
+  --black: #000000;          /* page */
+  --paper: #202020;          /* charcoal blocks, card fill */
+  --paper-hover: #2a2a2a;
+  --white: #f9f9f9;          /* text on dark, fill of light blocks */
+  --white-strong: #ffffff;
+  --red: #e21836;            /* the action colour */
+  --red-light: #e7465e;      /* red text on charcoal (readable) */
+  --red-dark: #9e1025;       /* button hover */
+  --yellow: #ffe600;         /* rare accent: badges, one block */
+  --ice: #d6e7f9;            /* rare accent */
+  --line-light: #ffffff1f;   /* hairlines on dark blocks (Live Nation divider) */
+  --line-dark: #0000001a;    /* hairlines on light blocks */
+  --tint-light: #ffffff80;   /* secondary text on dark blocks (Live Nation fg-dim) */
+  --tint-dark: #00000099;    /* secondary text on light blocks */
+
+  /* ---------- Font (Live Nation) ---------- */
+  /* Noto Sans, free on Google Fonts: 700 for every heading and label, 400 for body copy. */
+  --font: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --weight: 700;
+  --weight-body: 400;
+  --weight-mark: 900;        /* italic black: logo and footer wordmark */
+  --track: 0.15px;           /* Live Nation tracking on body text */
+  --track-ui: 0.4px;         /* small bold labels and buttons */
+  --track-big: -0.03em;      /* hero, display, ticker, wordmark (Noto is wide) */
+
+  /* ---------- Cards (Next Stop Comedy, recoloured) ---------- */
+  --card-bg: var(--paper);
+  --card-border: #e2183680;        /* 3px red border, 50% */
+  --card-border-hover: #e21836cc;  /* 80% on hover */
+  --shadow-card: 0 4px 20px #0006, 0 0 12px #e218361f;
+  --shadow-card-hover: 0 8px 40px #0009, 0 0 24px #e2183640;
+  --r-card: 16px;
+  --r-pill: 9999px;
+  --r-btn: 6px;                    /* Live Nation button corners */
+  --ease-card: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --dur-card: 0.5s;
+  --dur-image: 0.7s;
+  --dur-fast: 0.15s;
+  --fs-card-title: 20px;           /* 24px from 640px */
+  --fs-meta: 16px;                 /* 18px from 640px */
+  --card-gap: 24px;
+
+  /* ---------- Layout (Live Nation) ---------- */
+  --container: 1256px;       /* centred content width */
+  --gutter: 16px;            /* side padding: 16 phone · 24 from 600px */
+  --grid-gap: 16px;          /* between cards and rows */
+  --header-h: 56px;
+  --r: 8px;                  /* rows, panels, video, inputs */
+  --footer-bg: #121212;      /* footer band, slightly lifted from black */
+  --hover: #ffffff14;        /* nav and icon hover (white 8%) */
+  --divider: #ffffff1f;
+  --fg-dim: #ffffff80;
+  --shadow-1: 0 2px 4px -1px #0003, 0 4px 5px 0 #00000024, 0 1px 10px 0 #0000001f;
+  --ease-ui: cubic-bezier(0.4, 0, 0.2, 1);   /* Live Nation hover backgrounds */
+  --dur-slide: 0.6s;                          /* carousel */
+
+  /* ---------- Motion ---------- */
+  --ease: cubic-bezier(0.26, 1, 0.48, 1);   /* the signature ease */
+  --dur: 0.5s;                               /* transforms */
+  --dur-fade: 0.075s;                        /* opacity, linear */
+  --intro-delay: 0.75s;                      /* page-load sequence starts here */
+  --parallax-small: 5svh;
+  --parallax-large: 25svh;
+
+  /* ---------- Fluid scale ----------
+     Every size follows one formula:  size = max(base × 0.8 + 100vw × base / W × 0.2, base)
+     W is the window width the scale is anchored to (375 / 768 / 1280 / 1600).
+     So type is exactly `base` at W and grows 20% as fast as the window beyond it. */
+  --W: 375;
+  --k: 0.2;
+
+  /* Base sizes in px (phone). Breakpoints below swap them. */
+  --label-b: 12;   --label-ls: var(--track-ui);
+  --body-b: 14;
+  --lede-b: 21;
+  --name-b: 24;    --name-lh: 1.15;
+  --title-b: 32;
+  --display-b: 48;
+  --hero-b: 64;    --hero-lh: 0.98;
+  --space-b: 70;            /* space under every section */
+  --label-gap-b: 75;        /* space between a section label and its big headline */
+  --link-gap-b: 70;         /* space above a section's closing link */
+  --head-gap-b: 24;         /* space under a section heading (Live Nation 24px, fluid) */
+}
+
+@media (min-width: 600px) { :root { --gutter: 24px; } }
+@media (min-width: 640px) { :root { --fs-card-title: 24px; --fs-meta: 18px; } }
+@media (min-width: 768px) {
+  :root {
+    --W: 768; --head-gap-b: 32;
+    --title-b: 64; --hero-b: 164; --hero-lh: 0.91;
+    --space-b: 120; --label-gap-b: 120; --link-gap-b: 100;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --W: 1280; --head-gap-b: 40;
+    --label-b: 16;
+    --body-b: 16; --lede-b: 32; --name-b: 46; --name-lh: 1.04;
+    --title-b: 96; --display-b: 132; --hero-b: 320; --hero-lh: 0.85;
+    --space-b: 180; --label-gap-b: 170; --link-gap-b: 160;
+  }
+}
+@media (min-width: 1600px) { :root { --W: 1600; } }
+
+/* The formula applied to each role. Use these, never raw px. */
+:root {
+  --fs-label:   max(calc(var(--label-b)   * 0.8px + 100vw * var(--label-b)   / var(--W) * var(--k)), calc(var(--label-b)   * 1px));
+  --fs-body:    max(calc(var(--body-b)    * 0.8px + 100vw * var(--body-b)    / var(--W) * var(--k)), calc(var(--body-b)    * 1px));
+  --fs-lede:    max(calc(var(--lede-b)    * 0.8px + 100vw * var(--lede-b)    / var(--W) * var(--k)), calc(var(--lede-b)    * 1px));
+  --fs-name:    max(calc(var(--name-b)    * 0.8px + 100vw * var(--name-b)    / var(--W) * var(--k)), calc(var(--name-b)    * 1px));
+  --fs-title:   max(calc(var(--title-b)   * 0.8px + 100vw * var(--title-b)   / var(--W) * var(--k)), calc(var(--title-b)   * 1px));
+  --fs-display: max(calc(var(--display-b) * 0.8px + 100vw * var(--display-b) / var(--W) * var(--k)), calc(var(--display-b) * 1px));
+  --fs-hero:    min(max(calc(var(--hero-b) * 0.8px + 100vw * var(--hero-b)   / var(--W) * var(--k)), calc(var(--hero-b)    * 1px)), 23vw);
+  --space:      max(calc(var(--space-b)     * 0.8px + 100vw * var(--space-b)     / var(--W) * var(--k)), calc(var(--space-b)     * 1px));
+  --label-gap:  max(calc(var(--label-gap-b) * 0.8px + 100vw * var(--label-gap-b) / var(--W) * var(--k)), calc(var(--label-gap-b) * 1px));
+  --link-gap:   max(calc(var(--link-gap-b)  * 0.8px + 100vw * var(--link-gap-b)  / var(--W) * var(--k)), calc(var(--link-gap-b)  * 1px));
+  --head-gap:   max(calc(var(--head-gap-b)  * 0.8px + 100vw * var(--head-gap-b)  / var(--W) * var(--k)), calc(var(--head-gap-b)  * 1px));
+  --underline-offset: max(calc(3px * 0.8 + 100vw * 3 / var(--W) * var(--k)), 3px);
+  color-scheme: dark;
+}

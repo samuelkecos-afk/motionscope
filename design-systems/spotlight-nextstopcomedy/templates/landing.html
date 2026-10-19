@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Late Laughs</title>
+<meta name="description" content="Live stand-up comedy nights in small venues near you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../spotlight.css">
+</head>
+<body>
+<!-- Starter page. Section order follows the system: sticky header → full-screen hero (two-tone headline + search)
+     → yellow strip → show cards → photo band with sign-up → numbered steps → photo band with FAQ → footer. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="logo" href="#top"><span class="logo-mark" aria-hidden="true"></span><span>Late <span class="text-gradient">Laughs</span></span></a>
+    <nav class="nav" aria-label="Main"><a href="#shows">Shows</a><a href="#how">How it works</a><a href="#faq">FAQ</a></nav>
+    <form class="search header-search" role="search" onsubmit="return false"><svg class="icon search-icon"><use href="#i-search"/></svg><input class="input" id="header-search" type="search" placeholder="City, ZIP…" aria-label="Search shows"></form>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO: full-screen media, two-tone condensed headline at the bottom, search below -->
+  <section class="hero">
+    <div class="hero-media ph ph--warm" aria-hidden="true"></div>
+    <div class="container hero-content fade-in">
+      <h1 class="t-hero">Live comedy.<br><span class="text-gradient">Your local stage.</span></h1>
+      <form class="search" role="search" onsubmit="return false">
+        <svg class="icon search-icon"><use href="#i-search"/></svg>
+        <input class="input" id="hero-search" type="search" placeholder="City, ZIP, or address…" aria-label="City, ZIP, or address">
+        <button class="btn" type="submit">Find shows</button>
+      </form>
+    </div>
+  </section>
+  <div class="strip">🎉 Join 20,000 people who laughed with us this year</div>
+
+  <!-- SHOWS: centred head, 1 / 2 / 3 column cards -->
+  <section class="section" id="shows">
+    <div class="container">
+      <div class="section-head"><h2 class="t-section">Shows near you</h2><p class="t-sub">Live comedy happening in your area</p></div>
+      <ul class="cards">
+        <li><a class="card" href="#"><div class="card-inner"><div class="card-media"><div class="ph"></div><span class="badge">🎤 Show</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>Fri, Nov 13</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>8:00 PM</span>
+          <h3 class="t-card-title">The Brewhouse Late Show</h3><span class="t-place"><svg class="icon" style="opacity:.7;color:var(--primary)"><use href="#i-pin"/></svg>Portland, OR</span></div></div></a></li>
+        <li><a class="card" href="#"><div class="card-inner"><div class="card-media"><div class="ph ph--stage"></div><span class="badge">🎤 Show</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>Sat, Nov 14</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>7:30 PM</span>
+          <h3 class="t-card-title">Open Mic Showcase</h3><span class="t-place"><svg class="icon" style="opacity:.7;color:var(--primary)"><use href="#i-pin"/></svg>Seattle, WA</span></div></div></a></li>
+        <li><a class="card" href="#"><div class="card-inner"><div class="card-media"><div class="ph ph--warm"></div><span class="badge">🎓 Class</span></div>
+          <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>Sun, Nov 15</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>6:00 PM</span>
+          <h3 class="t-card-title">Stand-Up 101: First Five Minutes</h3><span class="t-place"><svg class="icon" style="opacity:.7;color:var(--primary)"><use href="#i-pin"/></svg>Tacoma, WA</span></div></div></a></li>
+      </ul>
+      <div class="more"><a class="btn" href="#">More shows →</a></div>
+    </div>
+  </section>
+
+  <!-- SIGN-UP BAND: blurred photo, eyebrow + condensed headline + form -->
+  <section class="band" aria-labelledby="signup-title">
+    <div class="band-photo ph ph--warm" aria-hidden="true"></div>
+    <div class="container narrow band-inner">
+      <p class="t-eyebrow" style="margin-bottom:16px">Find your next comedy night</p>
+      <h2 class="t-section" id="signup-title" style="line-height:.95">Join our list for<br>exclusive offers</h2>
+      <p class="t-sub" style="margin:16px auto 0;max-width:28rem">Updates about shows, classes, or both in your area.</p>
+      <form class="form" data-signup novalidate>
+        <input class="input" id="su-email" type="email" placeholder="Email address *" aria-label="Email address" required>
+        <input class="input" id="su-zip" type="text" placeholder="ZIP / postal code *" aria-label="ZIP or postal code" required>
+        <label class="t-small" for="su-topic">Send me updates about</label>
+        <select class="select" id="su-topic"><option>Shows and classes</option><option>Shows only</option><option>Classes only</option></select>
+        <button class="btn btn--block btn--glow" type="submit">Subscribe</button>
+        <p class="t-small msg" role="status" aria-live="polite"></p>
+        <p class="t-tiny" style="text-align:center">No spam. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- STEPS: numbered process, 1 / 2 / 4 columns -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section-head"><p class="t-eyebrow">Simple &amp; easy</p><h2 class="t-section">How it works</h2></div>
+      <ol class="steps">
+        <li class="step"><span class="step-num">1</span><div class="step-media"><div class="ph"></div></div><h3 class="t-step">Find a show near you</h3></li>
+        <li class="step"><span class="step-num">2</span><div class="step-media"><div class="ph ph--stage"></div></div><h3 class="t-step">Book tickets in a minute</h3></li>
+        <li class="step"><span class="step-num">3</span><div class="step-media"><div class="ph ph--warm"></div></div><h3 class="t-step">Get your tickets by email</h3></li>
+        <li class="step"><span class="step-num">4</span><div class="step-media"><div class="ph"></div></div><h3 class="t-step">Show up and laugh</h3></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ BAND -->
+  <section class="band" id="faq" aria-labelledby="faq-title">
+    <div class="band-photo ph ph--stage" aria-hidden="true"></div>
+    <div class="container narrow band-inner">
+      <div class="section-head"><p class="t-eyebrow">Got questions?</p><h2 class="t-section" id="faq-title">FAQ</h2></div>
+      <div class="faq">
+        <details><summary><span>Is there a drink minimum?</span><svg class="chev"><use href="#i-chev"/></svg></summary><p class="answer t-body">Most shows have none. If a venue sets one, it is listed on the show page.</p></details>
+        <details><summary><span>Is there an age requirement?</span><svg class="chev"><use href="#i-chev"/></svg></summary><p class="answer t-body">Some venues are 21+. Each show page lists its age policy.</p></details>
+        <details><summary><span>What is the refund policy?</span><svg class="chev"><use href="#i-chev"/></svg></summary><p class="answer t-body">Full refunds up to the start of the show.</p></details>
+      </div>
+      <div class="faq-more"><a class="link" href="#">View all FAQs →</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a class="logo" href="#top"><span>Late <span class="text-gradient">Laughs</span></span></a><p class="t-small">Live stand-up shows across the country. Find your next laugh.</p><div class="socials" aria-hidden="true"><span></span><span></span><span></span></div></div>
+      <div class="footer-col"><h3 class="t-col-head">Shows</h3><ul class="t-small"><li><a href="#">Upcoming shows</a></li><li><a href="#">About us</a></li><li><a href="#">Gift cards</a></li></ul></div>
+      <div class="footer-col"><h3 class="t-col-head">Support</h3><ul class="t-small"><li><a href="#">FAQ</a></li><li><a href="#">Contact</a></li><li><a href="#">Refunds</a></li></ul></div>
+      <div class="footer-col"><h3 class="t-col-head">Legal</h3><ul class="t-small"><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Cookies</a></li></ul></div>
+    </div>
+    <p class="footer-base">© 2026 Late Laughs. All rights reserved.</p>
+  </div>
+</footer>
+<script src="../spotlight.js"></script>
+</body>
+</html>

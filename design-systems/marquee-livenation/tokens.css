@@ -1,0 +1,78 @@
+/* =========================================================================
+   Marquee design system · tokens
+   Measured from livenation.com.au (MotionScope scan + live stylesheets, Oct 2026).
+   Breakpoints follow the site's Material UI setup: 600 · 900 · 1256 (container).
+   ========================================================================= */
+
+:root {
+  /* ---------- Colour ---------- */
+  --bg: #000000;              /* page */
+  --paper: #202020;           /* cards, rows, panels */
+  --paper-hover: #2a2a2a;
+  --fg: #f9f9f9;              /* text */
+  --fg-strong: #ffffff;       /* header, buttons */
+  --fg-dim: #ffffff80;        /* icons, disabled (50%) */
+  --fg-lighter: #444444;
+  --red: #e21836;             /* primary: buttons, chevrons, active dot, active outline */
+  --red-light: #e7465e;
+  --red-dark: #9e1025;        /* button hover */
+  --yellow: #ffe600;          /* accent (badges, highlights; use sparingly) */
+  --ice: #d6e7f9;             /* secondary accent */
+  --grey: #666666;
+  --divider: #ffffff1f;       /* 12% white */
+  --hover: #ffffff14;         /* 8% white: nav and list hover */
+  --info: #5facff;  --success: #1a873f;  --error: #ed5067;  --warning: #ffa726;
+  --footer-bg: #121212;       /* footer band (slightly lifted from the black page) */
+
+  /* ---------- Font (free on Google Fonts) ---------- */
+  --font: "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --tracking: 0.15px;         /* on almost every text style */
+  --tracking-ui: 0.4px;       /* small bold UI labels */
+
+  /* ---------- Type scale (phone; steps up below) ---------- */
+  --fs-display: 28px;  --lh-display: 36px;   /* header1: hero names, banner title → 38/44 */
+  --fs-section: 21px;  --lh-section: 28px;   /* header2: section titles → 28/36 */
+  --fs-title: 19px;    --lh-title: 26px;     /* header3: event card titles, hero subtitle → 21/28 */
+  --fs-h4: 16px;       --lh-h4: 24px;        /* header4: nav, footer heads */
+  --fs-h5: 14px;       --lh-h5: 20px;        /* header5: card names, row names */
+  --fs-large: 19px;    --lh-large: 26px;     /* largeParagraph → 20/29 → 21/28 */
+  --fs-p: 16px;        --lh-p: 25px;         /* paragraph */
+  --fs-small: 14px;    --lh-small: 20px;
+  --fs-tiny: 12px;     --lh-tiny: 16px;
+
+  /* ---------- Layout ---------- */
+  --container: 1256px;
+  --gutter: 16px;             /* 16 phone · 24 ≥600 */
+  --section-gap: 40px;        /* space between sections: 40 phone · 56 ≥900 */
+  --title-gap: 24px;          /* under section titles (1.5rem) */
+  --grid-gap: 16px;
+  --unit: 8px;                /* the spacing unit (MUI spacing) */
+
+  /* ---------- Shape & depth ---------- */
+  --r: 8px;                   /* cards, rows, panels, inputs */
+  --r-button: 6px;
+  --r-pill: 46px;             /* header search */
+  --shadow-1: 0 2px 4px -1px #0003, 0 4px 5px 0 #00000024, 0 1px 10px 0 #0000001f;
+  --shadow-2: 0 3px 5px -1px #0003, 0 6px 10px 0 #00000024, 0 1px 18px 0 #0000001f;
+
+  /* ---------- Motion ---------- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);   /* Material standard: almost everything */
+  --dur-fast: 0.15s;   /* nav hover backgrounds */
+  --dur-shadow: 0.25s; /* card shadows */
+  --dur: 0.3s;         /* buttons, transforms */
+  --dur-slide: 0.6s;   /* carousel slide dimming (filter, ease) */
+  --dur-ripple: 0.55s; /* click ripple */
+}
+
+@media (min-width: 600px) {
+  :root { --gutter: 24px; --fs-large: 20px; --lh-large: 29px; }
+}
+@media (min-width: 900px) {
+  :root {
+    --fs-display: 38px; --lh-display: 44px;
+    --fs-section: 28px; --lh-section: 36px;
+    --fs-title: 21px;   --lh-title: 28px;
+    --fs-large: 21px;   --lh-large: 28px;
+    --section-gap: 56px;
+  }
+}

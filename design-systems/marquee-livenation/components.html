@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marquee Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;0,900;1,900&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="marquee.css">
+<style>
+  /* Reference-page helpers only. */
+  .spec { display: grid; gap: 6px; padding-block: 16px; border-top: 1px solid var(--divider); }
+  .spec code { font: 12px/1.4 ui-monospace, Menlo, monospace; color: var(--fg-dim); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+  .swatch div { aspect-ratio: 3 / 2; border-radius: var(--r); border: 1px solid var(--divider); margin-bottom: 8px; }
+  .demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></symbol></svg>
+<header class="site-header"><div class="container bar"><span class="wordmark">Marquee</span><nav class="nav t-h4" style="display:flex"><a href="templates/landing.html">Open the template</a></nav></div></header>
+<main class="container">
+  <section class="section"><h2 class="t-section">Typography · Noto Sans</h2>
+    <div class="spec"><p class="t-display">Display name</p><code>.t-display · 28/36 → 38/44 (≥900) · 700</code></div>
+    <div class="spec"><p class="t-section" style="margin:0">Section title</p><code>.t-section · 21/28 → 28/36 · 700 · 24px below</code></div>
+    <div class="spec"><p class="t-title">Event card title</p><code>.t-title · 19/26 → 21/28 · 700</code></div>
+    <div class="spec"><p class="t-h4">Header 4 · nav · footer heads</p><code>.t-h4 · 16/24 · 700</code></div>
+    <div class="spec"><p class="t-name">Artist name</p><code>.t-name · 14/20 · 700 · +0.4px</code></div>
+    <div class="spec"><p class="t-large">Large paragraph for banners and video titles.</p><code>.t-large · 19/26 → 20/29 → 21/28 · 400</code></div>
+    <div class="spec"><p class="t-p">Paragraph for statements and notes.</p><code>.t-p · 16/25 · 400</code></div>
+    <div class="spec"><p class="t-date">20 Nov 2026</p><code>.t-date · 14/20 · CAPS</code></div>
+  </section>
+  <section class="section"><h2 class="t-section">Colour</h2>
+    <div class="swatches t-small">
+      <div class="swatch"><div style="background:var(--bg)"></div>Black #000</div>
+      <div class="swatch"><div style="background:var(--paper)"></div>Paper #202020</div>
+      <div class="swatch"><div style="background:var(--fg)"></div>Text #f9f9f9</div>
+      <div class="swatch"><div style="background:var(--red)"></div>Red #e21836</div>
+      <div class="swatch"><div style="background:var(--red-dark)"></div>Red hover #9e1025</div>
+      <div class="swatch"><div style="background:var(--yellow)"></div>Accent #ffe600</div>
+    </div>
+  </section>
+  <section class="section"><h2 class="t-section">Buttons</h2><div class="demo"><a class="btn" href="#">Buy Tickets</a><a class="btn btn--outline" href="#">Outline</a><svg class="chevron"><use href="#i-chev"/></svg></div></section>
+  <section class="section"><h2 class="t-section">Artist cards</h2>
+    <ul class="grid-4">
+      <li><a class="card" href="#"><div class="card-media"><div class="ph"></div></div><div class="card-body"><span class="t-name">Hover me</span><svg class="chevron"><use href="#i-chev"/></svg></div></a></li>
+      <li><a class="card" href="#"><div class="card-media"><div class="ph ph--b"></div></div><div class="card-body"><span class="t-name">Second artist</span><svg class="chevron"><use href="#i-chev"/></svg></div></a></li>
+      <li><a class="card" href="#"><div class="card-media"><div class="ph ph--c"></div></div><div class="card-body"><span class="t-name">Third artist</span><svg class="chevron"><use href="#i-chev"/></svg></div></a></li>
+      <li><a class="card" href="#"><div class="card-media"><div class="ph"></div></div><div class="card-body"><span class="t-name">Fourth artist</span><svg class="chevron"><use href="#i-chev"/></svg></div></a></li>
+    </ul>
+  </section>
+  <section class="section"><h2 class="t-section">Rows</h2>
+    <ul class="rows">
+      <li><a class="row" href="#"><span class="row-thumb"><span class="ph"></span></span><span class="t-name clamp-1">List row</span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+      <li><a class="row" href="#"><span class="row-thumb"><span class="ph ph--b"></span></span><span class="row-text"><span class="t-name clamp-1">Tour row with a long name that truncates</span><span class="t-date">21 Nov 2026</span><span class="t-tiny clamp-1">Sydney, Enmore Theatre</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+      <li><a class="row" href="#"><span class="row-thumb"><span class="ph ph--c"></span></span><span class="t-name clamp-1">Third row</span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+    </ul>
+  </section>
+</main>
+<section class="banner"><div class="ph ph--crowd"></div><div class="container banner-inner"><h2 class="t-display">Banner title</h2><p class="t-large">Large paragraph over a darkened photo.</p><a class="btn" href="#">Sign Up Now</a></div></section>
+<script src="marquee.js"></script>
+</body>
+</html>

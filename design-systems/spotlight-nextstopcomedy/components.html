@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spotlight Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="spotlight.css">
+<style>
+  /* Reference-page helpers only. */
+  .spec { display: grid; gap: 6px; padding-block: 18px; border-top: 1px solid var(--border-soft); }
+  .spec code { font: 12px/1.4 ui-monospace, Menlo, monospace; color: var(--muted-fg); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+  .swatch div { aspect-ratio: 3 / 2; border-radius: 12px; border: 1px solid var(--border-soft); margin-bottom: 8px; }
+  .row-demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container bar"><span class="logo"><span class="logo-mark"></span><span>Spot<span class="text-gradient">light</span></span></span><nav class="nav" style="display:flex"><a href="templates/landing.html">Open the template</a></nav></div></header>
+<main>
+  <section class="section"><div class="container">
+    <div class="section-head"><p class="t-eyebrow">Type roles</p><h2 class="t-section">Typography</h2><p class="t-sub">Resize the window: sizes step up at 640, 768, 1024 and 1280px.</p></div>
+    <div class="spec"><p class="t-hero">Live comedy.<br><span class="text-gradient">Your venues.</span></p><code>.t-hero · Anton · 48 → 60 → 72 → 96 → 128px · CAPS · lh 0.9 · second line .text-gradient</code></div>
+    <div class="spec"><p class="t-section">Shows near you</p><code>.t-section · Anton · 30 → 36 → 48 → 60px · CAPS</code></div>
+    <div class="spec"><p class="t-eyebrow">Simple &amp; easy</p><code>.t-eyebrow · Inter 600 · 12 → 14px · CAPS · +0.3em · cyan</code></div>
+    <div class="spec"><p class="t-card-title">Card title, Inter bold</p><code>.t-card-title · 20 → 24px · 700</code></div>
+    <div class="spec"><p class="t-meta">Fri, Nov 13 · 8:00 PM</p><code>.t-meta · 16 → 18px · 700 · cyan</code></div>
+    <div class="spec"><p class="t-sub">Live comedy happening in your area</p><code>.t-sub · 14 → 16px · grey</code></div>
+    <div class="spec"><p class="t-body">Answers and body copy: Inter 16px on a 28px line.</p><code>.t-body</code></div>
+  </div></section>
+  <section class="section"><div class="container">
+    <div class="section-head"><p class="t-eyebrow">Colour</p><h2 class="t-section">Palette</h2></div>
+    <div class="swatches t-small">
+      <div class="swatch"><div style="background:var(--bg)"></div>Black #000</div>
+      <div class="swatch"><div style="background:var(--fg)"></div>Text #f2f2f2</div>
+      <div class="swatch"><div style="background:var(--primary)"></div>Cyan #00ece7</div>
+      <div class="swatch"><div style="background:var(--gradient)"></div>Gradient</div>
+      <div class="swatch"><div style="background:var(--card-bg);border:3px solid var(--card-border)"></div>Card #002120</div>
+      <div class="swatch"><div style="background:var(--yellow)"></div>Strip #ffd700</div>
+    </div>
+  </div></section>
+  <div class="strip">Announcement strip · .strip</div>
+  <section class="section"><div class="container">
+    <div class="section-head"><p class="t-eyebrow">Components</p><h2 class="t-section">Buttons &amp; cards</h2></div>
+    <div class="row-demo" style="justify-content:center;margin-bottom:40px"><a class="btn" href="#">More shows →</a><a class="btn btn--glow" href="#">Subscribe</a><a class="btn btn--ghost" href="#">Ghost</a><span class="badge">🎤 Show</span><a class="link" href="#">View all →</a></div>
+    <ul class="cards">
+      <li><a class="card" href="#"><div class="card-inner"><div class="card-media"><div class="ph"></div><span class="badge">🎤 Show</span></div><div class="card-body"><span class="t-meta">Fri, Nov 13</span><span class="t-meta">8:00 PM</span><h3 class="t-card-title">Hover me</h3><span class="t-place">Portland, OR</span></div></div></a></li>
+      <li><a class="card" href="#"><div class="card-inner"><div class="card-media"><div class="ph ph--stage"></div></div><div class="card-body"><span class="t-meta">Sat, Nov 14</span><h3 class="t-card-title">Lift, glow and zoom</h3><span class="t-place">Seattle, WA</span></div></div></a></li>
+      <li><a class="card" href="#"><div class="card-inner"><div class="card-media"><div class="ph ph--warm"></div></div><div class="card-body"><span class="t-meta">Sun, Nov 15</span><h3 class="t-card-title">Third card</h3><span class="t-place">Tacoma, WA</span></div></div></a></li>
+    </ul>
+  </div></section>
+  <section class="band"><div class="band-photo ph ph--warm"></div><div class="container narrow band-inner">
+    <div class="section-head"><p class="t-eyebrow">Photo band + FAQ</p><h2 class="t-section">FAQ</h2></div>
+    <div class="faq"><details open><summary><span>Open panel: cyan border and glow</span><svg class="chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary><p class="answer t-body">Answer text sits under a faint cyan rule.</p></details>
+    <details><summary><span>Closed panel</span><svg class="chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M19 9l-7 7-7-7"/></svg></summary><p class="answer t-body">Hidden answer.</p></details></div>
+  </div></section>
+</main>
+</body>
+</html>

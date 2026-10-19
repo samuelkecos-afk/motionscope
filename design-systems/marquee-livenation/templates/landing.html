@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Headline Tours</title>
+<meta name="description" content="Concert tickets, tours and festivals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;0,900;1,900&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../marquee.css">
+</head>
+<body>
+<!-- Starter page. Section order follows the system: header → hero carousel → 4-up artist cards → 3-up event cards
+     → watch (video + playlist) → list rows → tour rows → photo banner → statement → 5-column footer. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="wordmark" href="#top">Headline</a>
+    <nav class="nav t-h4" aria-label="Main"><a href="#">All Concerts &amp; Events</a><a href="#">Festivals</a><a href="#">VIP Experiences</a><a href="#">Your Favourites</a></nav>
+    <label class="header-search"><input id="header-search" type="search" placeholder="Search events…" aria-label="Search events"><svg class="icon"><use href="#i-search"/></svg></label>
+    <a class="signin t-small" href="#"><svg class="icon"><use href="#i-user"/></svg><span>Sign In/Register</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO CAROUSEL -->
+  <section class="carousel" aria-roledescription="carousel" aria-label="Featured tours">
+    <div class="carousel-track">
+      <div class="slide"><div class="slide-media"><div class="ph"></div></div><div class="slide-info"><h2 class="t-display">The Night Shift</h2><p class="t-title">Just Announced</p><a class="btn" href="#">Get Tickets</a></div></div>
+      <div class="slide"><div class="slide-media"><div class="ph ph--b"></div></div><div class="slide-info"><h2 class="t-display">Harbour Lights</h2><p class="t-title">On Sale Now</p><a class="btn" href="#">Get Tickets</a></div></div>
+      <div class="slide"><div class="slide-media"><div class="ph ph--c"></div></div><div class="slide-info"><h2 class="t-display">Summer Sessions</h2><p class="t-title">Festival · Feb 2027</p><a class="btn" href="#">Get Tickets</a></div></div>
+    </div>
+    <button class="carousel-arrow prev" type="button" aria-label="Previous"><svg class="icon"><use href="#i-left"/></svg></button>
+    <button class="carousel-arrow next" type="button" aria-label="Next"><svg class="icon"><use href="#i-chev"/></svg></button>
+    <div class="dots"></div>
+  </section>
+
+  <div class="container">
+    <!-- 4-UP ARTIST CARDS -->
+    <section class="section"><h2 class="t-section">Just Announced</h2>
+      <ul class="grid-4">
+        <li><a class="card" href="#"><div class="card-media"><div class="ph"></div></div><div class="card-body"><span class="t-name">The Night Shift</span><svg class="chevron"><use href="#i-chev"/></svg></div></a></li>
+        <li><a class="card" href="#"><div class="card-media"><div class="ph ph--b"></div></div><div class="card-body"><span class="t-name">Harbour Lights</span><svg class="chevron"><use href="#i-chev"/></svg></div></a></li>
+        <li><a class="card" href="#"><div class="card-media"><div class="ph ph--c"></div></div><div class="card-body"><span class="t-name">Mara Vale</span><svg class="chevron"><use href="#i-chev"/></svg></div></a></li>
+        <li><a class="card" href="#"><div class="card-media"><div class="ph"></div></div><div class="card-body"><span class="t-name">Static Bloom</span><svg class="chevron"><use href="#i-chev"/></svg></div></a></li>
+      </ul>
+    </section>
+
+    <!-- 3-UP EVENT CARDS -->
+    <section class="section"><h2 class="t-section">What's On</h2>
+      <ul class="grid-3">
+        <li><div class="card event"><div class="card-media"><div class="ph ph--b"></div></div><div class="card-body"><span class="t-title">Harbour Lights</span><a class="btn" href="#">Buy Tickets</a></div></div></li>
+        <li><div class="card event"><div class="card-media"><div class="ph ph--c"></div></div><div class="card-body"><span class="t-title">Mara Vale</span><a class="btn" href="#">Buy Tickets</a></div></div></li>
+        <li><div class="card event"><div class="card-media"><div class="ph"></div></div><div class="card-body"><span class="t-title">Static Bloom</span><a class="btn" href="#">Buy Tickets</a></div></div></li>
+      </ul>
+    </section>
+
+    <!-- WATCH: video + playlist -->
+    <section class="section"><h2 class="t-section">Watch</h2>
+      <div class="watch">
+        <div class="video"><div class="ph ph--crowd"></div><p class="video-title">Harbour Lights · Live at the Bowl</p><span class="play"><svg class="icon" style="width:32px;height:32px"><use href="#i-play"/></svg></span></div>
+        <ul class="playlist">
+          <li><a class="clip" href="#" aria-current="true"><span class="thumb"><span class="ph ph--crowd"></span></span><span class="t-tiny clamp-3" style="font-weight:700">Harbour Lights · Live at the Bowl</span></a></li>
+          <li><a class="clip" href="#"><span class="thumb"><span class="ph"></span></span><span class="t-tiny clamp-3" style="font-weight:700">Mara Vale · Official video</span></a></li>
+          <li><a class="clip" href="#"><span class="thumb"><span class="ph ph--b"></span></span><span class="t-tiny clamp-3" style="font-weight:700">Static Bloom · Tour diary</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- LIST ROWS -->
+    <section class="section"><h2 class="t-section">On Sale Now</h2>
+      <ul class="rows">
+        <li><a class="row" href="#"><span class="row-thumb"><span class="ph"></span></span><span class="t-name clamp-1">The Night Shift</span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#"><span class="row-thumb"><span class="ph ph--b"></span></span><span class="t-name clamp-1">Harbour Lights</span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#"><span class="row-thumb"><span class="ph ph--c"></span></span><span class="t-name clamp-1">Mara Vale</span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+      </ul>
+    </section>
+
+    <!-- TOUR ROWS: name, date, venue -->
+    <section class="section"><h2 class="t-section">Touring Now</h2>
+      <ul class="rows">
+        <li><a class="row" href="#"><span class="row-thumb"><span class="ph"></span></span><span class="row-text"><span class="t-name clamp-1">The Night Shift: Midnight Tour</span><span class="t-date">20 Nov 2026</span><span class="t-tiny clamp-1">Melbourne, Forum Theatre</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#"><span class="row-thumb"><span class="ph ph--b"></span></span><span class="row-text"><span class="t-name clamp-1">Harbour Lights: Coastline Tour</span><span class="t-date">21 Nov 2026</span><span class="t-tiny clamp-1">Sydney, Enmore Theatre</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#"><span class="row-thumb"><span class="ph ph--c"></span></span><span class="row-text"><span class="t-name clamp-1">Mara Vale: Live</span><span class="t-date">23 Nov 2026</span><span class="t-tiny clamp-1">Brisbane, The Tivoli</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- BANNER -->
+  <section class="banner"><div class="ph ph--crowd"></div>
+    <div class="container banner-inner"><h2 class="t-display">Sign up for early ticket access</h2><p class="t-large">Be the first to hear about new tours, ticket releases and special offers.</p><a class="btn" href="#">Sign Up Now</a></div>
+  </section>
+
+  <p class="container statement t-p">A centred statement band sits between the banner and the footer: use it for an acknowledgement, a mission line or a legal note.</p>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid t-small">
+      <div><h3 class="t-h4">About</h3><ul><li><a href="#">Get Help</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+      <div><h3 class="t-h4">Our Partners</h3><ul><li><a href="#">Partner one</a></li><li><a href="#">Partner two</a></li><li><a href="#">Partner three</a></li></ul></div>
+      <div><h3 class="t-h4">Charity</h3><ul><li><a href="#">Support Act</a></li><li><a href="#">Music Cares</a></li></ul></div>
+      <div><h3 class="t-h4">Quick Links</h3><ul><li><a href="#">All Concerts</a></li><li><a href="#">Membership</a></li><li><a href="#">Festivals</a></li></ul></div>
+      <div><h3 class="t-h4">Location</h3><select class="select" id="footer-location" aria-label="Location"><option>Australia</option><option>New Zealand</option></select><h3 class="t-h4" style="margin-top:20px">Follow</h3><div class="socials" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div>
+    </div>
+    <p class="footer-base t-p">© 2026 Headline Tours</p>
+  </div>
+</footer>
+<script src="../marquee.js"></script>
+</body>
+</html>

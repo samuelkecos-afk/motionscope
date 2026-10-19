@@ -1,0 +1,91 @@
+/* =========================================================================
+   Spotlight design system · tokens
+   Measured from nextstopcomedy.com (MotionScope scan + live stylesheets, Oct 2026).
+   Breakpoints follow Tailwind: sm 640 · md 768 · lg 1024 · xl 1280.
+   ========================================================================= */
+
+:root {
+  /* ---------- Colour ---------- */
+  --bg: #000000;                 /* page */
+  --fg: #f2f2f2;                 /* text */
+  --fg-80: #f2f2f2cc;            /* secondary text on cards (80%) */
+  --fg-70: #f2f2f2b3;            /* footer links (70%) */
+  --muted: #121212;              /* muted surfaces */
+  --muted-fg: #aeaeae;           /* subtitles, nav links, captions */
+  --card: #090909;
+  --surface: #030303;
+  --surface-raised: #0b0b0b;
+  --primary: #00ece7;            /* neon cyan: buttons, dates, eyebrows, numbers */
+  --primary-fg: #020202;         /* text on cyan */
+  --neon: #48fbf6;
+  --gradient: linear-gradient(135deg, #8ffaf6, #00ece7, #00d1d9);   /* second hero line */
+  --card-bg: #002120;            /* show cards: deep teal */
+  --card-border: #00e0d180;      /* 3px teal border, 50% */
+  --card-border-hover: #00e0d1cc;
+  --yellow: #ffd700;             /* announcement strip */
+  --border: #ffffff4d;           /* 30% white */
+  --border-soft: #ffffff14;      /* 8% white */
+  --input: #ffffff66;
+  --glow: #00ece74d;
+  --danger: #f94144;  --success: #5edb81;  --warning: #fabb41;  --info: #70adfb;
+
+  /* ---------- Fonts (both free on Google Fonts) ---------- */
+  --font-display: "Anton", Impact, "Arial Narrow", sans-serif;   /* condensed CAPS headlines */
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---------- Type scale (phone values; breakpoints below) ---------- */
+  --fs-hero: 48px;        /* text-5xl → 6xl → 7xl → 8xl → 9xl */
+  --fs-section: 30px;     /* text-3xl → 4xl → 5xl → 6xl */
+  --fs-card-title: 20px;  /* text-xl → 2xl */
+  --fs-meta: 16px;        /* text-base → lg (card dates, times, places) */
+  --fs-eyebrow: 12px;     /* text-xs → sm */
+  --fs-sub: 14px;         /* text-sm → base (section subtitle, strip) */
+  --fs-step: 18px;        /* text-lg */
+  --fs-body: 16px;        /* text-base, line height 28px in answers */
+  --fs-small: 14px;       /* text-sm (buttons, footer, links) */
+  --fs-tiny: 10px;        /* text-[10px] → xs (legal lines) */
+
+  /* ---------- Layout ---------- */
+  --container: 1280px;    /* max-w-7xl */
+  --narrow: 768px;        /* max-w-3xl: sign-up form, FAQ */
+  --gutter: 16px;         /* px-4 → sm:px-6 (24) → lg:px-8 (32) */
+  --section-y: 48px;      /* py-12 → sm:py-20 (80) */
+  --band-y: 64px;         /* py-16 → sm:py-24 (96): photo bands (sign-up, FAQ) */
+  --head-gap: 40px;       /* under centred section heads: mb-10 → sm:mb-14 (56) */
+  --grid-gap: 24px;       /* gap-6 */
+
+  /* ---------- Shape ---------- */
+  --r-card: 16px;         /* rounded-2xl: show cards */
+  --r-panel: 12px;        /* rounded-xl: FAQ items, step images */
+  --r-input: 10px;        /* rounded-lg: inputs, search, primary CTA */
+  --r-button: 6px;        /* rounded-md: buttons */
+  --r-pill: 9999px;       /* badges, step numbers */
+
+  /* ---------- Shadows & glow ---------- */
+  --shadow-card: 0 4px 20px #0006, 0 0 12px #00e0d11f;
+  --shadow-card-hover: 0 8px 40px #0009, 0 0 24px #00e0d140;
+  --shadow-glow-button: 0 0 15px #00ece74d, 0 0 40px #00ece71a, inset 0 1px #ffffff1a;
+  --shadow-open: 0 0 20px -4px #00ece733;
+  --shadow-number: 0 10px 15px -3px #00ece733, 0 4px 6px -4px #00ece733;
+
+  /* ---------- Motion ---------- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);           /* Tailwind default: colours, small UI */
+  --ease-card: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* card lift */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --dur-fast: 0.15s;
+  --dur: 0.3s;
+  --dur-card: 0.5s;
+  --dur-image: 0.7s;
+  --dur-fade: 1s;          /* hero video / poster crossfade */
+}
+
+@media (min-width: 640px) {
+  :root {
+    --fs-hero: 60px; --fs-section: 36px; --fs-card-title: 24px; --fs-meta: 18px;
+    --fs-eyebrow: 14px; --fs-sub: 16px; --fs-tiny: 12px;
+    --gutter: 24px; --section-y: 80px; --band-y: 96px; --head-gap: 56px;
+  }
+}
+@media (min-width: 768px) { :root { --fs-hero: 72px; --fs-section: 48px; } }
+@media (min-width: 1024px) { :root { --fs-hero: 96px; --fs-section: 60px; --gutter: 32px; } }
+@media (min-width: 1280px) { :root { --fs-hero: 128px; } }

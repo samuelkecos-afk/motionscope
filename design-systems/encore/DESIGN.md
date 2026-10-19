@@ -6,44 +6,56 @@ A remix of **Headliner** in which the **layout also follows Live Nation**.
 |---|---|---|
 | **Layout** | livenation.com.au | Black page, content centred in a **1256px container**, sticky header with nav + pill search + sign in, **hero carousel** (next slide peeks in, dimmed), **4-up and 3-up card grids**, **video + playlist**, **3-column list rows**, full-width **photo banner**, centred **statement**, **5-column footer** on `#121212` |
 | **Colour and font** | livenation.com.au | Black, charcoal `#202020`, white `#f9f9f9`, **red `#e21836`** for actions, yellow badges. **Noto Sans** 700 / 400, italic 900 wordmark |
-| **Text sizes, hierarchy, spacing, scroll** | warmnfuzzy.tv | The fluid type scale, CAPS label above each big heading, 70 → 180px between sections, scroll reveals, Lenis smooth scroll, page-load sequence, rolling hover labels |
+| **Text sizes, hierarchy, spacing, scroll** | warmnfuzzy.tv | Giant CAPS hero headline, the fluid type scale, hairline + CAPS label + big gap + CAPS display heading on every section, 70 → 180px under each section, bold body text, the hero sinking away, the statement and footer rising in, parallax photos, Lenis smooth scroll, page-load sequence, rolling labels, giant footer wordmark |
 | **Cards** | nextstopcomedy.com | 16:9 image with a pill badge, 3px border, 16px corners, glow; on hover the card lifts and grows, the image zooms and the title turns red |
 
 Follow every **Must**.
 
 ---
 
-## 1. Page structure (Live Nation)
+## 1. Page structure (Live Nation layout)
 
-- **Must:** All content sits in the centred `.container` (max **1256px**, sides **16px** on phones, **24px** from 600px). Only the hero carousel, the photo banner and the footer band run full width.
-- **Must:** Everything after the hero goes inside `.page-body` (a solid black layer), so the hero slides underneath it when you scroll.
-- **Must:** Each section starts with a **section head**: a small CAPS label (`.t-label .tint`) above a **big title** (`.t-title`), with an optional "See all" link on the right (`.section-row`).
+- **Must:** Content sits in the centred `.container` (max **1256px**, sides **16px** on phones, **24px** from 600px). Section bands, the carousel, the banner, the footer, its wordmark and its hairlines run full width.
+- **Must:** The page opens with the warmnfuzzy **hero** (giant CAPS headline + hero foot) followed directly by the Live Nation **carousel**. Both sit in one `data-scroll="persist"` wrapper; everything after goes in `.page-body` so the hero sinks underneath it.
 - Section order:
 
 | # | Section | Component | Columns (phone → desktop) |
 |---|---|---|---|
 | 1 | Header | Red italic wordmark, CAPS nav, pill search, sign in | Nav and search hide under 1100px |
-| 2 | Hero | `.carousel`: image + info panel (label, name, red button) | Stacked → 63% image / 37% panel, next slide peeks in at 12% |
-| 3 | Featured | `.grid-4` of cards: badge, date, title, chevron | **2 → 4** |
-| 4 | Catalogue | `.grid-3` of cards: date, time, title, place, button | 1 → 2 (≥600) → 3 (≥900) |
-| 5 | Watch | `.watch`: 16:9 video + playlist (active clip outlined red) | Stacked, playlist scrolls sideways → video + vertical list |
-| 6 | List | `.rows`: 128px thumb, name, chevron | 1 → 3 |
-| 7 | Dates | `.rows` with `.row-text`: name, red CAPS date, detail | 1 → 3 |
-| 8 | Banner | `.banner`: full-width photo with parallax, 50% veil, centred title, lede, sign-up form | |
-| 9 | Statement | `.statement`: centred lede | |
-| 10 | Footer | `.site-footer`: 4 link columns + a wide column (select, socials), wordmark + © under a divider | 2 → 5 |
+| 2 | Hero | `.hero`: giant CAPS headline revealed line by line, hairline, name + buttons | |
+| 3 | Carousel | `.carousel`: image + info panel (label, name, button) | Stacked → 63% image / 37% panel, next slide peeks in |
+| 4 | Featured | `.grid-4` cards: badge, date, title, chevron | **2 → 4** |
+| 5 | Catalogue | `.grid-3` cards: date, time, title, place, button | 1 → 2 (≥600) → 3 (≥900) |
+| 6 | Watch | `.watch`: 16:9 video + playlist | Stacked → video + vertical list |
+| 7 | List | `.rows`: thumb, name, chevron | 1 → 3 |
+| 8 | Dates | `.rows` with `.row-text`: name, red CAPS date, detail | 1 → 3 |
+| 9 | Banner | `.banner`: photo, veil, CAPS label, centred title, sign-up | |
+| 10 | Statement | `.section.statement`: CAPS label, centred title | |
+| 11 | Footer | Contact row, 5 link columns, **giant red wordmark**, social links + © | 2 → 5 |
 
-## 2. Spacing (warmnfuzzy)
+## 2. Hierarchy and spacing (warmnfuzzy)
 
-| Token | Phone → tablet (≥768) → desktop (≥1280) | Use |
-|---|---|---|
-| `--space` | **70 → 120 → 180px** | Between sections, around the banner and statement |
-| `--head-gap` | **24 → 32 → 40px** | Under a section head |
-| label → title | 16px, fluid | Inside the section head |
-| `--card-gap` | 24px (12px for 4-up on phones) | Between cards |
-| `--grid-gap` | 16px | Between rows and playlist clips |
+Every section is built the same way, exactly as on warmnfuzzy:
 
-All spacing grows gently above each anchor width with the same formula as the type.
+```html
+<section class="section"><div class="container">
+  <p class="t-label">Small CAPS label. One line of context.</p>
+  <div class="head-row"><h2 class="t-display">Section name</h2><a class="u-link t-label" href="#">See all</a></div>
+  … grid / rows / video …
+</div></section>
+```
+
+| Step | Size: phone → tablet (≥768) → desktop (≥1280) |
+|---|---|
+| Hairline on top of every section | 1px white 12%, full width |
+| CAPS label, from the hairline | **16px** |
+| Label → display heading (`--label-gap`) | **75 → 120 → 170px** |
+| Heading → content | **16px** |
+| Content → next hairline (`--space`) | **70 → 120 → 180px** |
+| Above a closing link (`--link-gap`) | **70 → 100 → 160px** |
+
+- **Must:** Section headings are **`.t-display` CAPS**, with any link label on the same baseline. Statement and banner titles are `.t-title` (sentence case).
+- **Must:** Body text is **bold (700) with 1.22 line height**; only `.t-body` copy is regular (400).
 
 ## 3. Typography (Noto Sans, warmnfuzzy sizes)
 
@@ -51,18 +63,17 @@ Formula: **size = max(base × 0.8 + 100vw × base ÷ W × 0.2, base)**, with W =
 
 | Role | Class | Phone → tablet → desktop | Use |
 |---|---|---|---|
-| Title | `.t-title` | 32 → 64 → **96px**, 700 | Section titles, banner title |
-| Slide name | `.t-slide` | title size, max 4.4vw on desktop | Hero carousel names |
-| Lede | `.t-lede` | 21 → 21 → **32px**, 700 | Statement, banner text (400), video title |
-| Name | `.t-name` | 24 → 24 → **46px**, 700 | Big names (18px fluid inside rows) |
-| Card title | `.t-card-title` | 20 → **24px** (≥640) | Cards (17px in 4-up on phones) |
-| Card meta | `.t-meta` / `.t-place` | 16 → **18px** | Red-light bold dates / dim places |
+| Hero | `.t-hero` | 64 → 164 → **320px** (max 23vw), CAPS | The opening headline |
+| Display | `.t-display` | 48 → 48 → **132px**, CAPS | Every section heading |
+| Title | `.t-title` | 32 → 64 → **96px** | Statement, banner title |
+| Name | `.t-name` | 24 → 24 → **46px** | Carousel names, hero foot (CAPS) |
+| Lede | `.t-lede` | 21 → 21 → **32px** | Row names, video title |
 | Body | `.t-body` | 14 → 14 → **16px**, 400 | Copy, footer links |
-| Label | `.t-label` | 12 → 12 → **16px**, 700 CAPS, +0.4px | Section labels, nav, buttons, dates in rows, footer heads |
-| Wordmark | `.t-mark` | 900 italic CAPS | Header and footer logo |
+| Label | `.t-label` | 12 → 12 → **16px**, CAPS | Labels, nav, buttons, row dates, footer heads |
+| Card title / meta | `.t-card-title` / `.t-meta` | 20 → 24 / 16 → 18 | Inside cards (Next Stop Comedy) |
+| Wordmark | `.t-mark` | 900 italic CAPS; footer at 12.6vw | Logo |
 
-- **Must:** One font only. 700 for headings, names and labels; 400 for body copy.
-- **Must:** Long names in rows and playlist clips truncate (`.clamp-1`, `.clamp-2`).
+- **Must:** One font, Noto Sans. Tracking +0.4px on labels, −0.03em on hero and display.
 
 ## 4. Colour (Live Nation)
 
@@ -89,21 +100,22 @@ Formula: **size = max(base × 0.8 + 100vw × base ÷ W × 0.2, base)**, with W =
 | Row | `.row` | 80px min, 8px corners, 128px thumb flush left, chevron right |
 | Video | `.watch` | 16:9 video with title and round play button; playlist clips with a 2px red outline when active |
 | Banner | `.banner` | Photo drifts with scroll (`data-scroll="shift"`), 50% black veil, centred content |
-| Footer | `.site-footer` | CAPS heads, body-size links (underline on hover), outlined select, socials, wordmark + © row |
+| Footer | `.site-footer` | Contact row, CAPS heads, body-size links, outlined select, socials, **giant red italic wordmark**, social links + © under a full-width hairline |
 
-## 6. Motion (warmnfuzzy, cards from Next Stop Comedy)
+## 6. Motion and scroll (warmnfuzzy)
 
 | What | Spec |
 |---|---|
-| Signature ease | `cubic-bezier(0.26, 1, 0.48, 1)`, 0.5s |
-| Page load (from 0.75s) | Header slides down, first hero name rises out of a mask, its button pops in |
-| Hero | `data-scroll="persist"`: sinks 25svh as it scrolls away, under the page |
-| Sections | `data-scroll="reveal"`: each section rises 25svh into place as it enters |
-| Banner photo | `data-scroll="shift"`: ±5svh parallax |
+| Signature ease | `cubic-bezier(0.26, 1, 0.48, 1)`, 0.5s transforms, 0.075s linear fades |
+| Page load (from 0.75s) | Header slides down, hero lines rise out of masks (0.06s stagger), hero buttons pop from scale 0 |
+| `data-scroll="persist"` | Hero + carousel sink 25svh as they scroll away, under the page |
+| `data-scroll="reveal"` | Statement band and footer rise 25svh into place as they enter |
+| `data-scroll="shift"` | Video and banner photos drift ±5svh while on screen |
 | Smooth scroll | Lenis, lerp 0.1 |
-| Carousel | 0.6s slide and dimming |
-| Hovers | Rolling labels 0.5s; background hovers 0.15–0.3s Material ease |
+| Hover | Rolling CAPS labels (0.5s); card lift from Next Stop Comedy (0.5s) |
+| Carousel | Live Nation: 0.6s slide and dimming, autoplay 6s |
 
+- **Must:** Use the scroll effects only where listed. Every other section stays still.
 - **Must:** Everything stops for `prefers-reduced-motion: reduce`, including carousel autoplay.
 
 ## 7. Do and don't
@@ -112,7 +124,7 @@ Formula: **size = max(base × 0.8 + 100vw × base ÷ W × 0.2, base)**, with W =
 - **Do** keep cards in a row the same height; put the button or chevron in `.card-foot`.
 - **Don't** use colours other than red for actions, or yellow for anything but badges.
 - **Don't** let content leave the 1256px container except the hero, banner and footer band.
-- **Don't** centre section titles. Only the banner and statement are centred.
+- **Don't** centre section headings. Only the banner and statement are centred.
 
 ## 8. Make it yours
 

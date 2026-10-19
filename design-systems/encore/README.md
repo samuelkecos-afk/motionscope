@@ -2,7 +2,7 @@
 
 - **Layout** from **livenation.com.au**: centred 1256px page, sticky header with search, hero carousel, 4-up and 3-up card grids, video + playlist, list rows, photo banner, 5-column footer.
 - **Colour and font** from **livenation.com.au**: black and charcoal, red buttons and chevrons, bold Noto Sans, italic wordmark.
-- **Text sizes, hierarchy, spacing and scroll** from **warmnfuzzy.tv**: the fluid type scale, CAPS label above each big title, 70 → 180px between sections, scroll reveals and smooth scrolling.
+- **Text sizes, hierarchy, spacing and scroll** from **warmnfuzzy.tv**: giant CAPS hero headline; every section opened by a hairline, a CAPS label, a big gap and a CAPS display heading; 70 → 180px under each section; the hero sinking away, the statement and footer rising in, smooth scrolling and the giant footer wordmark.
 - **Cards** from **nextstopcomedy.com**: badge, 3px border, 16px corners, lift and glow on hover. Recoloured red.
 
 Open **`components.html`** to see the pieces, and **`templates/landing.html`** for a full landing page.
@@ -45,10 +45,10 @@ Before `</body>`:
 
 Attach `DESIGN.md`, `tokens.css` and `encore.css`, then:
 
-> Build [page] using the Encore design system. Follow every "Must" in DESIGN.md. Use only the classes in encore.css and the tokens in tokens.css. Keep the Live Nation section order: header, hero carousel, card grids, video, rows, banner, statement, footer.
+> Build [page] using the Encore design system. Follow every "Must" in DESIGN.md. Use only the classes in encore.css and the tokens in tokens.css. Keep the Live Nation section order and build every section with the warmnfuzzy pattern in DESIGN.md section 2.
 
 ## Notes
 
-- Checked in a browser from 360 to 1600px wide: sizes follow the warmnfuzzy scale and nothing spills off the page.
-- The hero name size is held to 4.4vw on desktop so it fits Live Nation's carousel panel; elsewhere titles use the full warmnfuzzy size.
+- Checked in a browser from 360 to 1600px wide: every size and gap matches warmnfuzzy (and Headliner), and nothing spills off the page.
+- Carousel names use the warmnfuzzy name size (24 → 46px) so they fit Live Nation's info panel.
 - Placeholder images are CSS gradients, so the folder contains no third-party photos or logos.

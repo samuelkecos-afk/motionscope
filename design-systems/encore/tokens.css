@@ -94,21 +94,20 @@
   --space-b: 70;            /* space under every section */
   --label-gap-b: 75;        /* space between a section label and its big headline */
   --link-gap-b: 70;         /* space above a section's closing link */
-  --head-gap-b: 24;         /* space under a section heading (Live Nation 24px, fluid) */
 }
 
 @media (min-width: 600px) { :root { --gutter: 24px; } }
 @media (min-width: 640px) { :root { --fs-card-title: 24px; --fs-meta: 18px; } }
 @media (min-width: 768px) {
   :root {
-    --W: 768; --head-gap-b: 32;
+    --W: 768;
     --title-b: 64; --hero-b: 164; --hero-lh: 0.91;
     --space-b: 120; --label-gap-b: 120; --link-gap-b: 100;
   }
 }
 @media (min-width: 1280px) {
   :root {
-    --W: 1280; --head-gap-b: 40;
+    --W: 1280;
     --label-b: 16;
     --body-b: 16; --lede-b: 32; --name-b: 46; --name-lh: 1.04;
     --title-b: 96; --display-b: 132; --hero-b: 320; --hero-lh: 0.85;
@@ -129,7 +128,6 @@
   --space:      max(calc(var(--space-b)     * 0.8px + 100vw * var(--space-b)     / var(--W) * var(--k)), calc(var(--space-b)     * 1px));
   --label-gap:  max(calc(var(--label-gap-b) * 0.8px + 100vw * var(--label-gap-b) / var(--W) * var(--k)), calc(var(--label-gap-b) * 1px));
   --link-gap:   max(calc(var(--link-gap-b)  * 0.8px + 100vw * var(--link-gap-b)  / var(--W) * var(--k)), calc(var(--link-gap-b)  * 1px));
-  --head-gap:   max(calc(var(--head-gap-b)  * 0.8px + 100vw * var(--head-gap-b)  / var(--W) * var(--k)), calc(var(--head-gap-b)  * 1px));
   --underline-offset: max(calc(3px * 0.8 + 100vw * 3 / var(--W) * var(--k)), 3px);
   color-scheme: dark;
 }

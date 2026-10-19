@@ -11,11 +11,10 @@
 <link rel="stylesheet" href="encore.css">
 <style>
   /* Reference-page helpers only. */
-  .spec { display: grid; gap: 10px; padding-block: 20px; border-top: 1px solid var(--divider); }
-  .spec code { font: 12px/1.4 ui-monospace, Menlo, monospace; color: var(--tint-light); }
+  .spec { display: grid; gap: 14px; padding-block: 20px; border-top: 1px solid var(--line-light); }
+  .spec code { font: 12px/1.4 ui-monospace, Menlo, monospace; opacity: 0.6; }
   .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px; }
-  .swatch div { aspect-ratio: 3 / 2; border-radius: var(--r); border: 1px solid var(--divider); margin-bottom: 8px; }
-  .demo { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .swatch div { aspect-ratio: 3 / 2; border-radius: var(--r); border: 1px solid var(--line-light); margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -36,44 +35,37 @@
     <div class="bar-end"><a class="signin t-label" href="templates/landing.html"><svg class="icon"><use href="#i-user"/></svg><span>Sign in</span></a></div>
   </div>
 </header>
-<main class="container">
-  <section class="section" style="margin-top:var(--head-gap)">
-    <div class="section-head"><p class="t-label tint">Where each part comes from</p><h1 class="t-title">Encore</h1></div>
-    <p class="t-lede" style="max-width:34ch">Layout, colour and font from <span style="color:var(--red-light)">Live Nation</span>. Text sizes, hierarchy, spacing and scroll from <span style="color:var(--yellow)">warmnfuzzy</span>. Cards from <span style="color:var(--ice)">Next Stop Comedy</span>.</p>
+<main>
+  <section class="hero container">
+    <h1 class="t-hero"><span class="mask"><span>Encore</span></span></h1>
+    <div class="hero-foot"><p class="t-name">Layout, colour and font: Live Nation</p><p class="t-label">Type, spacing, scroll: warmnfuzzy · Cards: Next Stop Comedy</p></div>
   </section>
-
-  <section class="section">
-    <div class="section-head"><p class="t-label tint">Noto Sans · warmnfuzzy sizes</p><h2 class="t-title">Type scale</h2></div>
-    <div class="spec"><p class="t-title">Section title</p><code>.t-title · 32 → 64 (≥768) → 96 (≥1280) · 700</code></div>
-    <div class="spec"><p class="t-slide">Hero slide name</p><code>.t-slide · title size, max 4.4vw inside the carousel panel</code></div>
-    <div class="spec"><p class="t-lede">Lede, banner and statement text</p><code>.t-lede · 21 → 21 → 32 · 700 (400 in the banner)</code></div>
-    <div class="spec"><p class="t-name">Name</p><code>.t-name · 24 → 24 → 46 · 700 (18px inside rows)</code></div>
-    <div class="spec"><p class="t-card-title">Card title</p><code>.t-card-title · 20 → 24 (≥640) · 700</code></div>
-    <div class="spec"><p class="t-body">Body copy for descriptions, links and notes.</p><code>.t-body · 14 → 14 → 16 · 400</code></div>
-    <div class="spec"><p class="t-label">Label · nav · buttons</p><code>.t-label · 12 → 12 → 16 · 700 CAPS · +0.4px</code></div>
-    <div class="spec"><p class="t-mark">Wordmark</p><code>.t-mark · 900 italic CAPS · red in the header</code></div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><p class="t-label tint">Live Nation</p><h2 class="t-title">Colour</h2></div>
-    <div class="swatches t-label">
-      <div class="swatch"><div style="background:var(--black)"></div>Black #000</div>
-      <div class="swatch"><div style="background:var(--footer-bg)"></div>Footer #121212</div>
-      <div class="swatch"><div style="background:var(--paper)"></div>Charcoal #202020</div>
-      <div class="swatch"><div style="background:var(--white)"></div>White #f9f9f9</div>
-      <div class="swatch"><div style="background:var(--red)"></div>Red #e21836</div>
-      <div class="swatch"><div style="background:var(--red-dark)"></div>Hover #9e1025</div>
-      <div class="swatch"><div style="background:var(--yellow)"></div>Badge #ffe600</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><p class="t-label tint">Red, 6px corners, rolling label</p><h2 class="t-title">Buttons</h2></div>
-    <div class="demo"><a class="btn" href="#"><span class="roll"><span>Enrol now</span><span aria-hidden="true">Enrol now</span></span></a><a class="btn btn--outline" href="#"><span class="roll"><span>Outline</span><span aria-hidden="true">Outline</span></span></a><svg class="chevron"><use href="#i-chev"/></svg></div>
-  </section>
-
-  <section class="section">
-    <div class="section-head"><p class="t-label tint">Next Stop Comedy cards in a Live Nation 4-up grid</p><div class="section-row"><h2 class="t-title">Cards, 4-up</h2><a class="u-link t-label" href="#">See all</a></div></div>
+  <div class="page-body">
+  <section class="section"><div class="container">
+    <p class="t-label">Noto Sans at the warmnfuzzy sizes</p>
+    <div class="head-row"><h2 class="t-display">Type scale</h2></div>
+    <div class="spec"><p class="t-hero">Hero</p><code>.t-hero · 64 → 164 (≥768) → 320 (≥1280) · 700 CAPS</code></div>
+    <div class="spec"><p class="t-display">Display</p><code>.t-display · 48 → 48 → 132 · 700 CAPS · every section heading</code></div>
+    <div class="spec"><p class="t-title">Statement title</p><code>.t-title · 32 → 64 → 96 · 700 · banner + statement</code></div>
+    <div class="spec"><p class="t-name">Name</p><code>.t-name · 24 → 24 → 46 · 700 · carousel names, hero foot</code></div>
+    <div class="spec"><p class="t-lede">Lede · row names · video title</p><code>.t-lede · 21 → 21 → 32 · 700</code></div>
+    <div class="spec"><p class="t-body">Body copy for descriptions and footer links.</p><code>.t-body · 14 → 14 → 16 · 400</code></div>
+    <div class="spec"><p class="t-label">Label · nav · buttons</p><code>.t-label · 12 → 12 → 16 · 700 CAPS</code></div>
+    <div class="spec"><p class="t-card-title">Card title (Next Stop Comedy)</p><code>.t-card-title · 20 → 24 · 700</code></div>
+  </div></section>
+  <section class="section"><div class="container">
+    <p class="t-label">Live Nation</p>
+    <div class="head-row"><h2 class="t-display">Colour</h2></div>
+    <div class="swatches t-label"><div class="swatch"><div style="background:var(--black)"></div>Black #000</div><div class="swatch"><div style="background:var(--footer-bg)"></div>Footer #121212</div><div class="swatch"><div style="background:var(--paper)"></div>Charcoal #202020</div><div class="swatch"><div style="background:var(--white)"></div>White #f9f9f9</div><div class="swatch"><div style="background:var(--red)"></div>Red #e21836</div><div class="swatch"><div style="background:var(--red-dark)"></div>Hover #9e1025</div><div class="swatch"><div style="background:var(--yellow)"></div>Badge #ffe600</div></div>
+  </div></section>
+  <section class="section"><div class="container">
+    <p class="t-label">Red, 6px corners, rolling label</p>
+    <div class="head-row"><h2 class="t-display">Buttons</h2></div>
+    <div class="actions t-label"><a class="btn" href="#"><span class="roll"><span>Enrol now</span><span aria-hidden="true">Enrol now</span></span></a><a class="btn btn--outline" href="#"><span class="roll"><span>Outline</span><span aria-hidden="true">Outline</span></span></a><svg class="chevron"><use href="#i-chev"/></svg></div>
+  </div></section>
+  <section class="section"><div class="container">
+    <p class="t-label">Next Stop Comedy cards in a Live Nation 4-up grid · hover one</p>
+    <div class="head-row"><h2 class="t-display">Cards</h2><a class="u-link t-label" href="#">See all</a></div>
     <ul class="grid-4">
         <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph"></div><span class="badge">New</span></div>
           <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><h3 class="t-card-title">UX Design</h3><div class="card-foot"><span class="t-place">8 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
@@ -84,9 +76,10 @@
         <li><a class="card" href="#courses"><div class="card-inner"><div class="card-media"><div class="ph ph--red"></div><span class="badge">New</span></div>
           <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>26 Jan</span><h3 class="t-card-title">Product Management</h3><div class="card-foot"><span class="t-place">8 weeks</span><svg class="chevron"><use href="#i-chev"/></svg></div></div></div></a></li>
       </ul>
-  </section>
-  <section class="section">
-    <div class="section-head"><p class="t-label tint">With date, time, place and a button</p><h2 class="t-title">Cards, 3-up</h2></div>
+  </div></section>
+  <section class="section"><div class="container">
+    <p class="t-label">With date, time, place and a button</p>
+    <div class="head-row"><h2 class="t-display">3-up</h2></div>
     <ul class="grid-3">
         <li><div class="card"><div class="card-inner"><div class="card-media"><div class="ph ph--b"></div><span class="badge">Beginner</span></div>
           <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Tue + Thu · 6 PM</span></span>
@@ -101,20 +94,20 @@
             <h3 class="t-card-title">Copywriting for the Web</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · $490</span>
             <div class="card-foot"><span></span><a class="btn" href="#signup"><span class="roll"><span>Enrol</span><span aria-hidden="true">Enrol</span></span></a></div></div></div></div></li>
       </ul>
-  </section>
-  <section class="section">
-    <div class="section-head"><p class="t-label tint">Live Nation list rows</p><h2 class="t-title">Rows</h2></div>
+  </div></section>
+  <section class="section"><div class="container">
+    <p class="t-label">Live Nation list rows, names at lede size</p>
+    <div class="head-row"><h2 class="t-display">Rows</h2></div>
     <ul class="rows">
-        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph"></span></span><span class="row-text"><span class="t-name clamp-1">Portfolio review clinic</span><span class="t-label" style="color:var(--red-light)">Sat 21 Nov · 10 AM</span><span class="t-body tint clamp-1">With a UX teacher</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
-        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph ph--b"></span></span><span class="row-text"><span class="t-name clamp-1">Your first web page</span><span class="t-label" style="color:var(--red-light)">Sat 28 Nov · 10 AM</span><span class="t-body tint clamp-1">No experience needed</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
-        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph ph--c"></span></span><span class="row-text"><span class="t-name clamp-1">Spreadsheets to Python</span><span class="t-label" style="color:var(--red-light)">Sat 5 Dec · 10 AM</span><span class="t-body tint clamp-1">Bring a laptop</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph"></span></span><span class="row-text"><span class="t-lede clamp-2">Portfolio review clinic</span><span class="t-label" style="color:var(--red-light)">Sat 21 Nov · 10 AM</span><span class="t-body tint clamp-1">With a UX teacher</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph ph--b"></span></span><span class="row-text"><span class="t-lede clamp-2">Your first web page</span><span class="t-label" style="color:var(--red-light)">Sat 28 Nov · 10 AM</span><span class="t-body tint clamp-1">No experience needed</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
+        <li><a class="row" href="#signup"><span class="row-thumb"><span class="ph ph--c"></span></span><span class="row-text"><span class="t-lede clamp-2">Spreadsheets to Python</span><span class="t-label" style="color:var(--red-light)">Sat 5 Dec · 10 AM</span><span class="t-body tint clamp-1">Bring a laptop</span></span><svg class="chevron"><use href="#i-chev"/></svg></a></li>
       </ul>
-  </section>
+  </div></section>
+  <section class="section statement" data-scroll="reveal"><div class="container"><p class="t-label">Statement band</p><p class="t-title headline">A centred statement at title size rises in as you scroll.</p></div></section>
+  </div>
 </main>
-<section class="banner"><div class="ph ph--red" data-scroll="shift"></div>
-  <div class="container banner-inner"><h2 class="t-title">Banner title</h2><p class="t-lede">Full-width photo, dark veil, centred text and one red button.</p><a class="btn" href="#">Sign up</a></div>
-</section>
-<footer class="site-footer"><div class="container"><div class="footer-base t-label" style="margin-top:0;border-top:0;padding-top:0"><span class="wordmark t-mark">Encore</span><span class="tint">Footer: 5 link columns on #121212 (see the template)</span></div></div></footer>
+<footer class="site-footer"><p class="footer-wordmark t-mark" aria-hidden="true">Encore</p></footer>
 <script src="encore.js"></script>
 </body>
 </html>

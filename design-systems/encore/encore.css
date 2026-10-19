@@ -13,7 +13,7 @@ html.lenis, html.lenis body { height: auto; }
 body {
   margin: 0; overflow-x: clip;
   background: var(--black); color: var(--white);
-  font-family: var(--font); font-weight: var(--weight-body); font-size: var(--fs-body); line-height: 1.4;
+  font-family: var(--font); font-weight: var(--weight); font-size: var(--fs-body); line-height: 1.22;
   letter-spacing: var(--track); -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; text-decoration: none; }
@@ -26,21 +26,22 @@ img, video { display: block; max-width: 100%; }
 .container { width: 100%; max-width: calc(var(--container) + 2 * var(--gutter)); margin-inline: auto;
   padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)); }
 
-/* ---------- Type roles (warmnfuzzy sizes, Noto Sans) ---------- */
-.t-label   { font-size: var(--fs-label); line-height: 1.1; font-weight: var(--weight); letter-spacing: var(--track-ui); text-transform: uppercase; }
-.t-body    { font-size: var(--fs-body); line-height: 1.4; font-weight: var(--weight-body); }
-.t-lede    { font-size: var(--fs-lede); line-height: 1.15; font-weight: var(--weight); }
-.t-name    { font-size: var(--fs-name); line-height: var(--name-lh); font-weight: var(--weight); }
-.t-title   { font-size: var(--fs-title); line-height: 1.02; font-weight: var(--weight); letter-spacing: -0.01em; text-wrap: balance; }
-.t-display { font-size: var(--fs-display); line-height: 0.95; font-weight: var(--weight); letter-spacing: var(--track-big); text-transform: uppercase; }
+/* ---------- Type roles (warmnfuzzy: the whole scale, use only these) ---------- */
+.t-label   { font-size: var(--fs-label); line-height: 1; font-weight: var(--weight); letter-spacing: var(--label-ls); text-transform: uppercase; }
+.t-body    { font-size: var(--fs-body); line-height: 1.22; font-weight: var(--weight-body); }
+.t-lede    { font-size: var(--fs-lede); line-height: 1.11; }
+.t-name    { font-size: var(--fs-name); line-height: var(--name-lh); }
+.t-title   { font-size: var(--fs-title); line-height: 1.02; letter-spacing: -0.01em; text-wrap: balance; }
+.t-display { font-size: var(--fs-display); line-height: 0.95; letter-spacing: var(--track-big); text-transform: uppercase; }
+.t-hero    { font-size: var(--fs-hero); line-height: var(--hero-lh); letter-spacing: var(--track-big); text-transform: uppercase; }
 .t-mark    { font-weight: var(--weight-mark); font-style: italic; letter-spacing: -0.04em; text-transform: uppercase; }
-/* Hero slide names: the title size, held inside the carousel's info panel on desktop. */
-.t-slide   { font-size: min(var(--fs-title), 4.4vw); line-height: 1; font-weight: var(--weight); letter-spacing: -0.01em; text-wrap: balance; }
-@media (max-width: 899px) { .t-slide { font-size: var(--fs-title); } }
-.t-name, .t-title, .t-display, .t-slide { text-box: trim-both cap alphabetic; }
+.t-label, .t-name, .t-title, .t-display, .t-hero { text-box: trim-both cap alphabetic; }
+.measure { max-width: 21ch; }
+.t-lede.measure { max-width: 30ch; }
+@media (min-width: 1280px) { .t-lede.measure { max-width: 28ch; } }
 .u-link { text-decoration: underline; text-underline-offset: var(--underline-offset); }
 .u-link:hover { text-decoration: none; }
-.tint { color: var(--tint-light); }
+.tint { opacity: 0.6; }
 .clamp-1 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
@@ -66,24 +67,37 @@ img, video { display: block; max-width: 100%; }
 :is(a, button):is(:hover, :focus-visible) .roll > span + span { transform: none; opacity: 1; }
 
 /* ---------- Buttons (Live Nation red, 6px corners) ---------- */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 10px 16px; white-space: nowrap; border: 0; border-radius: var(--r-btn); cursor: pointer;
-  font: inherit; font-size: var(--fs-label); line-height: 1.1; font-weight: var(--weight); letter-spacing: var(--track-ui); text-transform: uppercase;
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; white-space: nowrap; border: 0; border-radius: var(--r-btn); cursor: pointer;
+  font: inherit; font-size: var(--fs-label); line-height: 1; font-weight: var(--weight); letter-spacing: var(--label-ls); text-transform: uppercase;
   background: var(--red); color: var(--white-strong); transition: background-color 0.3s var(--ease-ui); }
 .btn:hover { background: var(--red-dark); }
 .btn--outline { background: transparent; box-shadow: inset 0 0 0 1px var(--fg-dim); }
 .btn--outline:hover { background: var(--hover); }
 .chevron { width: 20px; height: 20px; flex-shrink: 0; color: var(--red); transition: transform 0.3s var(--ease-ui); }
 
-/* Everything after the hero sits on a solid layer, so the hero sinks underneath it on scroll. */
-.page-body { position: relative; z-index: 1; background: var(--black); padding-top: 1px; margin-top: -1px; }
+/* ---------- Hero (warmnfuzzy: giant CAPS headline, masked lines; then the Live Nation carousel) ---------- */
+.hero { padding-block: clamp(32px, 6vw, 72px) 16px; }
+.hero h1 { display: grid; }
+.hero-foot { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-top: clamp(28px, 4vw, 56px); padding-top: 16px; border-top: 1px solid var(--line-light); }
+.hero-foot .t-name { text-transform: uppercase; max-width: 22ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
 
-/* ---------- Sections (Live Nation order, warmnfuzzy spacing) ----------
-   <section class="section"><div class="section-head"><p class="t-label">…</p>
-     <div class="section-row"><h2 class="t-title">…</h2><a class="u-link t-label">See all</a></div></div> … </section> */
-.section { margin-top: var(--space); }
-.section-head { display: grid; gap: max(calc(16px * 0.8 + 100vw * 16 / var(--W) * var(--k)), 16px); margin-bottom: var(--head-gap); }
-.section-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px 24px; }
-.section-row .u-link { white-space: nowrap; }
+/* Everything after the hero sits on a solid layer, so the hero sinks underneath it on scroll. */
+.page-body { position: relative; z-index: 1; background: var(--black); }
+
+/* ---------- Sections (Live Nation order, warmnfuzzy spacing and hierarchy) ----------
+   A full-width band with a hairline on top; content in the 1256px container.
+   CAPS label 16px from the top → label gap (75/120/170) → CAPS display heading + link
+   on one baseline → 16px → content → section space (70/120/180) below.
+   <section class="section"><div class="container">
+     <p class="t-label">…</p>
+     <div class="head-row"><h2 class="t-display">…</h2><a class="u-link t-label">See all</a></div>
+     … </div></section> */
+.section { position: relative; z-index: 1; background: var(--black); border-top: 1px solid var(--line-light); padding-block: 16px var(--space); }
+.head-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-block: var(--label-gap) 16px; }
+.head-row .u-link { white-space: nowrap; }
+.headline { margin-top: var(--label-gap); }
+.closing-link { display: inline-block; margin-top: var(--link-gap); }
 
 /* ---------- Hero carousel (Live Nation: image + info panel, next slide peeks, neighbours dimmed) ---------- */
 .carousel { position: relative; overflow: hidden; }
@@ -92,7 +106,7 @@ img, video { display: block; max-width: 100%; }
 .slide[aria-hidden="true"] { filter: brightness(0.35); }
 .slide-media { aspect-ratio: 16 / 9; position: relative; overflow: hidden; }
 .slide-media > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.slide-info { display: grid; align-content: center; justify-items: start; gap: 16px; padding: 24px var(--gutter) 32px; background: var(--paper); }
+.slide-info { display: grid; align-content: center; justify-items: start; gap: 20px; padding: 24px var(--gutter) 32px; background: var(--paper); }
 .slide-info .btn { margin-top: 8px; }
 @media (min-width: 900px) {
   .slide { flex-basis: 88%; grid-template-columns: 63% 37%; }
@@ -149,19 +163,20 @@ img, video { display: block; max-width: 100%; }
 /* ---------- Rows (Live Nation: 3 columns, 16:9 thumb, name, chevron) ---------- */
 .rows { display: grid; gap: var(--grid-gap); grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 900px) { .rows { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.row { display: grid; grid-template-columns: 128px minmax(0, 1fr) auto; align-items: center; gap: 14px; min-height: 80px; padding-right: 14px; overflow: hidden; border-radius: var(--r); background: var(--paper); transition: background-color 0.3s var(--ease-ui); }
+.row { display: grid; grid-template-columns: 128px minmax(0, 1fr) auto; align-items: center; gap: 14px; min-height: 88px; padding-right: 14px; overflow: hidden; border-radius: var(--r); background: var(--paper); transition: background-color 0.3s var(--ease-ui); }
 .row:hover { background: var(--paper-hover); }
+@media (max-width: 599px) { .row { grid-template-columns: 88px minmax(0, 1fr) auto; gap: 12px; } }
 .row-thumb { align-self: stretch; position: relative; overflow: hidden; }
 .row-thumb > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.row-text { display: grid; gap: 4px; padding-block: 10px; }
-.row .t-name { font-size: max(calc(18px * 0.8 + 100vw * 18 / var(--W) * var(--k)), 18px); line-height: 1.2; text-box: none; }
+.row-text { display: grid; padding-block: 14px; }
+.row-text { gap: 8px; }
 .row:hover .chevron { transform: translateX(3px); }
 
 /* ---------- Watch (Live Nation: video + playlist) ---------- */
 .watch { display: grid; gap: var(--grid-gap); grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 900px) { .watch { grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); } }
 .video { aspect-ratio: 16 / 9; position: relative; overflow: hidden; border-radius: var(--r); }
-.video > .ph { position: absolute; inset: 0; }
+.video > .ph { position: absolute; inset: calc(var(--parallax-small) * -1) 0; }   /* oversized for the scroll drift */
 .video-title { position: absolute; left: 16px; top: 14px; right: 16px; color: var(--white-strong); text-shadow: 0 1px 4px #000; }
 .play { position: absolute; left: 50%; top: 50%; width: 72px; height: 72px; transform: translate(-50%, -50%); border-radius: 50%; background: #000000a0; display: grid; place-items: center; color: var(--red); transition: transform var(--dur) var(--ease); }
 .video:hover .play { transform: translate(-50%, -50%) scale(1.08); }
@@ -176,31 +191,36 @@ img, video { display: block; max-width: 100%; }
 .clip .thumb > * { position: absolute; inset: 0; }
 
 /* ---------- Banner (Live Nation: full-bleed photo, veil, centred title + button) ---------- */
-.banner { position: relative; isolation: isolate; overflow: hidden; margin-top: var(--space); text-align: center; }
+.banner { position: relative; z-index: 1; isolation: isolate; overflow: hidden; border-top: 1px solid var(--line-light); }
 .banner > .ph, .banner > img { position: absolute; inset: calc(var(--parallax-small) * -1) 0; z-index: -2; width: 100%; height: calc(100% + 2 * var(--parallax-small)); object-fit: cover; }
 .banner::after { content: ""; position: absolute; inset: 0; z-index: -1; background: #00000080; }
-.banner-inner { display: grid; justify-items: center; gap: max(calc(20px * 0.8 + 100vw * 20 / var(--W) * var(--k)), 20px); padding-block: var(--space); }
-.banner .t-title { margin-bottom: 0.14em; }   /* room for descenders */
-.banner .t-lede { max-width: 32ch; font-weight: var(--weight-body); text-wrap: balance; }
-.banner-form { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: min(100%, 520px); margin-top: 8px; }
-.banner-form input { flex: 1 1 240px; min-height: 40px; padding: 10px 14px; border-radius: var(--r-btn); border: 1px solid var(--white); background: #00000066; color: var(--white); font: inherit; font-size: var(--fs-body); }
+.banner-inner { display: grid; justify-items: center; text-align: center; padding-block: 16px var(--space); }
+.banner-inner > .t-label { justify-self: start; }
+.banner .t-title { margin-top: var(--label-gap); margin-bottom: max(calc(32px * 0.8 + 100vw * 32 / var(--W) * var(--k)), 32px); }
+.banner-form { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: min(100%, 560px); margin-top: 18px; }
+.banner-form input { flex: 1 1 240px; padding: 12px 14px; border-radius: var(--r-btn); border: 1px solid var(--white); background: #00000066; color: var(--white); font: inherit; font-size: var(--fs-label); letter-spacing: var(--label-ls); text-transform: uppercase; }
 .banner-form input::placeholder { color: var(--tint-light); }
-.banner .msg { min-height: 1.4em; }
+.banner .msg { min-height: 1.3em; margin-top: 12px; font-weight: var(--weight-body); }
 
 /* ---------- Statement (Live Nation: centred band) ---------- */
-.statement { max-width: 1040px; margin: var(--space) auto; text-align: center; }
+/* Centred band (Live Nation) holding a warmnfuzzy statement title. */
+.statement .t-title { max-width: 21ch; margin-inline: auto; text-align: center; }
 
-/* ---------- Footer (Live Nation: 5 columns on #121212) ---------- */
-.site-footer { background: var(--footer-bg); padding-block: max(calc(48px * 0.8 + 100vw * 48 / var(--W) * var(--k)), 48px) 32px; }
-.footer-grid { display: grid; gap: 40px 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* ---------- Footer (Live Nation 5 columns on #121212 + warmnfuzzy giant wordmark) ---------- */
+.site-footer { position: relative; z-index: 1; overflow: clip; background: var(--footer-bg); border-top: 1px solid var(--line-light); padding-top: 16px; }
+.footer-grid { display: grid; gap: 40px 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--label-gap); padding-bottom: var(--space); }
 @media (min-width: 900px) { .footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 2fr); } }
-.footer-grid .t-label { margin-bottom: 16px; }
-.footer-grid ul { display: grid; gap: 6px; }
+.footer-grid .t-label { margin-bottom: 20px; }
+.footer-grid ul { display: grid; gap: 8px; }
 .footer-grid a:hover { text-decoration: underline; }
-.select { width: 100%; height: 48px; padding: 0 14px; border-radius: var(--r-btn); border: 1px solid var(--fg-dim); background: transparent; color: var(--white); font: inherit; }
+.select { width: 100%; height: 48px; padding: 0 14px; border-radius: var(--r-btn); border: 1px solid var(--fg-dim); background: transparent; color: var(--white); font: inherit; font-size: var(--fs-label); letter-spacing: var(--label-ls); text-transform: uppercase; }
 .socials { display: flex; gap: 20px; }
 .socials span { width: 28px; height: 28px; border-radius: 6px; background: var(--white-strong); opacity: 0.9; }
-.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--divider); }
+.footer-wordmark { display: block; padding: 0 16px 16px; white-space: nowrap; font-size: 12.6vw; line-height: 0.85; color: var(--red); }
+.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-block: 14px; border-top: 1px solid var(--line-light); }
+.footer-rule { border-top: 1px solid var(--line-light); }
+.footer-rule > .footer-base { border-top: 0; }
+.footer-base nav { display: flex; flex-wrap: wrap; gap: 24px; }
 
 /* ---------- Placeholder media (swap for 16:9 photos) ---------- */
 .ph { background: linear-gradient(135deg, #3a1d2a 0%, #14141c 60%, #000 100%); }
@@ -216,6 +236,8 @@ img, video { display: block; max-width: 100%; }
 .intro-drop { animation: from-top var(--dur) var(--ease) var(--intro-delay) both; }
 .mask { display: block; overflow: hidden; padding-block: 0.06em; }
 .mask > span { display: block; animation: from-below var(--dur) var(--ease) var(--intro-delay) both; }
+.mask:nth-child(2) > span { animation-delay: calc(var(--intro-delay) + 0.06s); }
+.mask:nth-child(3) > span { animation-delay: calc(var(--intro-delay) + 0.12s); }
 .intro-pop { animation: pop var(--dur) var(--ease) calc(var(--intro-delay) + 0.1s) both; }
 @keyframes from-top { from { transform: translateY(-100%); } to { transform: translate(0); } }
 @keyframes from-below { from { transform: translateY(100%); } to { transform: translate(0); } }
@@ -228,9 +250,9 @@ img, video { display: block; max-width: 100%; }
 }
 
 /* ---------- Scroll motion (warmnfuzzy, native CSS) ----------
-   data-scroll="reveal"  the section rises into place as it enters
-   data-scroll="shift"   gentle parallax drift while on screen (banner photo)
-   data-scroll="persist" sinks as it scrolls away (hero carousel) */
+   data-scroll="persist" the hero sinks as it scrolls away (under .page-body)
+   data-scroll="reveal"  a block rises into place as it enters (statement, footer)
+   data-scroll="shift"   gentle parallax drift while on screen (video and banner photos) */
 @keyframes scroll-reveal { from { transform: translateY(var(--parallax-large)); } to { transform: translateY(0); } }
 @keyframes scroll-shift { from { transform: translateY(calc(var(--parallax-small) * -1)); } to { transform: translateY(var(--parallax-small)); } }
 @keyframes scroll-persist { from { transform: translateY(0); } to { transform: translateY(var(--parallax-large)); } }

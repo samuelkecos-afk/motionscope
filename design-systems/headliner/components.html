@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Headliner Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,900&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="headliner.css">
+<style>
+  /* Reference-page helpers only. */
+  .spec { display: grid; gap: 10px; padding-block: 20px; border-top: 1px solid var(--line); }
+  .spec code { font: 12px/1.4 ui-monospace, Menlo, monospace; opacity: 0.6; letter-spacing: 0; text-transform: none; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+  .swatch div { aspect-ratio: 3 / 2; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 8px; }
+  .source { display: grid; gap: 8px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/></symbol>
+</svg>
+<header class="site-header">
+  <div class="bar wrap t-label">
+    <span class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="t-mark">Headliner</span></span>
+    <nav class="nav"><a class="nav-keep" href="templates/landing.html"><span class="roll"><span>Open the template</span><span aria-hidden="true">Open the template</span></span></a></nav>
+  </div>
+</header>
+
+<section class="block wrap split" data-theme="black">
+  <p class="t-label">Where each part comes from</p>
+  <div class="source t-lede measure">
+    <p>Colour and font: <span style="color:var(--red-light)">Live Nation</span>.</p>
+    <p>Layout, type sizes, hierarchy, spacing and scroll: <span style="color:var(--yellow)">warmnfuzzy</span>.</p>
+    <p>Cards: <span style="color:var(--ice)">Next Stop Comedy</span>.</p>
+  </div>
+</section>
+
+<section class="block wrap section-top section-end" data-theme="paper">
+  <p class="t-label">Type scale · Noto Sans · warmnfuzzy sizes</p>
+  <div class="headline">
+    <div class="spec"><p class="t-hero">Hero</p><code>.t-hero · 64 → 164 (≥768) → 320 (≥1280) · 700 CAPS</code></div>
+    <div class="spec"><p class="t-display">Display</p><code>.t-display · 48 → 48 → 132 · 700 CAPS</code></div>
+    <div class="spec"><p class="t-title">Section statement title</p><code>.t-title · 32 → 64 → 96 · 700</code></div>
+    <div class="spec"><p class="t-name">Name · list item · question</p><code>.t-name · 24 → 24 → 46 · 700</code></div>
+    <div class="spec"><p class="t-lede">Lede paragraph for introductions.</p><code>.t-lede · 21 → 21 → 32 · 700</code></div>
+    <div class="spec"><p class="t-body">Body copy for descriptions and answers.</p><code>.t-body · 14 → 14 → 16 · 400</code></div>
+    <div class="spec"><p class="t-label">Section label</p><code>.t-label · 12 → 12 → 16 · 700 CAPS · +0.4px</code></div>
+    <div class="spec"><p class="t-mark" style="font-size:var(--fs-name);color:var(--red)">Wordmark</p><code>.t-mark · 900 italic · logo and footer</code></div>
+  </div>
+</section>
+
+<section class="block wrap section-top section-end" data-theme="black">
+  <p class="t-label">Colour · Live Nation</p>
+  <div class="swatches t-label headline">
+    <div class="swatch"><div style="background:var(--black)"></div>Black #000</div>
+    <div class="swatch"><div style="background:var(--paper)"></div>Charcoal #202020</div>
+    <div class="swatch"><div style="background:var(--white)"></div>White #f9f9f9</div>
+    <div class="swatch"><div style="background:var(--red)"></div>Red #e21836</div>
+    <div class="swatch"><div style="background:var(--red-dark)"></div>Red hover #9e1025</div>
+    <div class="swatch"><div style="background:var(--yellow)"></div>Yellow #ffe600</div>
+    <div class="swatch"><div style="background:var(--ice)"></div>Ice #d6e7f9</div>
+  </div>
+</section>
+
+<section class="block wrap section-top section-end" data-theme="black">
+  <p class="t-label">Cards · Next Stop Comedy shape, Live Nation colour · hover one</p>
+  <ul class="cards headline">
+    <li><a class="card" href="#"><div class="card-inner">
+      <div class="card-media"><div class="ph"></div><span class="badge">Badge</span></div>
+      <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>Fri, 13 Nov</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>8:00 PM</span></span>
+        <h3 class="t-card-title">Card title turns red on hover</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Place line</span></div>
+    </div></a></li>
+    <li><a class="card" href="#"><div class="card-inner">
+      <div class="card-media"><div class="ph ph--b"></div><span class="badge">New</span></div>
+      <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>Sat, 14 Nov</span>
+        <h3 class="t-card-title">Lifts 3px, grows 3%, red glow</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Image zooms 5%</span></div>
+    </div></a></li>
+    <li><a class="card" href="#"><div class="card-inner">
+      <div class="card-media"><div class="ph ph--red"></div><span class="badge">Sold out</span></div>
+      <div class="card-body"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>Sun, 15 Nov</span>
+        <h3 class="t-card-title">3px red border, 16px corners</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>16:9 image</span></div>
+    </div></a></li>
+  </ul>
+</section>
+
+<section class="block wrap section-top section-end" data-theme="yellow">
+  <p class="t-label">Buttons · Live Nation red, warmnfuzzy rolling label</p>
+  <div class="actions t-label headline">
+    <a class="btn" href="#"><span class="roll"><span>Primary</span><span aria-hidden="true">Primary</span></span></a>
+    <a class="btn btn--black" href="#"><span class="roll"><span>Black</span><span aria-hidden="true">Black</span></span></a>
+    <a class="btn btn--light" href="#"><span class="roll"><span>Light</span><span aria-hidden="true">Light</span></span></a>
+  </div>
+</section>
+
+<section class="block wrap split" data-theme="red" data-scroll="reveal">
+  <p class="t-label">Split layout · block themes</p>
+  <div>
+    <p class="t-lede measure">Label on the left, big type on the right. Six themes: black, paper, red, white, yellow, ice. This red block rises in on scroll.</p>
+    <a class="u-link t-label closing-link" href="#">Closing link</a>
+  </div>
+</section>
+
+<section class="block wrap split" data-theme="white">
+  <p class="t-label">Accordion</p>
+  <div class="accordion">
+    <details><summary class="t-name">A question at name size</summary><p class="t-body">The answer in body copy.</p></details>
+    <details><summary class="t-name">Another question</summary><p class="t-body">The plus turns into a cross when open.</p></details>
+  </div>
+</section>
+
+<footer class="footer block" data-theme="red">
+  <p class="wordmark wrap" aria-hidden="true">Headliner</p>
+</footer>
+<script src="headliner.js"></script>
+</body>
+</html>

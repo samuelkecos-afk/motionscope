@@ -8,5 +8,6 @@ Reusable design systems measured from real websites with MotionScope. Each folde
 | `blocks/` | warmnfuzzy.tv | Black page of full-width colour blocks, CAPS label left + giant type right, fluid scale, editorial motion |
 | `spotlight-nextstopcomedy/` | nextstopcomedy.com | Black + neon cyan, condensed Anton CAPS headlines, glowing teal event cards, blurred photo bands |
 | `marquee-livenation/` | livenation.com.au | Dense ticketing layout: charcoal cards on black, red buttons and chevrons, bold Noto Sans, hero carousel |
+| `headliner/` | **Combination** | Live Nation colour + Noto Sans, warmnfuzzy layout / type sizes / spacing / scroll, Next Stop Comedy cards in red |
 
 To start a project: copy a folder, open its `README.md`, and build from `templates/landing.html`.

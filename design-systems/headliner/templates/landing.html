@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lumen School</title>
+<meta name="description" content="Live online courses taught in small groups by people who do the work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,900&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../headliner.css">
+</head>
+<body>
+<!-- Headliner starter page. Section order: black hero → yellow intro → black cards →
+     ticker → red statement + list → charcoal tiles → black rows → white accordion → red footer. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/></symbol>
+</svg>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="bar wrap t-label intro-drop">
+    <a class="logo" href="#top" aria-label="Lumen School home"><span class="logo-mark" aria-hidden="true"></span><span class="t-mark">Lumen School</span></a>
+    <p class="tagline">Lumen is a live online school: <a class="u-link" href="#courses">next cohort 12 Jan</a></p>
+    <nav class="nav" aria-label="Main">
+      <a href="#courses"><span class="roll"><span>Courses</span><span aria-hidden="true">Courses</span></span></a>
+      <a href="#how"><span class="roll"><span>How it works</span><span aria-hidden="true">How it works</span></span></a>
+      <a href="#pricing"><span class="roll"><span>Pricing</span><span aria-hidden="true">Pricing</span></span></a>
+      <a class="nav-keep" href="#apply"><span class="roll"><span>Apply</span><span aria-hidden="true">Apply</span></span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO · black · giant CAPS headline revealed line by line, sinks as you scroll away -->
+  <section class="hero block wrap" data-theme="black" data-scroll="persist" aria-labelledby="hero-title">
+    <h1 class="t-hero" id="hero-title">
+      <span class="mask"><span>Learn</span></span>
+      <span class="mask"><span>live.</span></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="t-name">A small-group online school</p>
+      <div class="actions t-label">
+        <a class="btn intro-pop" href="#courses"><span class="roll"><span>Browse courses</span><span aria-hidden="true">Browse courses</span></span></a>
+        <a class="btn btn--light intro-pop" href="#apply"><span class="roll"><span>Free trial class</span><span aria-hidden="true">Free trial class</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO · yellow · split: label left, lede right, closing link -->
+  <section class="block wrap split" data-theme="yellow" aria-labelledby="intro-label">
+    <p class="t-label" id="intro-label">Taught by people who still do the work.</p>
+    <div>
+      <p class="t-lede measure">Lumen School runs eight-week courses with two live classes a week, never more than 12 students, and real feedback on a project you can show by the end.</p>
+      <a class="u-link t-label closing-link" href="#how">How it works</a>
+    </div>
+  </section>
+
+  <!-- CARDS · black · display heading + link, Next Stop Comedy cards (badge, date/time, title, place) -->
+  <section class="block wrap section-top section-end" data-theme="black" id="courses" aria-labelledby="courses-title">
+    <p class="t-label">Winter 2027 cohorts. Six subjects, one project each.</p>
+    <div class="head-row">
+      <h2 class="t-display" id="courses-title">Courses</h2>
+      <a class="u-link t-label" href="#pricing">See prices</a>
+    </div>
+    <ul class="cards">
+      <li><a class="card" href="#apply"><div class="card-inner">
+        <div class="card-media"><div class="ph"></div><span class="badge">Beginner</span></div>
+        <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Tue + Thu · 6 PM</span></span>
+          <h3 class="t-card-title">UX Design Foundations</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · 8 weeks · $690</span></div>
+      </div></a></li>
+      <li><a class="card" href="#apply"><div class="card-inner">
+        <div class="card-media"><div class="ph ph--b"></div><span class="badge">Beginner</span></div>
+        <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>12 Jan</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Mon + Wed · 7 PM</span></span>
+          <h3 class="t-card-title">Front-end Development</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · 10 weeks · $790</span></div>
+      </div></a></li>
+      <li><a class="card" href="#apply"><div class="card-inner">
+        <div class="card-media"><div class="ph ph--c"></div><span class="badge">Intermediate</span></div>
+        <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>26 Jan</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Tue + Thu · 7 PM</span></span>
+          <h3 class="t-card-title">Data Analysis with Python</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · 8 weeks · $690</span></div>
+      </div></a></li>
+      <li><a class="card" href="#apply"><div class="card-inner">
+        <div class="card-media"><div class="ph ph--red"></div><span class="badge">Intermediate</span></div>
+        <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>26 Jan</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Mon + Wed · 6 PM</span></span>
+          <h3 class="t-card-title">Product Management</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · 8 weeks · $690</span></div>
+      </div></a></li>
+      <li><a class="card" href="#apply"><div class="card-inner">
+        <div class="card-media"><div class="ph ph--b"></div><span class="badge">All levels</span></div>
+        <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>9 Feb</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Tue + Thu · 6 PM</span></span>
+          <h3 class="t-card-title">Brand &amp; Visual Design</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · 8 weeks · $690</span></div>
+      </div></a></li>
+      <li><a class="card" href="#apply"><div class="card-inner">
+        <div class="card-media"><div class="ph ph--c"></div><span class="badge">All levels</span></div>
+        <div class="card-body"><span class="meta-row"><span class="t-meta"><svg class="icon"><use href="#i-cal"/></svg>9 Feb</span><span class="t-meta"><svg class="icon"><use href="#i-clock"/></svg>Sat · 10 AM</span></span>
+          <h3 class="t-card-title">Copywriting for the Web</h3><span class="t-place"><svg class="icon"><use href="#i-pin"/></svg>Live online · 6 weeks · $490</span></div>
+      </div></a></li>
+    </ul>
+  </section>
+
+  <!-- TICKER · black · display CAPS marquee (list items twice for a seamless loop) -->
+  <div class="block ticker" data-theme="black" aria-label="Subjects we teach">
+    <div class="ticker-track">
+      <span>UX Design</span><span>Front-end</span><span>Data</span><span>Product</span><span>Brand</span><span>Copywriting</span>
+      <span aria-hidden="true">UX Design</span><span aria-hidden="true">Front-end</span><span aria-hidden="true">Data</span><span aria-hidden="true">Product</span><span aria-hidden="true">Brand</span><span aria-hidden="true">Copywriting</span>
+    </div>
+  </div>
+
+  <!-- STATEMENT + LIST · red · big title statement, then split with a name list. Rises in on scroll. -->
+  <section class="block" data-theme="red" id="how" aria-labelledby="how-title" data-scroll="reveal">
+    <div class="wrap section-top section-end">
+      <p class="t-label">That's the Lumen way.</p>
+      <h2 class="t-title measure headline" id="how-title">Small groups, live teachers and one real project. Eight weeks from your first class to something you can show.</h2>
+    </div>
+    <div class="split wrap" style="border-top: 1px solid var(--line)">
+      <p class="t-label">How it works</p>
+      <ol class="list">
+        <li><span class="t-name">Apply in five minutes</span><span class="t-body">Tell us what you want to learn. No CV and no entry test.</span></li>
+        <li><span class="t-name">Talk to a teacher</span><span class="t-body">A 15-minute call to check the course fits your level and your week.</span></li>
+        <li><span class="t-name">Join your cohort</span><span class="t-body">Two live classes a week with the same 12 people, plus short lessons you watch any time.</span></li>
+        <li><span class="t-name">Finish with a real project</span><span class="t-body">Reviewed by your teacher, with a certificate when you complete it.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- TILES · charcoal · four outlined tiles, one circle, label + count underneath -->
+  <section class="block wrap section-top section-end" data-theme="paper" aria-labelledby="week-label">
+    <p class="t-label" id="week-label">A typical week. About six hours, in your time zone.</p>
+    <div class="tiles" data-scroll="shift">
+      <div class="tile-item"><div class="tile"><b>Tue</b></div><div class="tile-meta t-label"><span>Live seminar</span><span class="tint">(90 min)</span></div></div>
+      <div class="tile-item"><div class="tile tile--circle"><b>Thu</b></div><div class="tile-meta t-label"><span>Project studio</span><span class="tint">(90 min)</span></div></div>
+      <div class="tile-item"><div class="tile"><b>Sat</b></div><div class="tile-meta t-label"><span>Office hours</span><span class="tint">(60 min)</span></div></div>
+      <div class="tile-item"><div class="tile"><b>Any</b></div><div class="tile-meta t-label"><span>Self-paced lessons</span><span class="tint">(~2 h)</span></div></div>
+    </div>
+  </section>
+
+  <!-- ROWS · black · split with name / value rows -->
+  <section class="block wrap split" data-theme="black" id="pricing" aria-labelledby="pricing-label">
+    <p class="t-label" id="pricing-label">Pricing. Payment plans on every option.</p>
+    <div class="rows">
+      <div class="row"><span class="t-name">Single course</span><span class="t-name value">$490–790</span><span class="t-body">All live classes and recordings, feedback on every assignment, certificate.</span></div>
+      <div class="row"><span class="t-name">Full track · 3 courses</span><span class="t-name value">$1,790</span><span class="t-body">Three courses in one subject, monthly one-to-one mentoring. Saves $280.</span></div>
+      <div class="row"><span class="t-name">Teams</span><span class="t-name value">From 4 seats</span><span class="t-body">Private cohorts shaped to your team's work, with progress reports.</span></div>
+    </div>
+  </section>
+
+  <!-- ACCORDION · white · split with FAQ -->
+  <section class="block wrap split" data-theme="white" id="faq" aria-labelledby="faq-label">
+    <p class="t-label" id="faq-label">Questions before you apply</p>
+    <div class="accordion">
+      <details><summary class="t-name">What if I miss a live class?</summary><p class="t-body">Every class is recorded and posted within an hour.</p></details>
+      <details><summary class="t-name">How much time do I need?</summary><p class="t-body">Between 4 and 8 hours a week, depending on the course.</p></details>
+      <details><summary class="t-name">Do I need experience?</summary><p class="t-body">Beginner courses assume none. A short call checks your level for intermediate courses.</p></details>
+      <details><summary class="t-name">Can I get a refund?</summary><p class="t-body">Yes. Ask within the first 14 days for a full refund.</p></details>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER · red · contact row, big title + sign-up, giant wordmark, underlined link labels -->
+<footer class="footer block" data-theme="red" id="apply" data-scroll="reveal">
+  <div class="footer-top wrap t-label"><span>hello@lumenschool.example</span><a class="u-link" href="#top">Back to top</a></div>
+  <form class="signup wrap" data-signup novalidate>
+    <h2 class="t-title">Next cohort starts 12&nbsp;January.</h2>
+    <label class="t-label" for="signup-email">Get the course guide and a free trial class</label>
+    <div class="field-row">
+      <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <button class="btn btn--black t-label" type="submit"><span class="roll"><span>Send me the guide</span><span aria-hidden="true">Send me the guide</span></span></button>
+    </div>
+    <p class="msg t-body" role="status" aria-live="polite"></p>
+  </form>
+  <p class="wordmark wrap" aria-hidden="true">Lumen School</p>
+  <div class="footer-base wrap t-label">
+    <nav aria-label="Social"><a class="u-link" href="#top">Instagram</a><a class="u-link" href="#top">LinkedIn</a><a class="u-link" href="#top">YouTube</a></nav>
+    <span>© 2026 Lumen School</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="../headliner.js"></script>
+</body>
+</html>
